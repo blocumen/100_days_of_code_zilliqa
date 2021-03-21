@@ -1,0 +1,31 @@
+
+Both has to agree with 
+Prime Module (n) and
+Base Generator (g)
+
+
+Transaction between thanga and vidhya
+
+steps - 
+
+1.
+thanga picks his private key(a)
+vidhya picks her private key(b)
+
+2.
+thanga calculate his public key - g.pow(a)mod n
+vidhya calculate her public key - g.pow(b)mod n
+
+3.
+thanga sends his public key to vidhya
+vidhya sends her public key to thanga
+
+4.
+thanga calculates shared key - (vidhyapublickey).pow(a)mod n
+vidhya calculates shared key - (thangapublickey).pow(b)mod n
+
+
+############# Validation 
+5.
+(g.pow(b)).pow(a) == (g.pow(a)).pow(b)
+
