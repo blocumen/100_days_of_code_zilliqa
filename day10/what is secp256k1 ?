@@ -1,0 +1,3 @@
+The elliptic curve used by Bitcoin, Ethereum, and many other cryptocurrencies is called secp256k1. 
+The equation for the secp256k1 curve is y² = x³+7.
+
