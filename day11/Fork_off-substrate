@@ -1,0 +1,11 @@
+Fork
+
+steps - 
+
+git clone https://github.com/maxsam4/fork-off-substrate.git
+
+cd fork-off-substrate
+
+npm i
+
+mkdir data

@@ -1,0 +1,27 @@
+geth --mine --minerthreads=1 --etherbase=0x0000000000000000000000000000000000000000
+
+(base) thangarajmuruganantham@Thangarajs-MacBook-Pro thanga_ethereum-fork % geth  --mine --minerthreads=1 --etherbase=0x0000000000000000000000000000000000000000 
+INFO [03-18|12:59:57.008] Starting Geth on Ethereum mainnet... 
+INFO [03-18|12:59:57.008] Bumping default cache on mainnet         provided=1024 updated=4096
+INFO [03-18|12:59:57.010] Maximum peer count                       ETH=50 LES=0 total=50
+WARN [03-18|12:59:57.045] The flag --etherbase is deprecated and will be removed in the future, please use --miner.etherbase 
+INFO [03-18|12:59:57.046] Starting peer-to-peer node               instance=Geth/v1.9.15-stable/darwin-amd64/go1.14.3
+INFO [03-18|12:59:57.046] Allocated trie memory caches             clean=614.00MiB dirty=1024.00MiB
+INFO [03-18|12:59:57.046] Allocated cache and file handles         database=/Users/thangarajmuruganantham/Library/Ethereum/geth/chaindata cache=2.00GiB handles=5120
+INFO [03-18|12:59:57.141] Opened ancient database                  database=/Users/thangarajmuruganantham/Library/Ethereum/geth/chaindata/ancient
+INFO [03-18|12:59:57.142] Initialised chain configuration          config="{ChainID: 1 Homestead: 1150000 DAO: 1920000 DAOSupport: true EIP150: 2463000 EIP155: 2675000 EIP158: 2675000 Byzantium: 4370000 Constantinople: 7280000 Petersburg: 7280000 Istanbul: 9069000, Muir Glacier: 9200000, YOLO v1: <nil>, Engine: ethash}"
+INFO [03-18|12:59:57.142] Disk storage enabled for ethash caches   dir=/Users/thangarajmuruganantham/Library/Ethereum/geth/ethash count=3
+INFO [03-18|12:59:57.142] Disk storage enabled for ethash DAGs     dir=/Users/thangarajmuruganantham/Library/Ethash count=2
+INFO [03-18|12:59:57.142] Initialising Ethereum protocol           versions="[65 64 63]" network=1 dbversion=7
+INFO [03-18|12:59:57.143] Loaded most recent local header          number=0 hash="d4e567…cb8fa3" td=17179869184 age=51y11mo2w
+INFO [03-18|12:59:57.143] Loaded most recent local full block      number=0 hash="d4e567…cb8fa3" td=17179869184 age=51y11mo2w
+INFO [03-18|12:59:57.143] Loaded most recent local fast block      number=0 hash="d4e567…cb8fa3" td=17179869184 age=51y11mo2w
+INFO [03-18|12:59:57.143] Loaded local transaction journal         transactions=0 dropped=0
+INFO [03-18|12:59:57.143] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [03-18|12:59:57.169] Allocated fast sync bloom                size=1.60GiB
+INFO [03-18|12:59:57.236] New local node record                    seq=5 id=85ce3365670075b2 ip=127.0.0.1 udp=30303 tcp=30303
+INFO [03-18|12:59:57.238] IPC endpoint opened                      url=/Users/thangarajmuruganantham/Library/Ethereum/geth.ipc
+INFO [03-18|12:59:57.238] Transaction pool price threshold updated price=1000000000
+WARN [03-18|12:59:57.238] The flag --minerthreads is deprecated and will be removed in the future, please use --miner.threads 
+INFO [03-18|12:59:57.238] Updated mining threads                   threads=1
+INFO [03-18|12:59:57.238] Transaction pool price threshold updated price=1000000000
