@@ -1,0 +1,18 @@
+about transaction,gas,Block and Blockdetails
+
+about Zilliqa Nodes
+
+zil has Micro Blocks cz of shard
+
+# Shard Nodes #
+Shard nodes are the mining nodes in the Zilliqa Network. They are named as such because they are assigned to one of several clusters (i.e., shards) within the network. Nodes that belong to the same shard process the same set of transactions assigned to their shard. After processing, the nodes must achieve consensus over the transaction set in order to generate the shard's microblock(refer the picture b. For their work, shard nodes are rewarded $ZIL at the end of every DS epoch.
+Shard membership is determined by the DS committee after shard nodes successfully submit solutions to a Proof-of-Work (PoW) problem, which occurs once every DS epoch.
+
+
+# DS Nodes#
+DS (Directory Service) nodes are also mining nodes, with the additional responsibilities of (1) aggregating shard microblocks to form the Transaction Block and (2) creating the DS Block at the start of every DS epoch. As with the shard nodes, DS nodes are rewarded $ZIL at the end of every DS epoch.
+
+
+we also have lookup nodes as well :)
+
+Happy coding :)
