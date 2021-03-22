@@ -1,0 +1,2 @@
+FA2
+FA2 is a multi-asset interface on the Tezos blockchain, enabling users to create a wide range of token types, such as fungible, non-fungible, or semi-fungible. FA2 provides a standard API to transfer tokens, check balances, administer permissions to other on-chain contracts, and manage metadata.
