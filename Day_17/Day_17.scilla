@@ -1,0 +1,5 @@
+scilla_version 0
+
+contract SocialMediaPayment (owner: ByStr20) (*Immutable Contract Params*)
+
+field username : String = "Alice" (*mutable Fields*)
