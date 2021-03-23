@@ -1,0 +1,9 @@
+Zilliqa employs Elliptic Curve Based Schnorr Signature Algorithm (EC-Schnorr) as the base signing algorithm. 
+Schnorr allows for multisignatures, is faster than ECDSA, and has a smaller signature size (64 bytes).
+
+
+To generate a Schnorr group that stands at the base of our Schnorr signature scheme we need to generate `p`, `q` and `r` numbers that satisfy the equation: `p = q*r + 1` where `p` and `q` are primes.
+
+p = 103
+q = 17
+r  = 6

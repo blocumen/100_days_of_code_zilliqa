@@ -1,0 +1,8 @@
+I make a 2 of 5 multisig wallet; 2 signatures required of 5 possible to spend from this address. Of the 5 generated keys, I send one key to my father. 
+One to my mother (they live separately). One to my brother. 
+I keep one and I send a backup paper key to a trusted family friend. 
+Requiring at least 2 signatures immediately cuts almost any unintentional loss. 
+
+It is almost impossible for anyone to seize, steal, hack the funds away. 
+It is almost impossible for you to lose access to the funds. 
+Instant spending is easy enough with any 2 members present. Businesses, Trusts or Governments might require more signatures to avoid collusion. 
