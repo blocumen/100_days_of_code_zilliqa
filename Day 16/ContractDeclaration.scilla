@@ -1,0 +1,3 @@
+(* Start typing from the line below. *)
+scilla_version 0
+contract SocialMediaPayment
