@@ -1,0 +1,45 @@
+
+proof : 
+
+what is proof ?
+sum of two even numbers is even -> proof of natural numbers
+
+humans are required to construct those proofs
+but humans are not required to check the proofs. 
+
+Mechanised Proof : 
+
+what is mechanised proof ? 
+
+computers can check certain derivations and that can be done automatically. 
+
+writing a theorem is as same as writing a notation to a funaction.
+proving a theorem is as same as implementing the function.
+
+Paper - Mechanizing Blockchain Consensus 
+
+
+Example :
+
+Node is listening for new transactions, new transactions will be picked fro mempool and those transactions will be compiled to form a new Block.
+now some one has to prove the transaction which are present in the current blockc has never happened before. which means the transaction has to be unique.
+now,
+we as a user want a proof, that this node will never create a transaction which has already happened before.
+hence,
+we can prove a particular implementation that we are using will never make a mistake using mechanized proofs.
+
+
+There is no EVM bytecode
+hence no need oh Human audit.
+
+
+ In addition to typical state of computations, a blockchain stores a mapping from accounts (public keys or addresses) to quan- tities of tokens owned by said accounts.
+
+ 
+
+
+if a and b are correct (or) a or b is correct.
+
+If we can prove certain stamnt in logic of choice - it is true
+if we can't - it is false.
+

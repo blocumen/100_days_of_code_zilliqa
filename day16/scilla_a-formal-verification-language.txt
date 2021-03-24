@@ -1,0 +1,6 @@
+
+Scilla could allow a future multi-signature smart contract author to mathematically prove that funds in that contract would always be retrievable by certain addresses (and never get stuck like the Parity incident).
+
+
+sharding is live. 
+

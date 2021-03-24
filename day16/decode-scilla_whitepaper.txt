@@ -1,0 +1,41 @@
+example—a crowdfunding campaign
+
+a project owneer, 
+wishes to raise funds through donations from the community.
+
+we assume that the owner wishes to run the campaign for a certain pre-determined period of time. 
+The owner also wishes to raise a minimum amount of funds without which the project can not be started. 
+The campaign is deemed successful if the owner can raise the minimum goal. In case the campaign is unsuccessful, the donations are returned to the project backers who contributed during the campaign.
+
+smart contract -
+immutable fields :
+an owner account address owner of type address
+a maximal block number max_block (of type uint), indicating a deadline, after which no more donations will be accepted from backers,
+and a goal (also of type uint) indicating the amount of funds the owner plans to raise.
+
+mutable fields:
+The mutable fields of the contract are the mapping backers (of type address ⇒ uint),
+ which will be used to keep track of the incoming donations and is initialised with an empty map literal [].
+
+
+The logic of the contract is implemented by three transitions: 
+Donate - serves for donating funds to a campaign by external backers, 
+GetFunds - allows the owner to transfer the funds to its account once the campaign is ended and the goal is reached, and 
+Claim - makes it possible for the backers to reclaim their funds in the case the campaign was not successful.
+
+need to work on this - 
+
+(* Specifying a continuation in a Caller contract *)
+continuation UseResult (res : uint) send (<to → owner, amount → 0,
+tag → "main", msg → res>, MT)
+(* Using a continuation in a transition of Caller *)
+transition ClientTransition
+(sender : address, value : uint, tag : string) (* code of the transition *)
+send (<to → sender, amount → 0,
+tag → "main", msg → res>, UseResult)
+(* Returning a result in a callee contract *)
+transition ServerTransition
+(sender : address, value : uint, tag : string) (* code of the transition *)
+return value
+
+
