@@ -1,0 +1,22 @@
+scilla_version 0
+
+import BoolUtils        (* Importing Libraries*)
+
+contract SocialMediaPayment (owner: ByStr20) (* Immutable Variables*)
+
+(*Mutable variables*)
+field username : String = "Alice"
+field user_address : ByStr20 = 0x1234567890123456789012345678901234567890
+field user_tokens: Uint128 = Uint128 0
+
+(* Transition *)
+transition changeName(newname: String) 
+                                       (* statements inside trasition must end with ;*)
+ 
+    username := newname;               (* Changing values of Mutable Variables*)
+ 
+    accept;                            (* Keyword to accept Transition*)
+ 
+    user_address := _sender;
+    user_tokens := _amount
+end                                    (* Denotes End of Transition*)
