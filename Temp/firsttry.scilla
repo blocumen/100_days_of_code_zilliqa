@@ -1,0 +1,32 @@
+scilla_version 0
+
+contract Calculation(owner: ByStr20)
+
+field added: Int32 = Int32 0
+field subted: Int32 = Int32 0
+field multed: Int32 = Int32 0
+field divided: Int32 = Int32 0
+
+transition addi(var1: Int32, var2: Int32)
+accept;
+a = builtin add var1 var2;
+added := a
+end
+
+transition subt(var1: Int32, var2: Int32)
+accept;
+b = builtin sub var1 var2;
+subted := b
+end
+
+transition mult(var1: Int32, var2: Int32)
+accept;
+c = builtin mul var1 var2;
+multed := c
+end
+
+transition divd(var1: Int32, var2: Int32)
+accept;
+d = builtin div var1 var2;
+divided := d
+end
