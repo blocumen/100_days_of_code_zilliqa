@@ -1,0 +1,39 @@
+scilla_version 0
+
+library Calc
+
+contract Calc
+
+(owner: ByStr20)
+
+
+
+field addresult: Int32 = Int32 0
+field subresult: Int32 = Int32 0
+field mulresult: Int32 = Int32 0
+
+transition add(firstNum: Int32, secondNum: Int32)
+
+  result = builtin add firstNum secondNum;
+  addresult := result;
+  e= {_eventname : "AdditionResult"; output:result};
+  event e
+
+end
+
+transition sum(firstNum : Int32 , secondNum : Int32)
+
+  result = builtin sub firstNum secondNum;
+  subresult := result;
+  e= {_eventname : "SubtractResult"; output:result};
+  event e
+end
+
+transition mul(firstNum : Int32 , secondNum : Int32)
+
+  result = builtin mul firstNum secondNum;
+  mulresult := result;
+  e= {_eventname : "MultiplicationResult"; output:result};
+  event e
+
+end
