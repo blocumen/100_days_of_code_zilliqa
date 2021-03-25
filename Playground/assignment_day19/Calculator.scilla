@@ -1,0 +1,59 @@
+      (***************************************************)
+(*         Scilla version  Declaration             *)
+(***************************************************)
+scilla_version 0
+
+(***************************************************)
+(*         Contract Name  Declaration              *)
+(***************************************************)
+contract Calculator
+(***************************************************)
+(*               Address  Declaration              *)
+(***************************************************)
+(myaddress: ByStr20)
+
+(***************************************************)
+(*               Mutable Fields                    *)
+(***************************************************)
+field addition: Int32 = Int32 0
+field subtraction: Int32 = Int32 0
+field multiplication: Int32 = Int32 0
+field division: Int32 = Int32 0
+
+(***************************************************)
+(*               Addition Transaction              *)
+(***************************************************)
+transition addition(paramA:Int32, paramB:Int32)
+accept;
+val = builtin add paramA paramB;
+addition:=val
+end
+
+(***************************************************)
+(*               Subtraction Transaction           *)
+(***************************************************)
+transition subtraction(paramA:Int32, paramB:Int32)
+accept;
+val = builtin sub paramA paramB;
+subtraction:=val
+end
+
+(***************************************************)
+(*               Multiplication Transaction        *)
+(***************************************************)
+transition multiplication(paramA:Int32, paramB:Int32)
+accept;
+val = builtin mul paramA paramB;
+multiplication:=val
+end
+
+(***************************************************)
+(*               Division Transaction        *)
+(***************************************************)
+
+transition division(paramA:Int32, paramB:Int32)
+accept;
+val = builtin div paramA paramB;
+division:=val
+
+end
