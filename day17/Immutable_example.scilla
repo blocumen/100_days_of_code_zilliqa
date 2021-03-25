@@ -1,0 +1,5 @@
+scilla_version 0
+
+(* Insert the immutable variable declaration in parantheses after the contract name below *)
+contract Art
+(creator: ByStr20)

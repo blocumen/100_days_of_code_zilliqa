@@ -1,0 +1,62 @@
+scilla_version 0 
+
+library HelloWorld
+
+let not_owner_code  = Uint32 1
+let set_hello_code  = Uint32 2
+
+(* step 1. A contract is declared using the contract keyword that starts the scope of the contract. *)
+
+(* In the current implementation, a Scilla contract can only contain a single contract declaration *) 
+
+contract HelloThere
+
+(* step 2. A contract declaration is followed by the declaration of its immutable parameters, the scope of which is defined by () *)
+
+(* vname: vtype *)
+(* has to be declared in brackets *)
+(owner: ByStr20)
+
+(* Mutable fields in a contract are declared through keyword field *)
+(* field vname : vtype = init_val *)
+
+field welcome_who : String = " "
+
+(* Interface *)
+(* Interfaces like setHello are referred to as transitions in Scilla. *)
+
+(* Transitions are similar to functions or methods in other languages. *)
+(* There is an important difference, however, most languages allow their functions or methods to be “interrupted” by a thread running in parallel, 
+    but Scilla won’t let a transition to be interrupted ensuring there is no so-called reentrancy issues. *)
+
+transition hiThanga(who : String)
+(*Scilla internally defines some variables that have special semantics. These special variables are often prefixed by _. 
+    For instance, _sender in Scilla refers to the account address that called the current contract.*)
+is_owner = builtin eq owner _sender;
+
+match is_owner with
+    | False =>
+    eventfalse = {_eventname : "hiThanga"; code : not_owner_code};
+    event eventfalse
+
+    | True =>
+    eventtrue = { _eventname : "hiThanga"; code : set_hello_code};
+    event eventtrue
+
+(* based on expr it will change
+match expr with
+    | True  => expr_1
+    | False => expr_2
+end *)
+end
+
+end
+
+
+transition getThanga(msg: String)
+(* statements go below *)
+result <- welcome_who;
+(*never forget to add semicolon *)
+eventgetthanga = { _eventname: "getThanga"; msg: result};
+    event eventgetthanga
+end

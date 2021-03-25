@@ -1,0 +1,13 @@
+
+(* Task - Update the mutable variable username with the value of the temporary variable newname in the body of the transition. *)
+
+scilla_version 0
+
+contract SocialMediaPayment (owner: ByStr20)
+field username : String = "Alice"
+
+transition changeName()
+     newname = "Bob"; (*Now that we’ll be having another line, don’t forget to include a semicolon at the end of of the previous line, i.e. after "Bob" *)
+    (* Start typing from the line below *)
+    username := newname
+end
