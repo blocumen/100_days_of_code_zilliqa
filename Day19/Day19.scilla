@@ -1,0 +1,29 @@
+scilla_version 0
+
+library Day19
+
+contract Day19()
+field resultAdd : Int32 = Int32 0
+field resultSub : Int32 = Int32 0
+field resultMul : Int32 = Int32 0
+
+transition addition(a : Int32, b : Int32)
+  r = builtin add a b;
+  resultAdd := r;
+  m = {_eventname : "addition"; result : r};
+  event m
+end
+
+transition subtraction(a : Int32, b : Int32)
+  r = builtin sub a b;
+  resultSub := r;
+  m = {_eventname : "subtraction";result : r};
+  event m
+end
+
+transition multiplication(a : Int32, b : Int32)
+  r = builtin mul a b;
+  resultMul := r;
+  m = {_eventname : "multiplication";result : r};
+  event m
+end
