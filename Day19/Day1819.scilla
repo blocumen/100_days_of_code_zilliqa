@@ -1,0 +1,55 @@
+(* Handling -ve underflow with match on Day18 contract *)
+(* Adding resp msg on Day18 contract *)
+scilla_version 0
+
+library Day1819
+let zero = Uint32 0
+let one = Uint32 1
+let max = Uint32 4294967295
+let m1 = "MaxCtLmt"
+let m2 = "MinCtLmt"
+let m3 = "SuccPlChkSt"
+
+let one_msg = 
+  fun (msg : Message) => 
+    let nil_msg = Nil {Message} in
+    Cons {Message} msg nil_msg
+
+let no_msg = Nil {Message}
+
+contract Day1819()
+field count : Uint32 = Uint32 0
+
+(*Increment mutable count*)
+transition increment()
+  ct <- count;
+  q = builtin eq ct max;
+  match q with
+    |True =>
+      m = {_eventname : "increment"; msg : m1};
+      event m
+    |False =>
+      t <- count;
+      res = builtin add t one;
+      count := res;
+      m = {_eventname : "increment"; msg : m3};
+      event m
+  end
+end
+
+(*Decrement mutable count*)
+transition decrement()
+  ct <- count;
+  q = builtin eq ct zero;
+  match q with
+    |True =>
+      m = {_eventname : "decrement"; msg : m2};
+      event m
+    |False =>
+      t <- count;
+      res = builtin sub t one;
+      count := res;
+      m = {_eventname : "decrement"; msg : m3};
+      event m
+  end
+end
