@@ -1,0 +1,31 @@
+scilla_version 0
+
+contract Calculation(owner: ByStr20)
+
+field added: Int32 = Int32 0
+field subted: Int32 = Int32 0
+field multed: Int32 = Int32 0
+field divided: Int32 = Int32 0
+
+transition calcu(operate: String, var1: Int32, var2: Int32)
+addedd = "+";
+subbedd = "-";
+
+
+isequal = builtin eq operate addedd;
+match isequal with
+    | True =>
+        a = builtin add var1 var2;
+        added := a
+    | False =>
+        isequal1 = builtin eq operate subbedd;
+        match isequal1 with
+        | True =>
+         a = builtin sub var1 var2;
+            subted := a
+        | False =>
+          accept
+     end
+
+     end
+end
