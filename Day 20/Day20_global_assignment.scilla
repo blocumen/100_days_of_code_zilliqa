@@ -1,0 +1,27 @@
+scilla_version 0
+
+library Day20
+
+(* --- Global Assignment(Part-1) --- *)
+
+contract Miracle(oracle: ByStr20)
+
+field currentquestionId : Uint32 = Uint32 0
+
+(* --- Global Assignment(Part-2) ---*)
+
+transition addQuestion (question_description : String)
+  accept
+end
+
+transition ResultDeclaration (question_id: Uint32, response: String)
+   accept
+end
+
+transition userAnswer (question_id: Uint32, user_response: String)
+  accept
+end
+
+transition redeem (question_id: Uint32)
+  accept
+end
