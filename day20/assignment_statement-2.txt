@@ -1,0 +1,5 @@
+Add below transitions 
+1. addQuestion which accepts question description of String type.
+2. resultDeclartion which accepts question id of type Integer and response of String type.
+3. userAnswer which accepts question id of type Integer and user response of String type.
+4. redeem which accepts question id.
