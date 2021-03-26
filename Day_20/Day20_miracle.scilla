@@ -1,0 +1,31 @@
+scilla_version 0
+
+library MyContractLib
+
+(********* Part -1 Global Assignment *************)
+
+contract Miracle(oracle: ByStr20)
+
+field currentquestionId : Int32 = Int32 0
+
+(********* Part -2 Global Assignment *************)
+
+transition addQuestion (description : String)
+  accept
+
+end
+
+transition ResultDeclaration (qid: Int32)
+   accept
+
+end
+
+transition userAnswer (qid: Int32, ans: String)
+  accept
+
+end
+
+transition redeem (qid: Int32)
+  accept
+
+end
