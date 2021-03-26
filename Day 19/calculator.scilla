@@ -1,0 +1,62 @@
+(***************************************************)
+(*                 Scilla version                  *)
+(***************************************************)
+
+scilla_version 0
+
+(***************************************************)
+(*               Associated library                *)
+(***************************************************)
+
+library Calc
+
+(***************************************************)
+(*             The contract definition             *)
+(***************************************************)
+
+contract Calc
+(owner: ByStr20)
+
+
+field aRes: Int32 = Int32 0
+field sRes: Int32 = Int32 0
+field mRes: Int32 = Int32 0
+
+(***************************************************)
+(*               Transition - Addition             *)
+(***************************************************)
+
+transition add(firstNum: Int32, secondNum: Int32)
+
+  cal = builtin add firstNum secondNum;
+  aRes := cal;
+  e= {_eventname : "Sum"; output:cal};
+  event e
+
+end
+
+(***************************************************)
+(*              Transition - Subtraction           *)
+(***************************************************)
+
+transition sum(firstNum : Int32 , secondNum : Int32)
+
+  cal = builtin sub firstNum secondNum;
+  sRes := cal;
+  e= {_eventname : "Subtraction"; output:cal};
+  event e
+end
+
+(***************************************************)
+(*           Transition - Multiplication           *)
+(***************************************************)
+
+
+transition mul(firstNum : Int32 , secondNum : Int32)
+
+  cal = builtin mul firstNum secondNum;
+  mRes := cal;
+  e= {_eventname : "Multiplication"; output:cal};
+  event e
+
+end
