@@ -1,0 +1,4 @@
+
+Create a contract having transition for add,sub and multiply
+
+all should use global mutable variable

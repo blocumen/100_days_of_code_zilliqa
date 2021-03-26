@@ -1,0 +1,57 @@
+scilla_version 0 
+
+contract Calcy(owner: ByStr20)
+
+field add_operator : Int32 = Int32 0
+field sub_operator : Int32 = Int32 0
+field product_operator : Int32 = Int32 0
+field div_operator : Int32 = Int32 0
+field rem_operator : Int32 = Int32 0
+
+transition add(a: Int32,b: Int32)
+add_res = builtin add a b;
+add_operator := add_res;
+result <- add_operator;
+eventadd = {_eventname: "add"; output: result};
+event eventadd
+end
+
+transition subtract(a: Int32,b: Int32)
+(* result must not return with '-' minus *)
+conf = builtin lt a b; (* returns true if a is less than b *)
+match conf with
+  | True =>
+    sub_res = builtin sub b a;
+    sub_operator := sub_res;
+    result <- sub_operator;
+    eventsubt = {_eventname: "subtract"; output: result};
+    event eventsubt
+    
+  | False =>
+    sub_res = builtin sub a b;
+    sub_operator := sub_res;
+    result <- sub_operator;
+    eventsubt = {_eventname: "subtract"; output: result};
+    event eventsubt
+  end  
+end
+
+transition multiply(a: Int32,b: Int32)
+prod_res = builtin mul a b;
+product_operator := prod_res;
+result <- product_operator;
+eventmultiply = {_eventname: "multiply"; output: result};
+event eventmultiply
+end
+
+transition div(a: Int32,b: Int32 )
+(* first to check if it has remainder *)
+conf_rem = builtin rem a b;
+rem_operator := conf_rem;
+divsn = builtin div a b;
+div_operator := divsn;
+result <- div_operator;
+remainder <- rem_operator;
+eventdiv = {_eventname : "division with remainder"; output: result; remainder:remainder};
+event eventdiv
+end
