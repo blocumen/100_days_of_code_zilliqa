@@ -1,0 +1,5 @@
+
+Create a contract named Miracle. Add below fields:
+ 
+1. Create an immutable parameter called oracle with ByStr20 datatype.
+2. Add a mutable field called as currentQuestionId with integer datatype. vi
