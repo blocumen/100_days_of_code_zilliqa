@@ -1,0 +1,19 @@
+scilla_version 0
+
+contract Miracle(oracle: ByStr20)
+
+field currentQuestionId: Int32 = Int32 0
+
+transition setcurrentQuestionId(id: Int32)
+temp = id;
+currentQuestionId := temp;
+result <- currentQuestionId;
+eventsetquestionId = {_eventname: "question ID has been set"; question_ID: result};
+event eventsetquestionId
+end
+
+transition getcurrentQuestionId()
+result <- currentQuestionId;
+eventgetquestionId = {_eventname: "Current question ID"; question_ID: result};
+event eventgetquestionId
+end
