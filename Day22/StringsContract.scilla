@@ -1,0 +1,38 @@
+scilla_version 0
+
+
+ library StringsContract
+ 
+ 
+ contract StringsContract(owner : ByStr20)
+ 
+ field concatString : String = ""
+ field stringEquate : Bool = False 
+ field stringLength : Uint32 = Uint32 0
+ field reverseString : String = ""
+ (* field stringEquate : Option Bool = None {Bool} *)
+ 
+ transition strEquate (str1: String , str2: String)
+    a = builtin eq str1 str2;
+   (* res = Some {Bool} a ;
+    stringEquate := res *)
+    stringEquate := a
+ end
+ 
+ transition strConcat (str1 : String, str2 : String)
+  b = builtin concat str1 str2;
+  concatString := b
+ end
+ 
+ transition strLength (str1 : String)
+  c = builtin strlen str1;
+  stringLength := c
+ end
+ 
+ (*strrev is not working in IDE*)
+ (*
+ transition strReverse (str1 : String)
+  d = builtin strrev str1;
+  reverseString := d
+ end
+*)
