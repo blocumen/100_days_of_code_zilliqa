@@ -1,0 +1,63 @@
+scilla_version 0
+
+library MyContractLib
+
+let not_an_oracle = Int32 1
+
+(********* Part -1 Global Assignment *************)
+
+contract Miracle(oracle: ByStr20)
+
+field currentquestionId : Int32 = Int32 0
+
+
+(**************Part-3 Global Assignment "A" ****************)
+
+field finalOutput : Map Int32 String = Emp Int32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+
+(********* Part -2 Global Assignment *************)
+
+transition addQuestion (description : String)
+  
+
+end
+
+transition ResultDeclaration (qid: Int32)
+   
+
+end
+
+transition userAnswer (qid: Int32, ans: String)
+(**************Part-3 Global Assignment "B" ****************)
+
+  anss = ans;
+  accept;
+  userVsAnswer[_sender] := anss
+
+end
+
+transition redeem (qid: Int32)
+  
+
+end
+
+(**************Part-4 Global Assignment *******************)
+
+transition resultDeclaration (qid: Int32, ans: String )
+is_owner = builtin eq oracle _sender;
+
+anss = ans;
+qidd = qid;
+
+match is_owner with
+    | True =>
+        accept;
+        finalOutput[qidd] := anss
+    
+    | False =>
+    e= {_eventname : "NotAnOracle"; caller: _sender; code: not_an_oracle};
+    event e
+    end
+ end
