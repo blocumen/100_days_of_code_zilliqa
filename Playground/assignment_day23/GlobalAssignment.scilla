@@ -16,12 +16,21 @@ contract Miracle
 (***************************************************)
 field currentQuestionId: Int32 = Int32 0
 
+field finalOutput : Map Int32 String = 
+  Emp Int32 String
+
+
+  field userVsAnswer: Map ByStr20 String
+  = Emp ByStr20 String
+
 (***************************************************)
 (*         addQuestion transition                  *)
 (***************************************************)
 transition addQuestion(questionDescription :String)
 accept
 
+
+    
 end
 (***************************************************)
 (*         resultDeclartion transition             *)
@@ -34,8 +43,9 @@ end
 (*               userAnswer transition             *)
 (***************************************************)
 transition userAnswer(questionId: Int32, userResponse :String)
-accept
+accept;
 
+userVsAnswer[_sender]:=userResponse
 end
 (***************************************************)
 (*               redeem transition                 *)
