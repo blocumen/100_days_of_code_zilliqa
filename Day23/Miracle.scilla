@@ -1,0 +1,36 @@
+scilla_version 0
+
+
+(*Global Assignment - Part 1*)
+
+contract Miracle (oracle : ByStr20 )
+
+field currentQuestionId : Uint32 = Uint32 0
+
+(*Global Assignment - Part 3 A*)
+
+field finalOutput: Map Uint32 String = Emp Uint32 String
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+(* field userVsAnswer1: Map ByStr20 (Map Uint32 String) = Emp ByStr20 (Map Uint32 String) *) (* Alternate variable deceleraton user -> queID -> ans*)
+
+(*Global Assignment - Part 2*)
+
+
+transition addQuestion (queDescription : String)
+end
+
+transition resultDeclartion (queID : Uint32)
+(*response*)
+result = "" 
+end
+
+(*Global Assignment - Part 3 B*)
+transition userAnswer(queID : Uint32 , userResponse : String)
+accept ;
+userVsAnswer[_sender] := userResponse 
+(*userVsAnswer1[_sender][queID] := userResponse  *) (* Alternate map assignment user -> queID -> ans*)
+end
+
+
+transition redeem(queID : Uint32)
+end
