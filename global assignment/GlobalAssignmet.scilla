@@ -1,0 +1,33 @@
+(* Updated(upto part-3) on 30th March 2021 *)
+scilla_version 0
+
+library Miracle
+let responseStrDummyForNow1 = "response result1"
+let responseStrDummyForNow2 = "response result2"
+
+contract Miracle (oracle : ByStr20)
+field currentQuestionId : Uint32 = Uint32 0
+field finalOutput : Map Uint32 String = Emp Uint32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+transition addQuestion(qDesc : String)
+
+end
+
+transition resultDeclartion(qId : Uint32, userResp : String)
+  r = responseStrDummyForNow1;
+  e = {_eventname: "resultDeclaration"; response: r};
+  event e
+end
+
+transition userAnswer(qId : Uint32, userResp : String)
+  accept;
+  userVsAnswer[_sender] := userResp;
+  r = responseStrDummyForNow2;
+  e = {_eventname: "userAnswer"; response: r};
+  event e
+end
+
+transition redeem(qId : Uint32)
+
+end
