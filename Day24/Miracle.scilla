@@ -1,0 +1,44 @@
+scilla_version 0
+
+
+(*Global Assignment - Part 1*)
+
+contract Miracle (oracle : ByStr20 )
+
+field currentQuestionId : Uint32 = Uint32 0
+
+(*Global Assignment - Part 3 A*)
+
+field finalOutput: Map Uint32 String = Emp Uint32 String
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+(* field userVsAnswer1: Map ByStr20 (Map Uint32 String) = Emp ByStr20 (Map Uint32 String) *) (* Alternate variable deceleraton user -> queID -> ans*)
+
+(*Global Assignment - Part 2*)
+
+
+transition addQuestion (queDescription : String)
+end
+
+(*Global Assignment - Part 4*)
+transition resultDeclartion (queID : Uint32 , answer : String)
+    owner = builtin eq oracle _sender ;
+    match owner with
+      |False =>
+        e= {_eventname : "NotOwner"; message:"Only owner allowed to add Question"};
+    event e
+      |True =>
+        finalOutput[queID] := answer
+    end
+    
+end
+
+(*Global Assignment - Part 3 B*)
+transition userAnswer(queID : Uint32 , userResponse : String)
+accept ;
+userVsAnswer[_sender] := userResponse 
+(*userVsAnswer1[_sender][queID] := userResponse  *) (* Alternate map assignment user -> queID -> ans*)
+end
+
+
+transition redeem(queID : Uint32)
+end
