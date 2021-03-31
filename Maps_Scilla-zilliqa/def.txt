@@ -1,0 +1,8 @@
+keys can be String, IntX, UintX, ByStrX, ByStr or BNum.
+
+field operators: Map ByStr20 (Map ByStr20 Uint128)
+  = Emp ByStr20 (Map ByStr20 Unit)
+
+  The first and the second key are of type ByStr20 and represent accounts and the trusted users correspondingly
+
+  m[k] := v
