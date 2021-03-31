@@ -1,0 +1,27 @@
+scilla_version 0
+
+
+contract Manipuation(owner:ByStr20)
+
+field add_result :Uint128 = Uint128 0
+field sub_result :Uint128 = Uint128 0
+field multiplation_result : Uint128 = Uint128 0
+
+
+transition Addition(num1:Uint128, num2:Uint128)
+  result = builtin add num1 num2;
+  add_result := result
+
+end
+
+transition Subtraction(num1:Uint128, num2:Uint128)
+  result = builtin sub num1 num2;
+  sub_result := result
+
+end
+
+transition Multiplication(num1:Uint128, num2:Uint128)
+  result = builtin mul num1 num2; 
+  multiplation_result := result
+
+end
