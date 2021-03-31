@@ -1,0 +1,61 @@
+scilla_version 0
+
+library UserADTexample
+
+(*user-defined ADT*)
+type Wheels = | Wheels of Uint32
+type Engine = | Engine of Uint32
+type Color = | Color of String
+type Vehicle = | Car of Wheels Engine Color
+                | Bike of Wheels Engine Color
+                | Bus of Wheels Engine Color
+                
+                
+contract UserADTexample()
+
+field vehicle_details : Map String Vehicle  = Emp String Vehicle 
+
+
+(*Transition to add vehicle into map*)
+transition addVehicle( number : String , wheels : Uint32 , engine : Uint32 , color : String , vehicleType : String)
+
+(*Type casting to user defined data types*) 
+a = Wheels wheels ;
+b = Engine engine ;
+c = Color color ;
+ 
+ car = "car";
+ bike = "bike";
+ bus = "bus";
+ 
+ isCar = builtin eq vehicleType car;
+ 
+ match isCar with
+   | True =>
+      d = Car a b c ;
+      vehicle_details[number] := d;
+       e= {_eventname : "Car Added"; addedBy : _sender };
+       event e
+   | False =>
+     isBike = builtin eq vehicleType bike;
+     match isBike with 
+       | True => 
+         e = Bike a b c ;
+         vehicle_details[number] := e;
+          e= {_eventname : "Bike Added"; addedBy : _sender };
+          event e
+       | False =>
+         f = Bus a b c ;
+         vehicle_details[number] := f;
+          e= {_eventname : "Car Added"; addedBy : _sender };
+          event e
+     end
+     
+  end
+end
+
+(*Read values from User-defined variables*)
+transition getVehicle(number : String)
+end
+
+
