@@ -1,4 +1,4 @@
-(* Updated(upto part-3) on 30th March 2021 *)
+(* Updated(upto part-4) on 31th March 2021 *)
 scilla_version 0
 
 library Miracle
@@ -15,9 +15,16 @@ transition addQuestion(qDesc : String)
 end
 
 transition resultDeclartion(qId : Uint32, userResp : String)
-  r = responseStrDummyForNow1;
-  e = {_eventname: "resultDeclaration"; response: r};
-  event e
+  r = builtin eq oracle _sender;
+  match r with
+    |True =>
+      finalOutput[qId] := userResp;
+      e = {_eventname: "resultDec"; response: "Successfully added."};
+      event e
+    |False =>
+      e = {_eventname: "resultDec"; response: "Not the oracle."};
+      event e
+  end
 end
 
 transition userAnswer(qId : Uint32, userResp : String)
