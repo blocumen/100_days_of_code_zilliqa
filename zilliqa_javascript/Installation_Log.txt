@@ -1,0 +1,571 @@
+(base) thangarajmuruganantham@Thangarajs-MacBook-Pro blocumen-git % npm i @zilliqa-js/zilliqa
+
+> bufferutil@4.0.3 install /Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/bufferutil
+> node-gyp-build
+
+
+> sodium-native@3.2.1 install /Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native
+> node-gyp-build "node preinstall.js" "node postinstall.js"
+
+autoreconf: Entering directory `.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal --force -I m4
+autoreconf: configure.ac: tracing
+autoreconf: configure.ac: creating directory build-aux
+autoreconf: running: glibtoolize --copy --force
+glibtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+glibtoolize: copying file 'build-aux/ltmain.sh'
+glibtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
+glibtoolize: copying file 'm4/libtool.m4'
+glibtoolize: copying file 'm4/ltoptions.m4'
+glibtoolize: copying file 'm4/ltsugar.m4'
+glibtoolize: copying file 'm4/ltversion.m4'
+glibtoolize: copying file 'm4/lt~obsolete.m4'
+autoreconf: running: /usr/local/Cellar/autoconf/2.69/bin/autoconf --force
+autoreconf: configure.ac: not using Autoheader
+autoreconf: running: automake --add-missing --copy --force-missing
+configure.ac:84: installing 'build-aux/compile'
+configure.ac:9: installing 'build-aux/config.guess'
+configure.ac:9: installing 'build-aux/config.sub'
+configure.ac:10: installing 'build-aux/install-sh'
+configure.ac:10: installing 'build-aux/missing'
+src/libsodium/Makefile.am: installing 'build-aux/depcomp'
+parallel-tests: installing 'build-aux/test-driver'
+autoreconf: Leaving directory `.'
+Downloading config.guess and config.sub...
+Done.
+checking build system type... x86_64-apple-darwin19.6.0
+checking host system type... x86_64-apple-darwin19.6.0
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... build-aux/install-sh -c -d
+checking for gawk... no
+checking for mawk... no
+checking for nawk... no
+checking for awk... awk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether UID '501' is supported by ustar format... yes
+checking whether GID '20' is supported by ustar format... yes
+checking how to create a ustar tar archive... gnutar
+checking whether make supports nested variables... (cached) yes
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking whether make supports the include directive... yes (GNU style)
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking dependency style of gcc... gcc3
+checking for a sed that does not truncate output... /usr/bin/sed
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking whether gcc is Clang... yes
+checking whether Clang needs flag to prevent "argument unused" warning when linking with -pthread... no
+checking for joinable pthread attribute... PTHREAD_CREATE_JOINABLE
+checking whether more special flags are required for pthreads... no
+checking for PTHREAD_PRIO_INHERIT... yes
+checking for gcc option to accept ISO C99... none needed
+checking dependency style of gcc... gcc3
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking for variable-length arrays... yes
+checking for __wasi__ defined... no
+checking for _FORTIFY_SOURCE defined... no
+checking whether C compiler accepts -D_FORTIFY_SOURCE=2... yes
+checking whether C compiler accepts -fvisibility=hidden... yes
+checking whether C compiler accepts -fPIC... yes
+checking whether C compiler accepts -fPIE... yes
+checking whether the linker accepts -pie... yes
+checking whether C compiler accepts -fno-strict-aliasing... yes
+checking whether C compiler accepts -fno-strict-overflow... yes
+checking whether C compiler accepts -fstack-protector... yes
+checking whether the linker accepts -fstack-protector... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wall... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra... yes
+checking for clang... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls -Wrestrict... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls -Wrestrict -Wshorten-64-to-32... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls -Wrestrict -Wshorten-64-to-32 -Wsometimes-uninitialized... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls -Wrestrict -Wshorten-64-to-32 -Wsometimes-uninitialized -Wstrict-prototypes... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls -Wrestrict -Wshorten-64-to-32 -Wsometimes-uninitialized -Wstrict-prototypes -Wswitch-enum... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls -Wrestrict -Wshorten-64-to-32 -Wsometimes-uninitialized -Wstrict-prototypes -Wswitch-enum -Wvariable-decl... yes
+checking whether C compiler accepts -g -O2 -pthread -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector -Wextra -Wno-unknown-warning-option -Wbad-function-cast -Wcast-qual -Wdiv-by-zero -Wduplicated-branches -Wduplicated-cond -Wfloat-equal -Wformat=2 -Wlogical-op -Wmaybe-uninitialized -Wmisleading-indentation -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-type-limits -Wno-unknown-pragmas -Wnormalized=id -Wnull-dereference -Wold-style-declaration -Wpointer-arith -Wredundant-decls -Wrestrict -Wshorten-64-to-32 -Wsometimes-uninitialized -Wstrict-prototypes -Wswitch-enum -Wvariable-decl -Wwrite-strings... yes
+checking whether the linker accepts -Wl,-z,relro... no
+checking whether the linker accepts -Wl,-z,now... no
+checking whether the linker accepts -Wl,-z,noexecstack... no
+checking whether segmentation violations can be caught when using the C compiler... yes
+checking whether SIGABRT can be caught when using the C compiler... yes
+checking for thread local storage (TLS) class... _Thread_local
+thread local storage is supported
+checking whether C compiler accepts -ftls-model=local-dynamic... yes
+checking how to print strings... printf
+checking for a sed that does not truncate output... (cached) /usr/bin/sed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by gcc... /Library/Developer/CommandLineTools/usr/bin/ld
+checking if the linker (/Library/Developer/CommandLineTools/usr/bin/ld) is GNU ld... no
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 196608
+checking how to convert x86_64-apple-darwin19.6.0 file names to x86_64-apple-darwin19.6.0 format... func_convert_file_noop
+checking how to convert x86_64-apple-darwin19.6.0 file names to toolchain format... func_convert_file_noop
+checking for /Library/Developer/CommandLineTools/usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... no
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dsymutil... dsymutil
+checking for nmedit... nmedit
+checking for lipo... lipo
+checking for otool... otool
+checking for otool64... no
+checking for -single_module linker flag... yes
+checking for -exported_symbols_list linker flag... yes
+checking for -force_load linker flag... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... yes
+checking for gcc option to produce PIC... -fno-common -DPIC
+checking if gcc PIC flag -fno-common -DPIC works... yes
+checking if gcc static flag -static works... no
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/Library/Developer/CommandLineTools/usr/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... darwin19.6.0 dyld
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking for ar... (cached) ar
+checking whether C compiler accepts -mmmx... yes
+checking for MMX instructions set... yes
+checking whether C compiler accepts -mmmx... (cached) yes
+checking whether C compiler accepts -msse2... yes
+checking for SSE2 instructions set... yes
+checking whether C compiler accepts -msse2... (cached) yes
+checking whether C compiler accepts -msse3... yes
+checking for SSE3 instructions set... yes
+checking whether C compiler accepts -msse3... (cached) yes
+checking whether C compiler accepts -mssse3... yes
+checking for SSSE3 instructions set... yes
+checking whether C compiler accepts -mssse3... (cached) yes
+checking whether C compiler accepts -msse4.1... yes
+checking for SSE4.1 instructions set... yes
+checking whether C compiler accepts -msse4.1... (cached) yes
+checking whether C compiler accepts -mavx... yes
+checking for AVX instructions set... yes
+checking whether C compiler accepts -mavx... (cached) yes
+checking whether C compiler accepts -mavx2... yes
+checking for AVX2 instructions set... yes
+checking whether C compiler accepts -mavx2... (cached) yes
+checking if _mm256_broadcastsi128_si256 is correctly defined... yes
+checking whether C compiler accepts -mavx512f... yes
+checking for AVX512F instructions set... yes
+checking whether C compiler accepts -mavx512f... (cached) yes
+checking whether C compiler accepts -maes... yes
+checking whether C compiler accepts -mpclmul... yes
+checking for AESNI instructions set and PCLMULQDQ... yes
+checking whether C compiler accepts -maes... (cached) yes
+checking whether C compiler accepts -mpclmul... (cached) yes
+checking whether C compiler accepts -mrdrnd... yes
+checking for RDRAND... yes
+checking whether C compiler accepts -mrdrnd... (cached) yes
+checking sys/mman.h usability... yes
+checking sys/mman.h presence... yes
+checking for sys/mman.h... yes
+checking sys/random.h usability... yes
+checking sys/random.h presence... yes
+checking for sys/random.h... yes
+checking intrin.h usability... no
+checking intrin.h presence... no
+checking for intrin.h... no
+checking if _xgetbv() is available... no
+checking for inline... inline
+checking whether byte ordering is bigendian... (cached) no
+checking whether __STDC_LIMIT_MACROS is required... no
+checking whether we can use inline asm code... yes
+no
+checking whether we can use x86_64 asm code... yes
+checking whether we can assemble AVX opcodes... yes
+checking for 128-bit arithmetic... yes
+checking for cpuid instruction... yes
+checking if the .private_extern asm directive is supported... yes
+checking if the .hidden asm directive is supported... no
+checking if weak symbols are supported... yes
+checking if data alignment is required... no
+checking if atomic operations are supported... yes
+checking for size_t... yes
+checking for working alloca.h... yes
+checking for alloca... yes
+checking for arc4random... yes
+checking for arc4random_buf... yes
+checking for mmap... yes
+checking for mlock... yes
+checking for madvise... yes
+checking for mprotect... yes
+checking for getrandom with a standard API... no
+checking for getentropy with a standard API... no
+checking for posix_memalign... yes
+checking for getpid... yes
+checking for nanosleep... yes
+checking for memset_s... yes
+checking for explicit_bzero... no
+checking for explicit_memset... no
+checking if gcc/ld supports -Wl,--output-def... no
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating builds/Makefile
+config.status: creating contrib/Makefile
+config.status: creating dist-build/Makefile
+config.status: creating libsodium.pc
+config.status: creating libsodium-uninstalled.pc
+config.status: creating msvc-scripts/Makefile
+config.status: creating src/Makefile
+config.status: creating src/libsodium/Makefile
+config.status: creating src/libsodium/include/Makefile
+config.status: creating src/libsodium/include/sodium/version.h
+config.status: creating test/default/Makefile
+config.status: creating test/Makefile
+config.status: executing depfiles commands
+config.status: executing libtool commands
+Making clean in builds
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in contrib
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in dist-build
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in msvc-scripts
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in src
+Making clean in libsodium
+Making clean in include
+rm -rf .libs _libs
+rm -f *.lo
+test -z "" || rm -f 
+test -z "libsodium.la" || rm -f libsodium.la
+rm -f ./so_locations
+rm -rf .libs _libs
+rm -rf crypto_aead/aes256gcm/aesni/.libs crypto_aead/aes256gcm/aesni/_libs
+rm -rf crypto_aead/chacha20poly1305/sodium/.libs crypto_aead/chacha20poly1305/sodium/_libs
+rm -rf crypto_aead/xchacha20poly1305/sodium/.libs crypto_aead/xchacha20poly1305/sodium/_libs
+rm -rf crypto_auth/.libs crypto_auth/_libs
+rm -rf crypto_auth/hmacsha256/.libs crypto_auth/hmacsha256/_libs
+rm -rf crypto_auth/hmacsha512/.libs crypto_auth/hmacsha512/_libs
+rm -rf crypto_auth/hmacsha512256/.libs crypto_auth/hmacsha512256/_libs
+rm -rf crypto_box/.libs crypto_box/_libs
+rm -rf crypto_box/curve25519xchacha20poly1305/.libs crypto_box/curve25519xchacha20poly1305/_libs
+rm -rf crypto_box/curve25519xsalsa20poly1305/.libs crypto_box/curve25519xsalsa20poly1305/_libs
+rm -rf crypto_core/ed25519/.libs crypto_core/ed25519/_libs
+rm -rf crypto_core/ed25519/ref10/.libs crypto_core/ed25519/ref10/_libs
+rm -rf crypto_core/hchacha20/.libs crypto_core/hchacha20/_libs
+rm -rf crypto_core/hsalsa20/.libs crypto_core/hsalsa20/_libs
+rm -rf crypto_core/hsalsa20/ref2/.libs crypto_core/hsalsa20/ref2/_libs
+rm -rf crypto_core/salsa/ref/.libs crypto_core/salsa/ref/_libs
+rm -rf crypto_generichash/.libs crypto_generichash/_libs
+rm -rf crypto_generichash/blake2b/.libs crypto_generichash/blake2b/_libs
+rm -rf crypto_generichash/blake2b/ref/.libs crypto_generichash/blake2b/ref/_libs
+rm -rf crypto_hash/.libs crypto_hash/_libs
+rm -rf crypto_hash/sha256/.libs crypto_hash/sha256/_libs
+rm -rf crypto_hash/sha256/cp/.libs crypto_hash/sha256/cp/_libs
+rm -rf crypto_hash/sha512/.libs crypto_hash/sha512/_libs
+rm -rf crypto_hash/sha512/cp/.libs crypto_hash/sha512/cp/_libs
+rm -rf crypto_kdf/.libs crypto_kdf/_libs
+rm -rf crypto_kdf/blake2b/.libs crypto_kdf/blake2b/_libs
+rm -rf crypto_kx/.libs crypto_kx/_libs
+rm -rf crypto_onetimeauth/.libs crypto_onetimeauth/_libs
+rm -rf crypto_onetimeauth/poly1305/.libs crypto_onetimeauth/poly1305/_libs
+rm -rf crypto_onetimeauth/poly1305/donna/.libs crypto_onetimeauth/poly1305/donna/_libs
+rm -rf crypto_onetimeauth/poly1305/sse2/.libs crypto_onetimeauth/poly1305/sse2/_libs
+rm -rf crypto_pwhash/.libs crypto_pwhash/_libs
+rm -rf crypto_pwhash/argon2/.libs crypto_pwhash/argon2/_libs
+rm -rf crypto_pwhash/scryptsalsa208sha256/.libs crypto_pwhash/scryptsalsa208sha256/_libs
+rm -rf crypto_pwhash/scryptsalsa208sha256/nosse/.libs crypto_pwhash/scryptsalsa208sha256/nosse/_libs
+rm -rf crypto_pwhash/scryptsalsa208sha256/sse/.libs crypto_pwhash/scryptsalsa208sha256/sse/_libs
+rm -rf crypto_scalarmult/.libs crypto_scalarmult/_libs
+rm -rf crypto_scalarmult/curve25519/.libs crypto_scalarmult/curve25519/_libs
+rm -rf crypto_scalarmult/curve25519/ref10/.libs crypto_scalarmult/curve25519/ref10/_libs
+rm -rf crypto_scalarmult/curve25519/sandy2x/.libs crypto_scalarmult/curve25519/sandy2x/_libs
+rm -rf crypto_scalarmult/ed25519/ref10/.libs crypto_scalarmult/ed25519/ref10/_libs
+rm -rf crypto_scalarmult/ristretto255/ref10/.libs crypto_scalarmult/ristretto255/ref10/_libs
+rm -rf crypto_secretbox/.libs crypto_secretbox/_libs
+rm -rf crypto_secretbox/xchacha20poly1305/.libs crypto_secretbox/xchacha20poly1305/_libs
+rm -rf crypto_secretbox/xsalsa20poly1305/.libs crypto_secretbox/xsalsa20poly1305/_libs
+rm -rf crypto_secretstream/xchacha20poly1305/.libs crypto_secretstream/xchacha20poly1305/_libs
+rm -rf crypto_shorthash/.libs crypto_shorthash/_libs
+rm -rf crypto_shorthash/siphash24/.libs crypto_shorthash/siphash24/_libs
+rm -rf crypto_shorthash/siphash24/ref/.libs crypto_shorthash/siphash24/ref/_libs
+rm -rf crypto_sign/.libs crypto_sign/_libs
+rm -rf crypto_sign/ed25519/.libs crypto_sign/ed25519/_libs
+rm -rf crypto_sign/ed25519/ref10/.libs crypto_sign/ed25519/ref10/_libs
+rm -rf crypto_stream/.libs crypto_stream/_libs
+rm -rf crypto_stream/chacha20/.libs crypto_stream/chacha20/_libs
+rm -rf crypto_stream/chacha20/dolbeau/.libs crypto_stream/chacha20/dolbeau/_libs
+rm -rf crypto_stream/chacha20/ref/.libs crypto_stream/chacha20/ref/_libs
+rm -rf crypto_stream/salsa20/.libs crypto_stream/salsa20/_libs
+rm -rf crypto_stream/salsa20/ref/.libs crypto_stream/salsa20/ref/_libs
+rm -rf crypto_stream/salsa20/xmm6/.libs crypto_stream/salsa20/xmm6/_libs
+rm -rf crypto_stream/salsa20/xmm6int/.libs crypto_stream/salsa20/xmm6int/_libs
+rm -rf crypto_stream/salsa2012/.libs crypto_stream/salsa2012/_libs
+rm -rf crypto_stream/salsa2012/ref/.libs crypto_stream/salsa2012/ref/_libs
+rm -rf crypto_stream/salsa208/.libs crypto_stream/salsa208/_libs
+rm -rf crypto_stream/salsa208/ref/.libs crypto_stream/salsa208/ref/_libs
+rm -rf crypto_stream/xchacha20/.libs crypto_stream/xchacha20/_libs
+rm -rf crypto_stream/xsalsa20/.libs crypto_stream/xsalsa20/_libs
+rm -rf crypto_verify/sodium/.libs crypto_verify/sodium/_libs
+rm -rf randombytes/.libs randombytes/_libs
+rm -rf randombytes/internal/.libs randombytes/internal/_libs
+rm -rf randombytes/sysrandom/.libs randombytes/sysrandom/_libs
+rm -rf sodium/.libs sodium/_libs
+test -z "libaesni.la libsse2.la libssse3.la libsse41.la libavx2.la libavx512f.la librdrand.la" || rm -f libaesni.la libsse2.la libssse3.la libsse41.la libavx2.la libavx512f.la librdrand.la
+rm -f ./so_locations
+rm -f *.o
+rm -f crypto_aead/aes256gcm/aesni/*.o
+rm -f crypto_aead/aes256gcm/aesni/*.lo
+rm -f crypto_aead/chacha20poly1305/sodium/*.o
+rm -f crypto_aead/chacha20poly1305/sodium/*.lo
+rm -f crypto_aead/xchacha20poly1305/sodium/*.o
+rm -f crypto_aead/xchacha20poly1305/sodium/*.lo
+rm -f crypto_auth/*.o
+rm -f crypto_auth/*.lo
+rm -f crypto_auth/hmacsha256/*.o
+rm -f crypto_auth/hmacsha256/*.lo
+rm -f crypto_auth/hmacsha512/*.o
+rm -f crypto_auth/hmacsha512/*.lo
+rm -f crypto_auth/hmacsha512256/*.o
+rm -f crypto_auth/hmacsha512256/*.lo
+rm -f crypto_box/*.o
+rm -f crypto_box/*.lo
+rm -f crypto_box/curve25519xchacha20poly1305/*.o
+rm -f crypto_box/curve25519xchacha20poly1305/*.lo
+rm -f crypto_box/curve25519xsalsa20poly1305/*.o
+rm -f crypto_box/curve25519xsalsa20poly1305/*.lo
+rm -f crypto_core/ed25519/*.o
+rm -f crypto_core/ed25519/*.lo
+rm -f crypto_core/ed25519/ref10/*.o
+rm -f crypto_core/ed25519/ref10/*.lo
+rm -f crypto_core/hchacha20/*.o
+rm -f crypto_core/hchacha20/*.lo
+rm -f crypto_core/hsalsa20/*.o
+rm -f crypto_core/hsalsa20/*.lo
+rm -f crypto_core/hsalsa20/ref2/*.o
+rm -f crypto_core/hsalsa20/ref2/*.lo
+rm -f crypto_core/salsa/ref/*.o
+rm -f crypto_core/salsa/ref/*.lo
+rm -f crypto_generichash/*.o
+rm -f crypto_generichash/*.lo
+rm -f crypto_generichash/blake2b/*.o
+rm -f crypto_generichash/blake2b/*.lo
+rm -f crypto_generichash/blake2b/ref/*.o
+rm -f crypto_generichash/blake2b/ref/*.lo
+rm -f crypto_hash/*.o
+rm -f crypto_hash/*.lo
+rm -f crypto_hash/sha256/*.o
+rm -f crypto_hash/sha256/*.lo
+rm -f crypto_hash/sha256/cp/*.o
+rm -f crypto_hash/sha256/cp/*.lo
+rm -f crypto_hash/sha512/*.o
+rm -f crypto_hash/sha512/*.lo
+rm -f crypto_hash/sha512/cp/*.o
+rm -f crypto_hash/sha512/cp/*.lo
+rm -f crypto_kdf/*.o
+rm -f crypto_kdf/*.lo
+rm -f crypto_kdf/blake2b/*.o
+rm -f crypto_kdf/blake2b/*.lo
+rm -f crypto_kx/*.o
+rm -f crypto_kx/*.lo
+rm -f crypto_onetimeauth/*.o
+rm -f crypto_onetimeauth/*.lo
+rm -f crypto_onetimeauth/poly1305/*.o
+rm -f crypto_onetimeauth/poly1305/*.lo
+rm -f crypto_onetimeauth/poly1305/donna/*.o
+rm -f crypto_onetimeauth/poly1305/donna/*.lo
+rm -f crypto_onetimeauth/poly1305/sse2/*.o
+rm -f crypto_onetimeauth/poly1305/sse2/*.lo
+rm -f crypto_pwhash/*.o
+rm -f crypto_pwhash/*.lo
+rm -f crypto_pwhash/argon2/*.o
+rm -f crypto_pwhash/argon2/*.lo
+rm -f crypto_pwhash/scryptsalsa208sha256/*.o
+rm -f crypto_pwhash/scryptsalsa208sha256/*.lo
+rm -f crypto_pwhash/scryptsalsa208sha256/nosse/*.o
+rm -f crypto_pwhash/scryptsalsa208sha256/nosse/*.lo
+rm -f crypto_pwhash/scryptsalsa208sha256/sse/*.o
+rm -f crypto_pwhash/scryptsalsa208sha256/sse/*.lo
+rm -f crypto_scalarmult/*.o
+rm -f crypto_scalarmult/*.lo
+rm -f crypto_scalarmult/curve25519/*.o
+rm -f crypto_scalarmult/curve25519/*.lo
+rm -f crypto_scalarmult/curve25519/ref10/*.o
+rm -f crypto_scalarmult/curve25519/ref10/*.lo
+rm -f crypto_scalarmult/curve25519/sandy2x/*.o
+rm -f crypto_scalarmult/curve25519/sandy2x/*.lo
+rm -f crypto_scalarmult/ed25519/ref10/*.o
+rm -f crypto_scalarmult/ed25519/ref10/*.lo
+rm -f crypto_scalarmult/ristretto255/ref10/*.o
+rm -f crypto_scalarmult/ristretto255/ref10/*.lo
+rm -f crypto_secretbox/*.o
+rm -f crypto_secretbox/*.lo
+rm -f crypto_secretbox/xchacha20poly1305/*.o
+rm -f crypto_secretbox/xchacha20poly1305/*.lo
+rm -f crypto_secretbox/xsalsa20poly1305/*.o
+rm -f crypto_secretbox/xsalsa20poly1305/*.lo
+rm -f crypto_secretstream/xchacha20poly1305/*.o
+rm -f crypto_secretstream/xchacha20poly1305/*.lo
+rm -f crypto_shorthash/*.o
+rm -f crypto_shorthash/*.lo
+rm -f crypto_shorthash/siphash24/*.o
+rm -f crypto_shorthash/siphash24/*.lo
+rm -f crypto_shorthash/siphash24/ref/*.o
+rm -f crypto_shorthash/siphash24/ref/*.lo
+rm -f crypto_sign/*.o
+rm -f crypto_sign/*.lo
+rm -f crypto_sign/ed25519/*.o
+rm -f crypto_sign/ed25519/*.lo
+rm -f crypto_sign/ed25519/ref10/*.o
+rm -f crypto_sign/ed25519/ref10/*.lo
+rm -f crypto_stream/*.o
+rm -f crypto_stream/*.lo
+rm -f crypto_stream/chacha20/*.o
+rm -f crypto_stream/chacha20/*.lo
+rm -f crypto_stream/chacha20/dolbeau/*.o
+rm -f crypto_stream/chacha20/dolbeau/*.lo
+rm -f crypto_stream/chacha20/ref/*.o
+rm -f crypto_stream/chacha20/ref/*.lo
+rm -f crypto_stream/salsa20/*.o
+rm -f crypto_stream/salsa20/*.lo
+rm -f crypto_stream/salsa20/ref/*.o
+rm -f crypto_stream/salsa20/ref/*.lo
+rm -f crypto_stream/salsa20/xmm6/*.o
+rm -f crypto_stream/salsa20/xmm6/*.lo
+rm -f crypto_stream/salsa20/xmm6int/*.o
+rm -f crypto_stream/salsa20/xmm6int/*.lo
+rm -f crypto_stream/salsa2012/*.o
+rm -f crypto_stream/salsa2012/*.lo
+rm -f crypto_stream/salsa2012/ref/*.o
+rm -f crypto_stream/salsa2012/ref/*.lo
+rm -f crypto_stream/salsa208/*.o
+rm -f crypto_stream/salsa208/*.lo
+rm -f crypto_stream/salsa208/ref/*.o
+rm -f crypto_stream/salsa208/ref/*.lo
+rm -f crypto_stream/xchacha20/*.o
+rm -f crypto_stream/xchacha20/*.lo
+rm -f crypto_stream/xsalsa20/*.o
+rm -f crypto_stream/xsalsa20/*.lo
+rm -f crypto_verify/sodium/*.o
+rm -f crypto_verify/sodium/*.lo
+rm -f randombytes/*.o
+rm -f randombytes/*.lo
+rm -f randombytes/internal/*.o
+rm -f randombytes/internal/*.lo
+rm -f randombytes/sysrandom/*.o
+rm -f randombytes/sysrandom/*.lo
+rm -f sodium/*.o
+rm -f sodium/*.lo
+rm -f *.lo
+rm -rf .libs _libs
+rm -f *.lo
+Making clean in test
+Making clean in default
+ rm -f aead_aes256gcm aead_aes256gcm2 aead_chacha20poly1305 aead_chacha20poly13052 aead_xchacha20poly1305 auth auth2 auth3 auth5 auth6 auth7 box box2 box7 box8 box_easy box_easy2 box_seal box_seed chacha20 codecs core1 core2 core3 core4 core5 core6 ed25519_convert generichash generichash2 generichash3 hash hash3 kdf keygen kx metamorphic misuse onetimeauth onetimeauth2 onetimeauth7 pwhash_argon2i pwhash_argon2id randombytes scalarmult scalarmult2 scalarmult5 scalarmult6 scalarmult7 scalarmult8 secretbox secretbox2 secretbox7 secretbox8 secretbox_easy secretbox_easy2 secretstream shorthash sign sodium_core sodium_utils sodium_version stream stream2 stream3 stream4 verify1 sodium_utils2 sodium_utils3 core_ed25519 core_ristretto255 pwhash_scrypt pwhash_scrypt_ll scalarmult_ed25519 scalarmult_ristretto255 siphashx24 xchacha20
+rm -rf .libs _libs
+rm -f *.o
+test -z "aead_aes256gcm.log aead_aes256gcm2.log aead_chacha20poly1305.log aead_chacha20poly13052.log aead_xchacha20poly1305.log auth.log auth2.log auth3.log auth5.log auth6.log auth7.log box.log box2.log box7.log box8.log box_easy.log box_easy2.log box_seal.log box_seed.log chacha20.log codecs.log core1.log core2.log core3.log core4.log core5.log core6.log ed25519_convert.log generichash.log generichash2.log generichash3.log hash.log hash3.log kdf.log keygen.log kx.log metamorphic.log misuse.log onetimeauth.log onetimeauth2.log onetimeauth7.log pwhash_argon2i.log pwhash_argon2id.log randombytes.log scalarmult.log scalarmult2.log scalarmult5.log scalarmult6.log scalarmult7.log scalarmult8.log secretbox.log secretbox2.log secretbox7.log secretbox8.log secretbox_easy.log secretbox_easy2.log secretstream.log shorthash.log sign.log sodium_core.log sodium_utils.log sodium_version.log stream.log stream2.log stream3.log stream4.log verify1.log sodium_utils2.log sodium_utils3.log core_ed25519.log core_ristretto255.log pwhash_scrypt.log pwhash_scrypt_ll.log scalarmult_ed25519.log scalarmult_ristretto255.log siphashx24.log xchacha20.log" || rm -f aead_aes256gcm.log aead_aes256gcm2.log aead_chacha20poly1305.log aead_chacha20poly13052.log aead_xchacha20poly1305.log auth.log auth2.log auth3.log auth5.log auth6.log auth7.log box.log box2.log box7.log box8.log box_easy.log box_easy2.log box_seal.log box_seed.log chacha20.log codecs.log core1.log core2.log core3.log core4.log core5.log core6.log ed25519_convert.log generichash.log generichash2.log generichash3.log hash.log hash3.log kdf.log keygen.log kx.log metamorphic.log misuse.log onetimeauth.log onetimeauth2.log onetimeauth7.log pwhash_argon2i.log pwhash_argon2id.log randombytes.log scalarmult.log scalarmult2.log scalarmult5.log scalarmult6.log scalarmult7.log scalarmult8.log secretbox.log secretbox2.log secretbox7.log secretbox8.log secretbox_easy.log secretbox_easy2.log secretstream.log shorthash.log sign.log sodium_core.log sodium_utils.log sodium_version.log stream.log stream2.log stream3.log stream4.log verify1.log sodium_utils2.log sodium_utils3.log core_ed25519.log core_ristretto255.log pwhash_scrypt.log pwhash_scrypt_ll.log scalarmult_ed25519.log scalarmult_ristretto255.log siphashx24.log xchacha20.log
+test -z "aead_aes256gcm.trs aead_aes256gcm2.trs aead_chacha20poly1305.trs aead_chacha20poly13052.trs aead_xchacha20poly1305.trs auth.trs auth2.trs auth3.trs auth5.trs auth6.trs auth7.trs box.trs box2.trs box7.trs box8.trs box_easy.trs box_easy2.trs box_seal.trs box_seed.trs chacha20.trs codecs.trs core1.trs core2.trs core3.trs core4.trs core5.trs core6.trs ed25519_convert.trs generichash.trs generichash2.trs generichash3.trs hash.trs hash3.trs kdf.trs keygen.trs kx.trs metamorphic.trs misuse.trs onetimeauth.trs onetimeauth2.trs onetimeauth7.trs pwhash_argon2i.trs pwhash_argon2id.trs randombytes.trs scalarmult.trs scalarmult2.trs scalarmult5.trs scalarmult6.trs scalarmult7.trs scalarmult8.trs secretbox.trs secretbox2.trs secretbox7.trs secretbox8.trs secretbox_easy.trs secretbox_easy2.trs secretstream.trs shorthash.trs sign.trs sodium_core.trs sodium_utils.trs sodium_version.trs stream.trs stream2.trs stream3.trs stream4.trs verify1.trs sodium_utils2.trs sodium_utils3.trs core_ed25519.trs core_ristretto255.trs pwhash_scrypt.trs pwhash_scrypt_ll.trs scalarmult_ed25519.trs scalarmult_ristretto255.trs siphashx24.trs xchacha20.trs" || rm -f aead_aes256gcm.trs aead_aes256gcm2.trs aead_chacha20poly1305.trs aead_chacha20poly13052.trs aead_xchacha20poly1305.trs auth.trs auth2.trs auth3.trs auth5.trs auth6.trs auth7.trs box.trs box2.trs box7.trs box8.trs box_easy.trs box_easy2.trs box_seal.trs box_seed.trs chacha20.trs codecs.trs core1.trs core2.trs core3.trs core4.trs core5.trs core6.trs ed25519_convert.trs generichash.trs generichash2.trs generichash3.trs hash.trs hash3.trs kdf.trs keygen.trs kx.trs metamorphic.trs misuse.trs onetimeauth.trs onetimeauth2.trs onetimeauth7.trs pwhash_argon2i.trs pwhash_argon2id.trs randombytes.trs scalarmult.trs scalarmult2.trs scalarmult5.trs scalarmult6.trs scalarmult7.trs scalarmult8.trs secretbox.trs secretbox2.trs secretbox7.trs secretbox8.trs secretbox_easy.trs secretbox_easy2.trs secretstream.trs shorthash.trs sign.trs sodium_core.trs sodium_utils.trs sodium_version.trs stream.trs stream2.trs stream3.trs stream4.trs verify1.trs sodium_utils2.trs sodium_utils3.trs core_ed25519.trs core_ristretto255.trs pwhash_scrypt.trs pwhash_scrypt_ll.trs scalarmult_ed25519.trs scalarmult_ristretto255.trs siphashx24.trs xchacha20.trs
+test -z "test-suite.log" || rm -f test-suite.log
+rm -f *.lo
+rm -rf .libs _libs
+rm -f *.lo
+rm -rf .libs _libs
+rm -f *.lo
+Making install in builds
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in contrib
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in dist-build
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in msvc-scripts
+make[2]: Nothing to be done for `install-exec-am'.
+make[2]: Nothing to be done for `install-data-am'.
+Making install in src
+Making install in libsodium
+Making install in include
+make[4]: Nothing to be done for `install-exec-am'.
+ ../../../build-aux/install-sh -c -d '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include'
+ ../../../build-aux/install-sh -c -d '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include/sodium'
+ /usr/bin/install -c -m 644  sodium/core.h sodium/crypto_aead_aes256gcm.h sodium/crypto_aead_chacha20poly1305.h sodium/crypto_aead_xchacha20poly1305.h sodium/crypto_auth.h sodium/crypto_auth_hmacsha256.h sodium/crypto_auth_hmacsha512.h sodium/crypto_auth_hmacsha512256.h sodium/crypto_box.h sodium/crypto_box_curve25519xchacha20poly1305.h sodium/crypto_box_curve25519xsalsa20poly1305.h sodium/crypto_core_ed25519.h sodium/crypto_core_ristretto255.h sodium/crypto_core_hchacha20.h sodium/crypto_core_hsalsa20.h sodium/crypto_core_salsa20.h sodium/crypto_core_salsa2012.h sodium/crypto_core_salsa208.h sodium/crypto_generichash.h sodium/crypto_generichash_blake2b.h sodium/crypto_hash.h sodium/crypto_hash_sha256.h sodium/crypto_hash_sha512.h sodium/crypto_kdf.h sodium/crypto_kdf_blake2b.h sodium/crypto_kx.h sodium/crypto_onetimeauth.h sodium/crypto_onetimeauth_poly1305.h sodium/crypto_pwhash.h sodium/crypto_pwhash_argon2i.h sodium/crypto_pwhash_argon2id.h sodium/crypto_pwhash_scryptsalsa208sha256.h sodium/crypto_scalarmult.h sodium/crypto_scalarmult_curve25519.h sodium/crypto_scalarmult_ed25519.h sodium/crypto_scalarmult_ristretto255.h sodium/crypto_secretbox.h sodium/crypto_secretbox_xchacha20poly1305.h sodium/crypto_secretbox_xsalsa20poly1305.h sodium/crypto_secretstream_xchacha20poly1305.h '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include/sodium'
+ ../../../build-aux/install-sh -c -d '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include/sodium'
+ /usr/bin/install -c -m 644  sodium/crypto_shorthash.h sodium/crypto_shorthash_siphash24.h sodium/crypto_sign.h sodium/crypto_sign_ed25519.h sodium/crypto_sign_edwards25519sha512batch.h sodium/crypto_stream.h sodium/crypto_stream_chacha20.h sodium/crypto_stream_salsa20.h sodium/crypto_stream_salsa2012.h sodium/crypto_stream_salsa208.h sodium/crypto_stream_xchacha20.h sodium/crypto_stream_xsalsa20.h sodium/crypto_verify_16.h sodium/crypto_verify_32.h sodium/crypto_verify_64.h sodium/export.h sodium/randombytes.h sodium/randombytes_internal_random.h sodium/randombytes_sysrandom.h sodium/runtime.h sodium/utils.h '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include/sodium'
+ /usr/bin/install -c -m 644  sodium.h '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include/.'
+ ../../../build-aux/install-sh -c -d '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include'
+ ../../../build-aux/install-sh -c -d '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include/sodium'
+ /usr/bin/install -c -m 644  sodium/version.h '/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/blocumen-git/node_modules/sodium-native/tmp/include/sodium'
+  CC       crypto_aead/chacha20poly1305/sodium/libsodium_la-aead_chacha20poly1305.lo
+  CC       crypto_aead/xchacha20poly1305/sodium/libsodium_la-aead_xchacha20poly1305.lo
+  CC       crypto_auth/libsodium_la-crypto_auth.lo
+  CC       crypto_auth/hmacsha256/libsodium_la-auth_hmacsha256.lo
+  CC       crypto_auth/hmacsha512/libsodium_la-auth_hmacsha512.lo
+  CC       crypto_auth/hmacsha512256/libsodium_la-auth_hmacsha512256.lo
+  CC       crypto_box/libsodium_la-crypto_box.lo
+  CC       crypto_box/libsodium_la-crypto_box_easy.lo
+  CC       crypto_box/libsodium_la-crypto_box_seal.lo
+  CC       crypto_box/curve25519xsalsa20poly1305/libsodium_la-box_curve25519xsalsa20poly1305.lo
+  CC       crypto_core/ed25519/ref10/libsodium_la-ed25519_ref10.lo
