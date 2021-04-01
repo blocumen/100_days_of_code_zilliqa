@@ -1,0 +1,21 @@
+scilla_version 0
+
+library Sender
+
+type T =
+  |C1 of Uint32
+  |C2 of Bool
+  
+contract Sender()
+
+transition snd(addr:ByStr20)
+  val = Uint32 123;
+  t = C1 val;
+  msg = {_tag: "rcvr";
+        _recipient: addr;
+        _amount: Uint128 0;
+        a: t };
+  no_msg = Nil {Message};
+  msgs = Cons {Message} msg no_msg;
+  send msgs
+end

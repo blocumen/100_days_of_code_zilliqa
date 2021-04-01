@@ -1,0 +1,21 @@
+scilla_version 0
+
+contract Charity()
+field donersList : Map ByStr20 Uint128 = Emp ByStr20 Uint128
+
+transition donate()
+  accept;
+  lst <- donersList;
+  t = builtin get lst _sender;
+  match t with
+    |None =>
+      donersList[_sender] := _amount;
+      m = {_eventname: "donate"; resp: "Thank You For Donation"};
+      event m
+    |Some v =>
+      newAmt = builtin add v _amount;
+      donersList[_sender] := newAmt;
+      m = {_eventname: "donate"; resp: "Thank You For Donating Again!!!"};
+      event m
+  end
+end
