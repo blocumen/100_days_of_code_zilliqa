@@ -1,0 +1,139 @@
+scilla_version 0
+
+import BoolUtils
+
+library MyContractLib
+
+
+(********* Part -5 Global Assignment "A" *************)
+
+type Question=
+  | Question of String ByStr20
+
+let one_msg =
+fun (msg : Message) =>
+let nil_msg = Nil {Message} in
+  Cons {Message} msg nil_msg
+
+let reward = Uint128 10000000000000 (reward 10 Zil)
+let one = Int32 1
+let not_an_oracle = Int32 1
+let wrong_ans = Int32 2
+let right_ans = Int32 3
+let no_ans = Int32 4
+let no_anss = Int32 5
+let answered = Int32 6
+let oracle_answered = Int32 7
+let no_oracle_ans = Int32 8
+
+
+contract Miracle
+(oracle: ByStr20)
+
+field currentquestionId : Int32 = Int32 0
+
+
+
+field finalOutput : Map Int32 String = Emp Int32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+(********* Part -5 Global Assignment "B" *************)
+
+field questionMapping : Map Int32 Question = Emp Int32 Question 
+
+
+(********* Part -5 Global Assignment "C" *************)
+
+transition addQuestion (description : String)
+  q <- currentquestionId;
+  q = builtin add q one;
+  currentquestionId := q;
+  
+  sndr = _sender;
+  desc = description;
+  
+  qinfo = Question desc _sender;
+
+  questionMapping[q] := qinfo
+
+end
+
+
+transition userAnswer (qid: Int32, ans: String)
+
+  anss = ans;
+  accept;
+  userVsAnswer[_sender] := anss
+
+end
+
+(********* Part -5 Global Assignment "D" *************)
+
+transition redeem (qid: Int32)
+
+qidd = qid;
+rewards = reward;
+
+
+usr_ans <- userVsAnswer[_sender];
+match usr_ans with
+| Some v =>
+    usr_anss = v;
+      e= {_eventname : "Answered"; caller: _sender; code: answered};
+              event e;
+            org_ans <- finalOutput[qidd];
+            match org_ans with
+            | Some u =>
+                org_anss = u;
+                  c= {_eventname : "OracleAnswered"; caller: _sender; code: oracle_answered};
+                          event c;
+                            is_right = builtin eq org_anss usr_anss;
+                            match is_right with
+                              | True =>
+                                msg = {_tag: ""; _recipient : _sender; _amount : rewards; code : right_ans };
+                                msgs =one_msg msg;
+                                send msgs ;
+                                d= {_eventname : "Right_answer"; caller: _sender; code: right_ans};
+                                event d
+                              | False =>
+                                  d= {_eventname : "wrong_answer"; caller: _sender; code: wrong_ans};
+                                            event d
+                              end 
+            | None =>
+              c= {_eventname : "NoOracleAnswer"; caller: _sender; code: no_oracle_ans};
+              event c
+                
+              
+            end
+  
+| None =>
+  e= {_eventname : "NotAnswered"; caller: _sender; code: no_anss};
+  event e
+    
+  
+end
+
+end
+
+
+transition add_rewards()
+accept
+end
+
+
+transition resultDeclaration (qid: Int32, ans: String )
+is_owner = builtin eq oracle _sender;
+
+anss = ans;
+qidd = qid;
+
+match is_owner with
+    | True =>
+        accept;
+        finalOutput[qidd] := anss
+    
+    | False =>
+    e= {_eventname : "NotAnOracle"; caller: _sender; code: not_an_oracle};
+    event e
+    end
+ end
