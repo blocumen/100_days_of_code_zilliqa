@@ -23,7 +23,10 @@ temp_var_yes = builtin add temp_var_yes define_value_one;
 count_of_yes_votes := temp_var_yes;
 temp_setVoted_value = True;
     votedMap[_sender] :=temp_setVoted_value
-    | True =>throw
+    | True =>
+      
+e = {_exception :"Already Voted"};
+throw e
       end
 end
 
@@ -36,13 +39,9 @@ temp_var_no = builtin add temp_var_no define_value_one;
 count_of_no_votes := temp_var_no;
 temp_setVoted_value = True;
     votedMap[_sender] :=temp_setVoted_value
-    | True =>throw
+    | True =>
+      
+e = {_exception :"Already Voted"};
+throw e
       end
-
 end
-
-
-
-
-
-
