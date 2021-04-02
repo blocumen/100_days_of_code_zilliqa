@@ -1,0 +1,21 @@
+scilla_version 0
+import BoolUtils
+(*Start typing from the line below. First define the library*)
+library SocialMediaPayment
+(*Now define the variable zero for Uint128 0*)
+let zero = Uint128 0
+
+(*Now, in the line below, define the variable not_owner_code of type Uint32 and value 1*)
+let not_owner_code = Uint32 1
+
+contract SocialMediaPayment(owner: ByStr20)
+
+transition deposit()
+sender_is_owner = builtin eq _sender owner;
+match sender_is_owner with
+     | False =>
+
+     | True =>
+
+     end
+end

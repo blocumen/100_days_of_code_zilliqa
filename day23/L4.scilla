@@ -1,0 +1,16 @@
+
+scilla_version 0
+import BoolUtils
+
+contract SocialMediaPayment(owner: ByStr20)
+
+transition deposit()
+sender_is_owner = builtin eq _sender owner;
+(*Start typing from the line below. *)
+match sender_is_owner with
+| True =>
+
+
+| False =>
+    end
+end

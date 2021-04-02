@@ -1,0 +1,7 @@
+
+A. Add below maps variables :
+
+1. finalOutput which is used to store the correct answer of a question i.e.. So it will be a map of question id to answer.
+2. userVsAnswer which is used to store the answer given by each user. So it will be a map of ByStr20 to String.
+ 
+B. Add definition for userAnswer transition declared previously. It will accept Zil and store the answer for the user in userVsAnswer mapping already declared. 

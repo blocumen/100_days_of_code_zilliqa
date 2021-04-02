@@ -1,0 +1,35 @@
+scilla_version 0
+
+library BoolUtils
+
+let message_to_be_triggered_in_txn = 
+  fun (txnmsg : Message) => 
+  let nil_msg = Nil {Message} in
+  Cons {Message} txnmsg nil_msg
+
+let contract_not_belong_to_you = Uint128 0
+let contract_belng_to_you = Uint128 1
+let zero = Uint128 0
+
+contract Thanga(owner: ByStr20)
+
+transition user_check()
+am_i_own_this_contract = builtin eq _sender owner;
+result = _sender;
+match am_i_own_this_contract with
+  | False =>
+    eventfalse = {_eventname: "No Im not owner of this contract"};
+    event eventfalse;
+        falsemsg = {_tag: ""; _recipient: _sender; _amount: zero; tranistioncode: contract_not_belong_to_you};
+        msgs = message_to_be_triggered_in_txn falsemsg;
+        send msgs
+  | True =>
+    eventtrue = {_eventname: "Im owner"; owneraddress: result};
+    event eventtrue;
+        truemsg = {_tag: ""; _recipient:_sender; _amount: zero; transitioncode: contract_belng_to_you };
+        msgs = message_to_be_triggered_in_txn truemsg;
+        send msgs
+
+  end  
+
+end
