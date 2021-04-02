@@ -1,0 +1,60 @@
+scilla_version 0
+import BoolUtils
+
+library Day19
+let not_owner_code = Uint32 1
+let success_code = Uint32 2
+
+contract Day19 (owner: ByStr20)
+
+field addition : Uint128 = Uint128 0
+field substraction : Uint128 = Uint128 0
+field division : Uint128 = Uint128 0
+field multiplication : Uint128 = Uint128 0
+
+
+transition Arithmetic(value1 : Uint128 , value2 :Uint128)
+
+ temp_add = builtin add value1 value2;
+ temp_sub = builtin sub value1 value2;
+ temp_mul = builtin mul value1 value2;
+ temp_div = builtin div value1 value2;
+ 
+is_sender_owner = builtin eq owner _sender;
+
+match is_sender_owner with
+  | False =>
+    e = {_eventname : "Arithmetic"; code: not_owner_code};
+    event e
+    
+    | True =>
+     
+      addition  :=temp_add;
+      substraction :=temp_sub;
+      division :=temp_div;
+      multiplication :=temp_mul;
+          
+      e = {_eventname : "Arithmetic"; code : success_code};
+      event e
+    
+
+end
+end
+
+
+transition getResult()
+a<- addition;
+b <- substraction;
+c <- multiplication;
+d <-division;
+
+e = {_eventname : "getResult"; msg :a};
+event e;
+e = {_eventname : "getResult"; msg :b};
+event e;
+e = {_eventname : "getResult"; msg :c};
+event e;
+e = {_eventname : "getResult"; msg :d};
+event e
+
+end
