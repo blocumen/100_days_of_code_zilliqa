@@ -1,0 +1,48 @@
+
+scilla_version 0
+
+library Polling
+let define_value_one = Uint256 1
+
+contract Polling (initiator : ByStr20 , description: String)
+
+(*Define mutable fields*)
+field count_of_yes_votes : Uint256 = Uint256 0
+field count_of_no_votes : Uint256 = Uint256 0
+field votedMap : Map ByStr20 Bool = Emp ByStr20 Bool
+
+
+(*Define transitions*)
+transition voteYES()
+alreadyVoted <- exists votedMap[_sender];
+
+match alreadyVoted with
+  | False =>
+    temp_var_yes <- count_of_yes_votes;
+temp_var_yes = builtin add temp_var_yes define_value_one;
+count_of_yes_votes := temp_var_yes;
+temp_setVoted_value = True;
+    votedMap[_sender] :=temp_setVoted_value
+    | True =>throw
+      end
+end
+
+transition voteNo()
+alreadyVoted <- exists votedMap[_sender];
+match alreadyVoted with
+  | False =>
+temp_var_no <- count_of_no_votes;
+temp_var_no = builtin add temp_var_no define_value_one;
+count_of_no_votes := temp_var_no;
+temp_setVoted_value = True;
+    votedMap[_sender] :=temp_setVoted_value
+    | True =>throw
+      end
+
+end
+
+
+
+
+
+
