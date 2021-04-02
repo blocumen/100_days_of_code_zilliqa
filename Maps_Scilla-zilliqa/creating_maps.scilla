@@ -1,0 +1,8 @@
+scilla_version 0
+
+library Blocumen
+
+contract Maps_thanga(thanga: ByStr20)
+
+field merchantID: Map ByStr20 Int32 = Emp ByStr20 Int32
+field merchantName: Map ByStr20 String = Emp ByStr20 String

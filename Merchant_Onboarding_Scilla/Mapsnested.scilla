@@ -1,0 +1,27 @@
+scilla_version 0
+
+contract MerchantOnboard (retail : ByStr20 )
+
+field merchant: Map ByStr20 (Map Uint128 String)
+  = Emp ByStr20 (Map Uint128 String)
+
+transition addmerchant(m_id: Uint128, m_name: String)
+validate = builtin eq _sender retail;
+match validate with
+  | True =>
+    merchant[_sender][m_id] := m_name;
+    result <- merchant[_sender][m_id];
+    eventtrue = { _eventname : "merchant event" ; merchantName: result ; merchantID: m_id};
+    event eventtrue
+    
+  | False =>  
+        evenfalse = { _eventname : "false" };
+    event evenfalse
+  end  
+end
+
+transition getmerchantname(m_id: Uint128)
+name <- merchant[_sender][m_id];
+eventmerchantname = { _eventname: "" ; merchantName : name};
+event eventmerchantname
+end
