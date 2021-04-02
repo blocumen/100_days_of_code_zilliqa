@@ -55,8 +55,6 @@ match is_owner with
       e= {_eventname : "ResultSaved"; caller: _sender; code: result_saved};
     event e
        
-        
-    
     | False =>
     e= {_eventname : "NotAnOracle"; caller: _sender; code: not_an_oracle};
     event e
