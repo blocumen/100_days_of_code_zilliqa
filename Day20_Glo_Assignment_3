@@ -1,0 +1,24 @@
+scilla_version 0
+
+contract Miracle (oracle :ByStr20)
+
+field currentQuestionId : Uint128 = Uint128 0
+field finalOutput : Map Uint128 String  = Emp Uint128 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+transition addQuestion (qDescription : String)
+
+end
+
+transition resultDeclaration (qID : Uint128 , qResponse : String)
+end
+
+transition userAnswer (qID: Uint128 , uResponse : String)
+
+userVsAnswer[_sender] := uResponse;
+
+accept
+end
+
+transition redeem (qID : Uint128)
+end
