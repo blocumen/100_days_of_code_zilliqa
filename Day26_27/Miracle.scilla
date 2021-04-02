@@ -1,0 +1,78 @@
+scilla_version 0
+
+
+library Miracle                                                       (*Global Assignment - Part 5*)
+
+type Question =
+  | Question of String ByStr20
+  
+let one = Uint32 1
+
+let one_msg =
+fun (msg : Message) =>
+let nil = Nil {Message} in
+  Cons {Message} msg nil
+
+
+
+contract Miracle (oracle : ByStr20 )                                  (*Global Assignment - Part 1*)
+
+field currentQuestionId : Uint32 = Uint32 0
+field finalOutput: Map Uint32 String = Emp Uint32 String              (*Global Assignment - Part 3 A*)
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+field questionMapping : Map Uint32 Question = Emp Uint32 Question
+
+
+
+
+transition addQuestion (queDescription : String)                      (*Global Assignment - Part 2*)
+   a  <- currentQuestionId;                                           (*Global Assignment - Part 5*)
+   q_id = builtin add a one;
+   currentQuestionId := q_id;
+   queInfo = Question queDescription _sender;
+   questionMapping[q_id] := queInfo
+end
+
+
+transition resultDeclartion (queID : Uint32 , answer : String)       (*Global Assignment - Part 4*)
+    owner = builtin eq oracle _sender ;
+    match owner with
+      |False =>
+        e= {_eventname : "NotOwner"; message:"Only owner allowed to add Question"};
+    event e
+      |True =>
+        finalOutput[queID] := answer
+    end
+end
+
+
+transition userAnswer(queID : Uint32 , userResponse : String)       (*Global Assignment - Part 3 B*)
+accept ;
+userVsAnswer[_sender] := userResponse 
+end
+
+
+transition redeem(queID : Uint32)                                   (*Global Assignment - Part 5*)
+ans <- finalOutput[queID] ;
+usrAns <- userVsAnswer[_sender] ;
+     match ans with
+        | Some a => 
+           match usrAns with
+              |Some b => 
+                 checkCorrect =  builtin eq a b ;
+                    match checkCorrect with
+                      |True =>
+                         msg = {_tag: ""; _recipient : _sender; _amount : Uint128 1000000000000; message : "Correct answer 1 ZIL has been transferred ! Enjoy!!" };
+                                msgs =one_msg msg;
+                                send msgs 
+                      |False =>
+                        e  = {_eventname : "Incorrect Answer"; message: "Incorrect answer ! "};
+                                            event e
+                    end
+              |None =>
+            end
+        | None   =>
+          f  = {_eventname : "Invalid Question ID"; message: "Question ID does not exists ! "};
+                                            event f
+      end  
+end
