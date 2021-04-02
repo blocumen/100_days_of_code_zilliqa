@@ -1,0 +1,5 @@
+scilla_version 0
+contract Crowdfunding ()
+transition acceptZil()
+accept
+end
