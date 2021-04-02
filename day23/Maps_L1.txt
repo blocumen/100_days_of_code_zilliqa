@@ -1,0 +1,7 @@
+Task
+In the transition ‘register_user’ do the following two actions:
+
+Check if the value of the variable user_address exists in the map users through the keyword exists, and then store the value in a new variable user_exists. This will all be done in a single line as shown in the example above.
+
+Then, in the next line, check if the value of the variable twitter_username exists in the map used_usernames through the keyword exists, and then store the value in a new variable username_exists. 
+This will all be done in a single line as shown in the example above
