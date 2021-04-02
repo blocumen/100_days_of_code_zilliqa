@@ -22,11 +22,11 @@ accept;
      | True =>
        finalOutput[qid] := tempresp;
        result <- finalOutput[qid];
-       eventtrue = {_eventname: "result declaration response !"; question_ID: qid; ressponse:result};
+       eventtrue = {_eventname: "result declaration response for event true!"; question_ID: qid; ressponse:result};
        event eventtrue
        
      | False =>
-       eventfalse = {_eventname: "you are not owner of this contract hence not permitted !";response: falseresp };
+       eventfalse = {_eventname: "oh no !";response: falseresp };
        event eventfalse
        
       end 
