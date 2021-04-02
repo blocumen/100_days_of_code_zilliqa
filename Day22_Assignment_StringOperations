@@ -1,0 +1,76 @@
+scilla_version 0
+
+
+import BoolUtils
+
+
+library DAy22Assignment
+let code_equate_string = Uint128 1
+let code_concat_string = Uint128 2
+let code_length_string = Uint128 3
+let code_reverse_string = Uint128 4
+
+contract Day22Assignment (owner :ByStr20)
+field equateStrings : Bool = False
+field concatStrings : String = ""
+field lengthOfStrings : Uint32 = Uint32 0
+(*field reverseStrings : String = ""*)
+(*Reverse has a dummy for length as strrev is not working in IDE. Change Later*)
+field reverseStrings : Uint32 = Uint32 0
+
+transition equateStrings (string1 : String , string2 : String)
+temp_stringfunction = builtin eq string1 string2;
+equateStrings := temp_stringfunction;
+e = {_eventname : "equateStrings" ; code : code_equate_string};
+event e
+end
+
+
+transition concatStrings (string1 : String, string2 : String)
+temp_stringfunction = builtin concat string1 string2;
+concatStrings := temp_stringfunction;
+e = {_eventname : "concatStrings" ; code : code_concat_string};
+event e
+end
+
+transition lengthOfStrings (string1 : String)
+temp_stringfunction = builtin strlen string1;
+lengthOfStrings := temp_stringfunction;
+e = {_eventname : "lengthOfStrings" ; code : code_length_string};
+event e
+end
+
+transition reverseStrings (string1 : String)
+temp_stringfunction = builtin strlen string1;
+reverseStrings := temp_stringfunction;
+e = {_eventname : "reverseStrings" ; code : code_reverse_string};
+event e
+end
+
+
+
+
+transition equateOperation()
+a <-equateStrings;
+e = {_eventname :"equateOperation" ; msg :a};
+event e
+end
+
+transition concatOperation()
+a <- concatStrings;
+e = {_eventname :"concatOperation" ; msg :a};
+event e
+end
+
+transition lengthOperation()
+a <- lengthOfStrings;
+e = {_eventname :"lengthOperation" ; msg :a};
+event e
+end
+
+transition reverseOperation()
+a <- reverseStrings;
+e = {_eventname :"reverseOperation" ; msg :a};
+event e
+end
+
