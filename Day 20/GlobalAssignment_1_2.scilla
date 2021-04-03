@@ -1,0 +1,23 @@
+scilla_version 1
+
+library MiracleLib
+
+contract Miracle(oracle : ByStr20)
+
+field currentQuestionId : Uint32 = Uint32 0
+
+transition addQuestion ( question : String)
+
+end
+
+transition resultDeclartion (responseType : String,questionId : Uint32)
+
+end
+
+transition userAnswer (userResponse : String,questionId : Uint32)
+
+end
+
+transition redeem (questionId : Uint32)
+
+end
