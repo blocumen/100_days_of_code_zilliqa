@@ -1,0 +1,33 @@
+scilla_version 0
+
+library MyHelloLib
+
+let err_code : Uint32 = Uint32 0
+let success_code : Uint32 = Uint32 1
+
+
+contract MyHelloWorld(owner : ByStr20)
+
+field welcome_msg : String = ""
+
+transition setMessage(msg : String)
+
+is_owner = builtin eq owner _sender;
+
+match is_owner with
+  | True => 
+    welcome_msg := msg;
+    e = {_eventname : "setMessage"; return_code : success_code};
+    event e
+  | False =>
+    e = {_eventname : "setMessage"; return_code : err_code};
+    event e
+end  
+end
+
+transition getMessage()
+
+r <- welcome_msg;
+e = {_eventname : "getMessage" ; return_msg : r};
+event e
+end
