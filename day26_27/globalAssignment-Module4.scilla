@@ -1,0 +1,31 @@
+scilla_version 0
+
+library Blocumen
+let zero = Int32 0
+let one = Int32 1
+type Question =
+  | Question of String ByStr20
+
+
+contract ZilliqaGlobalCheck(boss: ByStr20)
+(* Mutable var *)
+field currentQuestionId : Int32 = Int32 0
+field desc: String = ""
+(* Map *)
+field questionMapping: Map Int32 Question = Emp Int32 Question
+
+
+(* Transition *)
+transition addQuestion(desc: String )
+accept;
+get_current_qID <- currentQuestionId;
+result = builtin add get_current_qID one;
+currentQuestionId := result;
+qID_Updated <- currentQuestionId;
+(* type question ADT*)
+question_details = Question desc _sender;
+questionMapping[qID_Updated] := question_details;
+result <- questionMapping[qID_Updated];
+eventquestionmapping = { _eventname: "add Transition"; result: result; sender: _sender };
+event eventquestionmapping
+end
