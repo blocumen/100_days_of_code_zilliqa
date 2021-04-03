@@ -1,0 +1,26 @@
+scilla_version 0
+
+library SimpleCalcV3
+
+let globalResult : Int32 = Int32 0
+
+contract SimpleCalcV3()
+
+field result : Int32 = Int32 0
+field reminder : Option Int32 = None {Int32}
+
+
+(* Procedures need to be defined first and use later part of contract *)
+(* Procedure wont return anything *)
+
+procedure addProc(p11 : Int32, p12 : Int32)
+  val = builtin add p11 p12;
+  result := val
+end
+
+transition add(p1 : Int32, p2: Int32)
+  addProc p1 p2;
+  globalResult <- result;
+  e = {_eventname : "SimpleCalcV2.add"; result : globalResult};
+  event e
+end
