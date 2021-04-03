@@ -49,7 +49,15 @@ end
 
 (* all accepts question ID *)
 transition resultDeclartion(qstnID: Int32, answer: String)
-finalOutput[qstnID] := answer
+is_owner = builtin eq boss _sender;
+match is_owner with 
+  | True =>
+      finalOutput[qstnID] := answer
+      
+  | False =>
+    eventquestion = { _eventname: "Result declaration"; result: "you are not permitted" };
+    event eventquestion
+    end
 end
 
 
