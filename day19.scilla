@@ -1,0 +1,23 @@
+ld quo : Int32 = Int32 0
+
+
+
+transition addNum ( a: Int32, b: Int32)
+    accept;
+    summation= builtin add a b
+end
+
+transition subNum ( a: Int32, b: Int32)
+    accept;
+    diff= builtin sub a b
+end
+
+transition mulNum ( a: Int32, b: Int32)
+    accept;
+    prod= builtin mul a b
+end
+
+transition divNum ( a: Int32, b: Int32)
+    accept;
+    quo= builtin div a b
+end
