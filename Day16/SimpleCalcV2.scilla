@@ -1,6 +1,6 @@
 scilla_version 0
 
-contract SimpleCalcV3(owner: ByStr20)
+contract SimpleCalcV2(owner: ByStr20)
 
 field addition: Int32 = Int32 0
 field subtraction: Int32 = Int32 0
