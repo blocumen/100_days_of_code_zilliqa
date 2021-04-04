@@ -179,7 +179,7 @@ accept ;
              que  <- question[quiz_Id][incrementQueID] ;                                 (*returns next question in events *)
               match que with
               | Some a =>
-                         h= {_eventname : " Next Question "; questionID : queID ; question:a };
+                         h= {_eventname : " Next Question "; questionID : incrementQueID ; question:a };
                        event h
               | None =>
                          i= {_eventname : " Question ended!! no more questions check getResults  " };
