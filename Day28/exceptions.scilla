@@ -1,5 +1,4 @@
-(* Updated(upto part-4) on 31th March 2021 *)
-(* 0xe6e7163737fcf4782f6e348d753df4949dcb6b96 *)
+(* adding _exception *)
 
 scilla_version 0
 
@@ -31,15 +30,15 @@ transition resultDeclartion(qId : Uint32, userResp : String)
       e = {_eventname: "resultDec"; response: "Successfully added."};
       event e
     |False =>
-      e = {_eventname: "resultDec"; response: "Not the oracle."};
-      event e
+      e = {_exception: "resultDec"; response: "Not the oracle."};
+      throw e
   end
 end
 
 transition userAnswer(qId : Uint32, userResp : String)
   accept;
   userVsAnswer[_sender][qId] := userResp;
-  e = {_eventname: "userAnswer"; response: "User Answer submitted."};
+  e = {_eventname: "userAnswer"; response: "User answer submitted."};
   event e
 end
 
