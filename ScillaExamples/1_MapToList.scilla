@@ -1,0 +1,49 @@
+scilla_version 0
+
+library MaptoList 
+
+type Users = 
+| Users of Uint32 String
+
+
+
+
+(*Contract to convert Map to List*)
+
+contract MaptoList()
+
+ 
+
+field userInfo: Map ByStr20 Users = Emp ByStr20 Users
+
+
+(**********************************************************************************)
+procedure readList(a :Pair (ByStr20) (Users) )
+
+match a with
+|Pair usrAddress userDetail =>
+   match userDetail with
+     |Users id name =>
+        e = {_eventname :"Output" ; address: usrAddress ; userID: id ; userName: name};
+        event e
+    end
+end 
+end
+
+
+(**********************************************************************************)
+ transition addtoMap(userID : Uint32 , userName: String)
+ 
+  e = Users userID userName ;
+  userInfo[_sender] := e 
+ end
+ 
+(**********************************************************************************)
+transition mapToList()
+
+x <- userInfo ;
+b = builtin to_list x ;
+forall b readList
+
+ 
+end
