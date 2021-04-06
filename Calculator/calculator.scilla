@@ -1,0 +1,38 @@
+scilla_version 0
+
+contract Calculator (owner: ByStr20)
+
+(* Global Mutable Variables*)
+field addResult : Int32 = Int32 0
+field subResult : Int32 = Int32 0
+field mulResult : Int32 = Int32 0
+
+(*
+    Transition for adding 
+    function parameters value1, value2 of Int32
+*)
+transition addition(value1: Int32, value2: Int32)
+    accept;
+    result = builtin add value1 value2;
+    addResult := result
+end
+
+(*
+    Transition for subtraction
+    function parameters value1, value2 of Int32
+*)
+transition subtract(value1: Int32, value2: Int32)
+    accept;
+    result = builtin sub value1 value2;
+    subResult := result
+end
+
+(*
+    Transition for multiplication 
+    function parameters value1, value2 of Int32
+*)
+transition product(value1: Int32, value2: Int32)
+    accept;
+    result = builtin mul value1 value2;
+    mulResult := result
+end
