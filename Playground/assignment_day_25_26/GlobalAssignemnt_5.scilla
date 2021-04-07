@@ -1,0 +1,113 @@
+(***************************************************)
+(*         Scilla version  Declaration             *)
+(***************************************************)
+scilla_version 0
+import BoolUtils
+library Miracle
+
+type Question =
+| Question of String
+
+let one_msg =
+fun (msg : Message) =>
+let nil = Nil {Message} in
+  Cons {Message} msg nil
+
+
+let currentQuestionId: Int32 = Int32 0
+let questionIncrement: Int32 = Int32 1
+
+(***************************************************)
+(*         Contract Name  Declaration              *)
+(***************************************************)
+contract Miracle
+(***************************************************)
+(*        Oracle Address  Declaration              *)
+(***************************************************)
+(oracle: ByStr20)
+
+(***************************************************)
+(*               Mutable Fields                    *)
+(***************************************************)
+
+field questionIncrement: Int32 = Int32 1
+
+field finalOutput : Map Int32 String = 
+  Emp Int32 String
+
+
+(*field userVsAnswer: Map ByStr20 String= Emp ByStr20 String *)
+
+field userVsAnswer: Map ByStr20 (Map Int32 String )
+  = Emp ByStr20 (Map Int32 String)
+
+field questionMapping: Map Int32 Question= Emp Int32 Question
+
+
+(***************************************************)
+(*         addQuestion transition                  *)
+(***************************************************)
+transition addQuestion(questionDescription :String)
+accept;
+questionDesc = Question questionDescription;
+currentQuestionId = builtin add currentQuestionId questionIncrement;
+questionMapping[currentQuestionId]:=questionDesc
+    
+end
+(***************************************************)
+(*         resultDeclartion transition             *)
+(***************************************************)
+transition resultDeclartion(questionId: Int32, response :String)
+
+sender_is_oracle = builtin eq oracle _sender ;
+    match sender_is_oracle with
+      |False =>
+        e= {_eventname : "NotOwner"; message:"Only owner allowed to add Question"};
+    event e
+      |True =>
+        finalOutput[questionId] := response
+    end
+
+
+end
+(***************************************************)
+(*               userAnswer transition             *)
+(***************************************************)
+transition userAnswer(questionId: Int32, userResponse :String)
+accept;
+  
+userVsAnswer[_sender][questionId]:=userResponse
+end
+(***************************************************)
+(*               redeem transition                 *)
+(***************************************************)
+transition redeem(questionId: Int32)
+accept;
+
+answer<- finalOutput[questionId];
+
+userAnswer <- userVsAnswer[_sender][questionId];
+
+match answer with
+        | Some a => 
+           match userAnswer with
+              |Some b => 
+                 result =  builtin eq a b ;
+                    match result with
+                      |True =>
+                         msg = {_tag: ""; _recipient : _sender; _amount : Uint128 1000000000; message : "ZIL coins transferred!" };
+                                msgs =one_msg msg;
+                                send msgs 
+                      |False =>
+                        e  = {_eventname : "Incorrect Answer"; message: "Incorrect answer ! "};
+                                            event e
+                    end
+              |None =>
+            end
+        | None   =>
+          f  = {_eventname : "Invalid questionId"; message: "This question does not exist"};
+                                            event f
+      end  
+
+
+end
