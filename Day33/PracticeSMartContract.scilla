@@ -1,0 +1,62 @@
+scilla_version 0
+  
+  library Check
+  let one_msg =
+    fun (msg : Message) =>
+    let nil_msg = Nil {Message} in
+    Cons {Message} msg nil_msg
+  
+  contract Check (owner: ByStr20)
+  
+  field vemail : Map String String = Emp String String
+  field vconfirmEmail : Map String String = Emp String String
+  field mail : String = ""
+  field confirmmail : String = ""
+  field out : Bool = False
+  
+  transition addemail(sender: ByStr20 ,email: String, confirmEmail: String)
+  accept;
+  v1 = "EMail";
+  v2 = "ConfirmEmail";
+  
+  sender1 = sender;
+  
+  vemail[v1] :=  email;
+  vconfirmEmail[v2] := confirmEmail;
+  
+  a <- vemail[v1];
+  b <- vconfirmEmail[v2];
+  
+  match a with
+  |  Some v =>
+      mail := v
+  |  None =>
+ end;
+ 
+  match b with
+  |  Some v =>
+      confirmmail := v
+  |  None =>
+ end;
+ 
+ m <- mail;
+ cm <- confirmmail;
+ 
+ finalout = builtin eq m cm;
+ 
+ out := finalout;
+ 
+ match finalout with
+   |True =>
+     msg = {_tag: ""; _recipient : sender1; _amount : Uint128 10000000000000 ; message : "Zil Transfered"};
+     msgs =one_msg msg;
+     send msgs 
+   |False =>
+    e  = {_eventname : "Incorrect Answer"; message: "Incorrect answer ! "};
+    event e
+    end
+ 
+ 
+ 
+end
+  

@@ -1,0 +1,3 @@
+This contract take email and confirm email from the sender of the conntract and if the email matches it provide 10 zil to a sender.
+
+Awesome Enjoyed it..
