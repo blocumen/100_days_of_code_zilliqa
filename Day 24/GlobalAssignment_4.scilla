@@ -16,15 +16,15 @@ end
 
 transition resultDeclartion (responseType : String,questionId : Uint32)
 is_owner = builtin eq oracle _sender;
-match is_owner with
-  | False =>
-    e = {_eventname : "NotaMatch"; code : not_owner_code};
-    event e
-  | True =>
-    finalOutput[questionId] := responseType;
-    e = {_eventname : "Response"; outPut : responseType};
-    event e
-  end
+    match is_owner with
+    | False =>
+        e = {_eventname : "NotaMatch"; code : not_owner_code};
+        event e
+    | True =>
+        finalOutput[questionId] := responseType;
+        e = {_eventname : "Response"; outPut : responseType};
+        event e
+    end
 
 end
 
