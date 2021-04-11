@@ -1,0 +1,13 @@
+{
+  "name": "testing-ripple-ledger-API",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "//": "Change the license to something appropriate. You may want to use 'UNLICENSED' if you are just starting out.",
+  "dependencies": {
+    "ripple-lib": "*"
+  },
+  "devDependencies": {
+    "eslint": "*"
+  }
+}
