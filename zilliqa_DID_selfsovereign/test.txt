@@ -1,0 +1,7 @@
+git clone https://github.com/tralcanx/tyronzil
+
+cd tyronzil
+
+git status
+
+git checkout -b ThangaTyron
