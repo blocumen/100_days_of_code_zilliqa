@@ -11,6 +11,15 @@ scilla_version 0
 library Mirage
 let not_owner_code  = Uint32 1
 
+type Question =
+  | Question of String ByStr20
+
+let one_msg =
+fun (msg : Message) =>
+let nil = Nil {Message} in
+  Cons {Message} msg nil
+
+
 (***************************************************)
 (*             The contract definition             *)
 (***************************************************)
