@@ -1,0 +1,25 @@
+scilla_version 0
+library Randoms
+
+contract Random(owner: ByStr20)
+
+field num : Int32 = Int32 0 
+
+
+transition randox(string: String)
+(* statements go below *)
+accept;
+str = builtin to_int32 string;
+match str with
+    | Some res =>
+    (*statements for true*)
+        strr = res;
+        num := str
+    
+    | None =>
+     (*statements for False*)
+ end
+
+
+    
+end
