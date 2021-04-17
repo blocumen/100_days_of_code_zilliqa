@@ -1,0 +1,23 @@
+scilla version 0
+
+library Miracle
+
+contract Miracle
+(oracle : ByStr20)
+field currentQuestionId : Uint128 = Uint128 0;
+
+transition addQuestion (questionDesc : String){
+  
+}
+
+transition resultDeclaration (questionId : Uint128 , response : String){
+  
+}
+
+transition userAnswer(questionId : Uint128 , userResponse : String){
+  
+}
+
+transition redeem(questionId : Uint128){
+  
+}
