@@ -1,0 +1,108 @@
+(***************************************************)
+(*         Scilla version  Declaration             *)
+(***************************************************)
+
+scilla_version 0
+
+(***************************************************)
+(*               Associated library                *)
+(***************************************************)
+
+library Mirage
+let not_owner_code  = Uint32 1
+
+type Question =
+  | Question of String ByStr20
+
+let one_msg =
+fun (msg : Message) =>
+let nil = Nil {Message} in
+  Cons {Message} msg nil
+
+(***************************************************)
+(*             The contract definition             *)
+(***************************************************)
+contract Mirage
+
+(***************************************************)
+(*               Immutable Parameter               *)
+(***************************************************)
+(oracle: ByStr20)
+
+(***************************************************)
+(*                Mutable Parameter                *)
+(***************************************************)
+
+field currentQuestionId: Int32 = Int32 0
+
+
+field finalOutput : Map Int32 String = Emp Int32 String
+
+
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+
+
+field qMapping: Map Int32 Question = Emp Int32 Question
+
+(***************************************************)
+(*                   Transactions                  *)
+(***************************************************)
+transition addQuestion (description : String)
+
+accept;
+questionDescription = Question description;
+currentQID = builtin add currentQID questionIncrement;
+qMapping[currentQID]:= questionDescription;
+
+end
+
+transition ResultDeclaration (qID: Int32)
+
+is_owner = builtin eq oracle _sender;
+match is_owner with
+	| False =>
+		e = {_eventname : "NotaMatch"; code : not_owner_code};
+		event e
+	| True =>
+		finalOutput[questionid] := res;
+		e = {_eventname : "Response"; outPut : res};
+		event e
+	end
+
+end
+
+transition userAnswer (qID: Int32, userResponse: String)
+
+accept;
+ans = userResponse;
+userVsAnswer[_sender]:= ans;
+
+end
+
+transition redeem (qID: Int32)
+
+ans <- finalOutput[qID];
+userAns <- userVsAnswer[_sender];
+
+	match ans with
+        | Some a => 
+           match userAns with
+              |Some b => 
+                 checkData =  builtin eq a b ;
+                    match checkData with
+                      |True =>
+                         msg = {_tag: ""; _recipient : _sender; _amount : Uint128 10; message : "ZIL Token Transfered" };
+                            m = one_msg msg;
+                            send m 
+                      |False =>
+                        e  = {_eventname : "IncorrectAnswer"; message: "Incorrect Answer"};
+                        event e
+                    end
+              |None =>
+            end
+        | None=>
+      f  = {_eventname : "Invalid_qID"; message: "Question ID invalid"};
+          event f
+      end  
+
+end
