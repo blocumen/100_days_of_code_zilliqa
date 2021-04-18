@@ -1,0 +1,29 @@
+scilla_version 0
+
+
+(*Global Assignment - Part 1*)
+
+contract Miracle (oracle : ByStr20 )
+
+field currentQuestionId : Uint32 = Uint32 0
+
+
+
+(*Global Assignment - Part 2*)
+
+
+transition addQuestion (queDescription : String)
+end
+
+transition resultDeclartion (queID : Uint32)
+(*response*)
+result = "" 
+end
+
+(*It will take user answer for corresponding questionID*)
+transition userAnswer(queID : Uint32 , userResponse : String)
+end
+
+
+transition redeem(queID : Uint32)
+end

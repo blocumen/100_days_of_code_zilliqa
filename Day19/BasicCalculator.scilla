@@ -1,0 +1,51 @@
+scilla_version 0
+
+library BasicCalculator
+
+let sum = "+" 
+let min = "-" 
+let mult = "*"
+
+ 
+contract BasicCalculator (owner: ByStr20)
+
+field addI: Uint32 = Uint32 0 
+field subI: Uint32 = Uint32 0 
+field mulI: Uint32 = Uint32 0 
+field output: Uint32 = Uint32 0
+
+(*Part 1: Defined three separate transitions for each operation*)
+ transition addition (num1 : Uint32 , num2 : Uint32)
+   a = builtin add num1 num2 ;
+   addI := a
+ end
+ 
+ transition multiplication (num1 : Uint32 , num2 : Uint32)
+   a = builtin mul num1 num2 ;
+   mulI :=a
+ end
+ 
+  transition subtraction (num1 : Uint32 , num2 : Uint32)
+   a = builtin sub num1 num2 ;
+   subI :=a
+ end
+
+(*Part 2: Defined single transition for all operation*)
+(*
+transition calc ( operator: String , operand1 : Uint32 , operand2 : Uint32)
+
+  match operator with
+    
+  | min =>
+     a = builtin sub operand1 operand2 ;
+     subI := a
+  | sum =>
+     a = builtin add operand1 operand2 ;
+     addI := a
+  | mult =>
+    a = builtin mul operand1 operand2 ;
+   mulI := a
+  end
+  
+end
+*)

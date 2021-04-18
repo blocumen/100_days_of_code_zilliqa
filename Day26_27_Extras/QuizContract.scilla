@@ -1,0 +1,274 @@
+scilla_version 0
+
+
+library QuizContract                                                       
+
+
+type Users =                                (*User Defined ADT for (userAddress questionID) we will create a list of type Users*)
+  |Users of  ByStr20 Uint32 
+let one = Uint32 1
+let zero = Uint32 0
+
+
+contract QuizContract (oracle : ByStr20 )    
+
+(************************Variable Declaration ******************************************************)
+
+field currentQuestionId : Map Uint32 Uint32 = Emp Uint32 Uint32                            (*It will store number of questions added by admin for particular quiz "007 -> 0" *)
+field question: Map Uint32 (Map Uint32 String) = Emp Uint32 (Map Uint32 String)            (*Questions added by Admin for particular quiz *)
+field answer: Map Uint32 (Map Uint32 String) = Emp Uint32 (Map Uint32 String)              (*Answers added by Admin for particular question and quiz id*)
+field userVsAnswer: Map ByStr20 (Map Uint32 String) = Emp ByStr20 (Map Uint32 String)      (*Answers added by user for particular question and quiz id*)
+field maxQuizQuestions : Map ByStr20 (Map Uint32 Uint32) = Emp  ByStr20 (Map Uint32 Uint32)(*It will store maximum questions admiin can be added for particular quiz " admin -> 007 -> 10"*)
+field userInfo: Map ByStr20 Uint32 = Emp ByStr20 Uint32                                    (*It store the mapping of user and QuizID *)
+field userCurrentQuestionId : Map ByStr20 (Map Uint32 Uint32) = Emp ByStr20 (Map Uint32 Uint32) (*It stores how many questions attempted for particular quiz by user till now*)
+field userScore: Map ByStr20 Uint32 = Emp ByStr20 Uint32                                   (*User result for perticular quizID*)
+field userQueIdList: List(Users)= Nil {Users}                                              (*List of users and attempted question ids we will use this for calculating results*)
+field adminDetails: Map ByStr20 String = Emp ByStr20 String                                 (*Admin Details*)
+
+(****************************Step-by-step Procedures***************************************************************************)
+(***Step 1: addAdmin :   Owner of contact will add admin ******************************************)
+(***Step 2: addQuiz:     Only admin are allowed to call addQuiz***************************************************************************************************)
+(***Step 3: addQuestion: Admin will add questions for quiz***************************************************************************************************)
+(***Step 4: startQuiz:   User will join register for quiz by entering quiz id***************************************************************************************************)
+(***Step 5: userAnswer:  User will input the answers of particular quiz**************************************************************************************************)
+(***Step 6: addAnswer:   Admin will input the correct answers for all the questions*************************************************************************************************)
+(***Step 7: getResult:   User can view their result**************************************************************************************************)
+(***********************************************************************)
+
+(*this transition is only used by Contract owner , it will add admins that can host the quiz*)
+transition addAdmin(admin:ByStr20 , adminName: String)
+
+senderIsOwner = builtin eq _sender oracle ;
+  match senderIsOwner with 
+  |True =>
+    adminDetails[admin] := adminName 
+  |False =>
+      e= {_eventname : "Not Owner!!!"; message:"Only Contract owner can call this!!!!!"};
+       event e
+  end
+
+end
+
+(*In this transition new quiz info will be added by Admin  *)
+
+transition addQuiz(quizID : Uint32 ,quizDescription : String , noOfQuestions : Uint32 )
+      isAdmin <- exists adminDetails[_sender];                                                  (**check whether admin is added in adminDetails*)
+      match isAdmin with
+      |True =>
+      maxQuizQuestions[_sender][quizID] := noOfQuestions ;
+      initID = Uint32 0 ;
+      currentQuestionId[quizID] := initID                                                        (*currentQuestionId for quiz is initiliased to zero*)
+      |False =>
+      e= {_eventname : "Not Admin!!!"; message:"Only Admin are allowed to add Quiz!!!!!"};
+      event e
+      end
+end
+
+
+(*In this transition questions will be added by admin for particular quizID *)
+(*This will first check whether currecnt questionID is less than maximum allowed question*)
+transition addQuestion (quizID : Uint32 , queDescription : String )    
+   isAdmin <- exists adminDetails[_sender];                                                  (**check whether admin is added in adminDetails*)
+    match isAdmin with
+    |True =>
+     a <- currentQuestionId[quizID];
+     b <- maxQuizQuestions[_sender][quizID];
+       match a with
+         | Some a =>
+            match b with 
+             | Some b =>
+               c = builtin lt a b ;
+                 match c with 
+                   | True =>
+                       q_id =    builtin add a one ;
+                       currentQuestionId[quizID] := q_id ;                                             (*this will increment by 1 as question is added by admin currentQuestionId *)
+                       question[quizID][q_id] := queDescription ;                                      (*this will add question for particular quizID and question id  *)
+                    
+                       e= {_eventname : "Question added"; message:"Question added"};
+                       event e
+                   | False =>
+                       f= {_eventname : "Maximum Question Limit Cross"; message:"Maximum Question Limit Cross"};
+                       event f
+                   end
+             | None =>
+            end   
+    
+       | None =>
+         g= {_eventname : "Invalid Quiz ID"; message:"Quiz ID does not exists"};
+                       event g
+      end 
+    
+    |False =>
+      e= {_eventname : "Not Admin!!!"; message:"Only Admin are allowed to add Question!!!!!"};
+      event e
+    end
+    
+end
+
+
+
+
+(*In this transition answers will be added by admin for all questions for particular quizID *)
+transition addAnswer (quizID : Uint32 , questionID : Uint32 , answer : String )                     
+  
+  isAdmin <- exists adminDetails[_sender];                                                  (**check whether admin is added in adminDetails*)
+    match isAdmin with
+    |True =>   
+        b  <- maxQuizQuestions[_sender][quizID];
+        match b with 
+             | Some b =>
+                answer[quizID][questionID] := answer                                     (*Answers will be added for  questions in answer map*)
+             | None =>
+                g= {_eventname : "Invalid QuizID "; message:" Quiz does not exists"};
+                       event g
+            end   
+    
+    |False =>
+      e= {_eventname : "Not Admin!!!"; message:"Only Admin are allowed to add Answer!!!!!"};
+      event e
+    end 
+  end 
+
+
+
+
+(*User will enter quizID  to start attempting particular quiz  ,it will return the first question for the quiz in event*)
+transition startQuiz(quizID : Uint32)
+
+
+   i <- userScore;
+   j = builtin put i _sender zero; 
+   userScore:= j;                                                               (*Puts zero in the previously empty map userScore*)
+
+userInfo[_sender] := quizID ;                                                   (*quizId is mapped to userInfo*)
+queID = Uint32 1 ;
+userCurrentQuestionId[_sender][quizID] := queID ;                               (*userCurrentQuestionId is set to 1*)
+que  <- question[quizID][queID] ;
+  match que with
+   | Some a =>
+      h= {_eventname : "Question "; questionID : queID ; question:a };          (*This will return the first question *)
+      event h
+   | None =>
+  end
+  
+end
+
+
+(******user will submit the answer using this transition , after submitting answer new question will get triggered in event***************)
+
+transition userAnswer(userAnswer : String)       
+accept ;
+   quizID <- userInfo[_sender];                                                 (*This will chck whether user has registered for any quiz using startQuiz transition*)
+  
+   match quizID with
+     | Some quiz_Id =>
+         q_ID  <- userCurrentQuestionId[_sender][quiz_Id] ;                     (*get current questionID*)
+         match q_ID with
+           | Some queID =>
+             userVsAnswer[_sender][queID] := userAnswer ;                       (*user answer gets added to mapping userVsAnswer for particularquestion *)
+             
+             (*========= adding sender adderss and question id to userQueIdList List (need this for calculating results)==============*)
+                    z <- userQueIdList ;
+                    f = let g = Users _sender queID  in 
+                                Cons {Users} g z ;
+                     userQueIdList := f ;  
+             (*=======================*)
+              
+             incrementQueID = builtin add queID one ;
+             userCurrentQuestionId[_sender][quiz_Id] := incrementQueID ;
+             que  <- question[quiz_Id][incrementQueID] ;                                 (*returns next question in events *)
+              match que with
+              | Some a =>
+                         h= {_eventname : " Next Question "; questionID : incrementQueID ; question:a };
+                       event h
+              | None =>
+                         i= {_eventname : " Question ended!! no more questions check getResults  " };
+                       event i
+               end
+           | None =>
+           end
+       
+     | None =>
+        j= {_eventname : " Not regestered! use startQuiz to regester "};
+                       event j
+     end
+
+end
+
+(**********procedure to calculate the final result **********************************************************************************)
+(**********procedure is called by getResults transition and it will pass Users list*******************************************************)
+procedure calculateResult(userQueId : Users )
+ (**) 
+ quizID <- userInfo[_sender];                        
+ 
+ match quizID with
+     | Some quiz_Id =>
+     
+    match userQueId  with 
+      | Users usrAddress queID =>                                                     (*Users constructor with 2 arguments*)
+       
+       sameUser = builtin eq _sender usrAddress ;
+        match sameUser with
+          |True =>
+            usrAns  <- userVsAnswer[_sender][queID] ;
+            correctAns <- answer[quiz_Id][queID] ;
+        
+         match correctAns with                                                         (*This will compare the answer *)
+              | Some a => 
+                  match usrAns with
+                     |Some b => 
+                           checkCorrect =  builtin eq a b ;
+                            match checkCorrect with
+                              |True =>
+                               usrscore <- userScore[_sender] ;                         (* Increase the user score by 1 id answer is correct *)
+                                 match usrscore with
+                                   |Some oldScore =>
+                                     newScore  =  builtin add oldScore one ;
+                                     userScore[_sender] := newScore 
+                                    |None =>
+                                  end                                                    (* *)
+                              |False =>
+                               
+                             end
+                      |None =>
+                  end
+              | None   =>
+                   
+          end
+          
+            (* h= {_eventname : " list1 "; qu : queID; sender : _sender };
+                       event h *)
+          |False =>
+          end
+      end
+    
+    |None =>
+       q= {_eventname : " Not regestered! use startQuiz to regester "};
+       event q
+  end
+ 
+end
+
+
+  
+ 
+
+
+
+
+
+(****************This will return Quiz Result ****************************************************)
+
+transition getResult()
+
+       queIdList <-  userQueIdList  ;                                    (* Reading List userQueIdList*)
+       forall queIdList calculateResult ;                                (*forall to read all record from list and call procedure calculateResult for ech list element*)
+       usrscore <- userScore[_sender] ;                                  (*This will return result of user*)     
+          match usrscore with
+           |Some score =>
+               e = {_eventname :"Result of Quiz are" ; result : score};
+               event e
+           |None =>
+           end 
+        
+end

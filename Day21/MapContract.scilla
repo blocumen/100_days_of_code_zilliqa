@@ -1,0 +1,42 @@
+scilla_version 0
+
+library MapContract
+
+contract MapContract (owner : ByStr20)
+
+field account : Map ByStr20 Uint128 =  Emp ByStr20 Uint128
+
+
+(*Part - 1 Using In-Place Map operations*)
+
+transition addUserBalance( userBalance : Uint128 )
+account[_sender] := userBalance  
+end
+
+transition getBalance ()
+a <- exists account[_sender] ;
+  match a with
+  | True =>
+     bal <- account[_sender]
+  | False =>
+   end 
+end
+
+(*Part - 2 Using Functional map operations*)
+
+transition addUserBalance1( userBalance : Uint128 )
+a <- account ;
+b = builtin put a _sender userBalance;
+account := b
+end
+
+transition getBalance1 ()
+a <- exists account[_sender] ;
+ match a with
+  | True =>
+    b <- account ;
+    bal =  builtin get b _sender
+ | False =>
+   end 
+end
+    
