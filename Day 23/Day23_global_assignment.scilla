@@ -1,0 +1,28 @@
+scilla_version 0
+
+library Day23
+
+contract Miracle(oracle: ByStr20)
+
+field currentquestionId : Uint32 = Uint32 0
+
+field finalOutput : Map Uint32 String = Emp Uint32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+transition addQuestion (question_description : String)
+  accept
+end
+
+transition ResultDeclaration (question_id: Uint32, response: String)
+   accept
+end
+
+transition userAnswer (question_id: Uint32, user_response: String)
+  accept;
+  user_answer = user_response;
+  userVsAnswer[_sender] := user_answer
+end
+
+transition redeem (question_id: Uint32)
+  accept
+end

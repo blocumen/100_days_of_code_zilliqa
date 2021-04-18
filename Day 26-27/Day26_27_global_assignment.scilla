@@ -1,0 +1,79 @@
+scilla_version 0
+
+library Day27
+
+type Question=
+  | Question of String ByStr20
+  
+(*Taken from chapter2 lesson 6*)
+let one_msg =
+  fun (msg : Message) =>
+  let nil_msg = Nil {Message} in
+    Cons {Message} msg nil_msg
+(*    *)
+  
+let increment : Uint32 = Uint32 1
+let reward = Uint128 10000000000000
+  
+contract Miracle(oracle: ByStr20)
+
+field currentquestionId : Uint32 = Uint32 0
+
+field finalOutput : Map Uint32 String = Emp Uint32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+field questionMapping : Map Uint32 Question = Emp Uint32 Question 
+
+transition addQuestion (question_description : String)
+  q_id <- currentquestionId;
+  q_id = builtin add q_id increment;
+  currentquestionId := q_id;
+  
+  q_information = Question question_description _sender;
+  questionMapping[q_id] := q_information
+end
+
+transition ResultDeclaration (question_id: Uint32, response: String)
+   accept
+end
+
+transition userAnswer (question_id: Uint32, user_response: String)
+  accept;
+  user_answer = user_response;
+  userVsAnswer[_sender] := user_answer
+end
+
+transition redeem (question_id: Uint32)
+  correct_answer <- finalOutput[question_id] ;
+  user_answer <- userVsAnswer[_sender] ;
+     match correct_answer with
+        | Some x => 
+           match user_answer with
+              |Some y => 
+                 answer_check =  builtin eq x y ;
+                    match answer_check with
+                      |True =>
+                         response_message = {_tag: ""; _recipient : _sender; _amount : reward; message : "10 zil rewarded" };
+                         response_message = one_msg response_message;
+                        send response_message 
+                      |False =>
+                        e  = {_eventname : "Wrong Answer"; message: "Wrong Answer"};
+                                            event e
+                    end
+              |None =>
+            end
+        | None   =>
+          f  = {_eventname : "Incorrect currentquestionId"; message: "currentquestionId doesnt exist"};
+                                            event f
+      end  
+end
+
+transition resultDeclartion (question_id: Uint32 , user_response: String)
+    is_owner = builtin eq oracle _sender ;
+    match is_owner with
+      |False =>
+        e= {_eventname : "Not_an_oracle_account"};
+    event e
+      |True =>
+        finalOutput[question_id] := user_response
+    end
+end

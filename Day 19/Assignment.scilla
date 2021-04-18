@@ -1,0 +1,24 @@
+scilla_version 0
+
+library Assignment
+
+contract Assignment (owner: ByStr20)
+
+field addition_number: Uint32 = Uint32 0 
+field subtraction_number: Uint32 = Uint32 0 
+field multiplication_number: Uint32 = Uint32 0 
+
+transition sum (x: Uint32, y: Uint32)
+ z = builtin add x y ;
+ addition_number := z
+end
+ 
+transition difference (x: Uint32, y: Uint32)
+ z = builtin sub x y ;
+ subtraction_number :=z
+end
+ 
+transition product (x: Uint32, y : Uint32)
+ z = builtin mul x y ;
+ multiplication_number :=z
+end
