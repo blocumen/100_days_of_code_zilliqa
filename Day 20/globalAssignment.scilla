@@ -1,0 +1,47 @@
+(***************************************************)
+(*                 Scilla version                  *)
+(***************************************************)
+
+scilla_version 0
+
+(***************************************************)
+(*               Associated library                *)
+(***************************************************)
+
+library Mirage
+
+(***************************************************)
+(*             The contract definition             *)
+(***************************************************)
+contract Mirage
+
+(***************************************************)
+(*               Immutable Parameter               *)
+(***************************************************)
+(oracle: ByStr20)
+
+(***************************************************)
+(*                Mutable Parameter                *)
+(***************************************************)
+
+field currentquestionId : Int32 = Int32 0
+
+(***************************************************)
+(*                   Transactions                  *)
+(***************************************************)
+
+transition addQuestion (description : String)
+
+end
+
+transition ResultDeclaration (qID: Int32)
+
+end
+
+transition userAnswer (qID: Int32, userResponse: String)
+
+end
+
+transition redeem (qID: Int32)
+
+end

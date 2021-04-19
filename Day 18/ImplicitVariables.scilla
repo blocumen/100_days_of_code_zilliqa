@@ -1,0 +1,15 @@
+scilla_version 0
+
+contract SocialMediaPayment (owner: ByStr20)
+field username : String = "Alice"
+(*Declare the two new mutable variables below. You don’t need to use any semicolons to separate the lines outside the transitions*)
+field user_address : ByStr20 = 0x1234567890123456789012345678901234567890
+field user_tokens: Uint128 = Uint128 0
+transition changeName(newname: String)
+    username := newname;
+    (*Use ‘accept’ command in the line below which will accept the amount sent to this transition.*)
+    accept;
+    (*Assign the value of the implicit variables to the new mutable variables in the lines below. You’ll need to use the semicolons to separate the lines in the transition*)
+    user_address := _sender;
+    user_tokens := _amount
+end

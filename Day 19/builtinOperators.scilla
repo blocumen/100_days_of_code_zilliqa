@@ -1,0 +1,9 @@
+scilla_version 0
+import BoolUtils
+
+contract SocialMediaPayment(owner: ByStr20)
+
+transition deposit()
+(*Start typing from the line below. The answer will be a single line within the transition so you won’t need to use semicolon at the end*)
+sender_is_owner = builtin eq _sender owner
+end
