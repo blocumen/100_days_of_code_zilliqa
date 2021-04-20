@@ -1,0 +1,11 @@
+
+scilla_version 0
+
+(*Start typing from the line below*)
+import BoolUtils
+
+contract SocialMediaPayment(owner: ByStr20)
+
+transition deposit()
+
+end

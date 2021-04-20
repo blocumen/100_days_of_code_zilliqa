@@ -1,0 +1,7 @@
+A. Declare a type called as Question as below: 
+
+
+ type Question =
+  | Question of String ByStr20
+
+questionDesc <=> owner_of_q

@@ -1,0 +1,126 @@
+scilla_version 0
+
+library Blocumen
+
+(* for event handlers *)
+let zero = Uint128 0 
+let one = Int32 1
+let question_not_exists = Int32 0
+let answer_is_matching = Int32 1
+let your_answer_conflicts = Int32 0
+let rewards = Uint128 10
+
+(* type ADT*)
+type Question =
+  | Question of String ByStr20
+
+(* messages which I customised *)
+let message_to_be_triggered_in_txn = 
+  fun (txnmsg : Message) => 
+  let nil_msg = Nil {Message} in
+  Cons {Message} txnmsg nil_msg
+
+contract ZilliqaGlobalCheck(boss: ByStr20)
+(* Mutable var *)
+field currentQuestionId : Int32 = Int32 0
+field desc: String = ""
+(* Map *)
+field questionMapping: Map Int32 Question = Emp Int32 Question
+(* final output -> Map of question ID to answer *)
+field finalOutput: Map Int32 String = Emp Int32 String
+(* to store the answer given by Individual user *)
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+
+
+(* Transition *)
+transition addQuestion(desc: String )
+accept;
+get_current_qID <- currentQuestionId;
+result = builtin add get_current_qID one;
+currentQuestionId := result;
+qID_Updated <- currentQuestionId;
+(* type question ADT*)
+question_details = Question desc _sender;
+questionMapping[qID_Updated] := question_details;
+result <- questionMapping[qID_Updated];
+eventquestionmapping = { _eventname: "add Transition"; result: result; sender: _sender };
+event eventquestionmapping
+end
+
+(* all accepts question ID *)
+transition resultDeclartion(qstnID: Int32, answer: String)
+is_owner = builtin eq boss _sender;
+match is_owner with 
+  | True =>
+      finalOutput[qstnID] := answer
+      
+  | False =>
+    eventquestion = { _eventname: "Result declaration"; result: "you are not permitted" };
+    event eventquestion
+    end
+end
+
+
+transition userAnswer(qstnID: Int32, answer: String)
+accept;
+userVsAnswer[_sender] := answer
+end
+
+
+transition redeem(qstnID: Int32)
+
+(* before we proceed further, first check if the question present in the stack *)
+(*checking if the question exists *)
+
+validate <- exists questionMapping[qstnID];
+match validate with 
+  | True =>
+    validate_final_op <- finalOutput[qstnID];
+    match validate_final_op with
+      | Some x =>
+        evaluate_final_ouput = x;
+        (* Great ! we have got our answer stored in 'evaluate_final_ouput' *)
+        
+        (* next is to check the user answer for this question in 'finaloutput' *)
+        
+        validate_user_answr <- userVsAnswer[_sender];
+        match validate_user_answr with 
+          | Some y =>
+            evaluate_user_answer = y;
+            (* now we have got our evaluation results for both checks *)
+            validate_the_process = builtin eq evaluate_final_ouput evaluate_user_answer;
+            match validate_the_process with
+              | True =>
+                (*If your answer is same *)
+                    eventtrue = { _eventname: "Great yaar !"; code: answer_is_matching };
+                    event eventtrue;
+                    truemsg = {_tag: "Great yaar ! answer has no conflicts"; 
+                    _recipient:_sender; 
+                    _amount: zero; 
+                    transitioncode: answer_is_matching };
+                    msgs = message_to_be_triggered_in_txn truemsg;
+                    send msgs
+                    
+              | False =>
+                (*If your answer conflicts *)
+                    eventtrue = { _eventname: "oh oh !"; details: your_answer_conflicts };
+                    event eventtrue
+
+              end  
+          | None =>
+                    eventno = {_eventname : "Not exists"};
+                    event eventno
+            
+          end  
+      | None =>
+        eventno = {_eventname : "Not exists"};
+        event eventno
+        
+        end
+    
+  | False =>
+        eventfalse = { _eventname: "question does not exists"; code: question_not_exists };
+        event eventfalse
+    
+    end
+end

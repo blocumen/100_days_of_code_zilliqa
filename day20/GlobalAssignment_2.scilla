@@ -1,0 +1,37 @@
+scilla_version 0
+
+contract Play_arround(org: ByStr20)
+field questionID : Int32 = Int32 0
+field questionDescription : String = ""
+
+transition addQuestion(id: Int32,description: String)
+temp = description;
+q_ID = id;
+questionDescription := temp;
+questionID := q_ID;
+result <- questionDescription;
+q_id <- questionID;
+eventaddquestion = {_eventname: "question added !"; _question_id: q_id; _question_description: result};
+event eventaddquestion
+end
+
+transition resultDeclartion(q_id: Int32)
+temp = q_id;
+questionID := temp;
+question_ID <- questionID;
+description <- questionDescription;
+eventresultdecl = {_eventname: "your result declaration"; description: description};
+event eventresultdecl
+end
+
+transition userAnswer(q_id: Int32)
+temp = q_id;
+questionID := temp;
+eventuseranswer = {_eventname: "triggered for user Answer"; response: ""};
+event eventuseranswer
+end
+
+transition redeem(id: Int32)
+temp = id;
+questionID := temp
+end

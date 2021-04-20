@@ -1,0 +1,20 @@
+scilla_version 0 
+
+(*defining contract name*)
+contract Test
+
+(*definging immutable var*)
+(creator: ByStr20)
+
+(*defining mutable variable*)
+field mutable_one: String = "mutable1"
+field mutable_two: String = "mutable2"
+
+transition test(s1: String, s2: String)
+(* statements go below *)
+mutable_one := s1;
+mutable_two := s2;
+result_one <- mutable_one;
+eventresult= {_eventname: "test"; msg: result_one };
+event eventresult
+end

@@ -1,0 +1,46 @@
+scilla_version 0
+library Blocumen
+
+let you_are_not_owner = Int32 0
+
+contract Miracle(oracle: ByStr20)
+
+field c_questionId : Int32 = Int32 0
+field finalOutput : Map Int32 String = Emp Int32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+transition addQuestion (description : String)
+  
+end
+
+transition ResultDeclaration (qid: Int32,response: String)
+accept;
+   is_valid_oracle = builtin eq _sender oracle;
+   tempresp = response;
+   falseresp = you_are_not_owner;
+   match is_valid_oracle with 
+     | True =>
+       finalOutput[qid] := tempresp;
+       result <- finalOutput[qid];
+       eventtrue = {_eventname: "result declaration response for event true!"; question_ID: qid; ressponse:result};
+       event eventtrue
+       
+     | False =>
+       eventfalse = {_eventname: "oh no !";response: falseresp };
+       event eventfalse
+       
+      end 
+end
+
+transition userAnswer (qID: Int32, ans: String)
+  temp = ans;
+  accept;
+  userVsAnswer[_sender] := ans;
+  result <- userVsAnswer[_sender];
+  eventuseranser = {_eventname: "User answer !"; question_Id_is: qID; user_answer_is:  result};
+  event eventuseranser
+
+end
+
+transition redeem (qid: Int32)
+end

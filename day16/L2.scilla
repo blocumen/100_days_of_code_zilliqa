@@ -1,0 +1,6 @@
+
+scilla_version 0
+
+(* Insert the immutable variable declaration in parantheses after the contract name below *)
+contract SocialMediaPayment
+(owner: ByStr20)

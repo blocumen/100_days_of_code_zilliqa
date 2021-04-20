@@ -1,0 +1,12 @@
+Here is the biggest difference between ECDSA and EC-Schnorr:
+
+ECDSA uses division (aka multiplicative inverse) to calculate the signature `u, v` parameters
+
+EC-Schnorr uses a pre-image hash of public key `P`, random point `R` and message itself `m`.
+
+
+The main difference between Schnorr signatures and Bitcoin current signatures (ECDSA) is that Schnorr signatures are Linear, 
+while ECDSA signatures are not.
+
+The most relevant property of linearity for our purpose, is that when you add two (or more) Schnorr signatures together, the result is a valid Schnorr signature too!
+

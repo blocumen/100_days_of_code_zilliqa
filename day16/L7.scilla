@@ -1,0 +1,11 @@
+
+scilla_version 0
+
+contract SocialMediaPayment (owner: ByStr20)
+field username : String = "Alice"
+
+
+(* Start typing in the parentheses below *)
+transition changeName(newname: String)
+   username := newname 
+end

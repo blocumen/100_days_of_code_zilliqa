@@ -1,0 +1,17 @@
+scilla_version 0
+
+library Blocumen
+
+contract Maps_thanga(thanga: ByStr20)
+
+field merchantID: Map ByStr20 Int32 = Emp ByStr20 Int32
+field merchantName: Map ByStr20 String = Emp ByStr20 String
+
+transition addMerchant(id: Int32, name: String)
+merchantID[_sender] := id;
+merchantName[_sender] := name;
+result_merchantID <- merchantID[_sender];
+result_name <- merchantName[_sender];
+eventadd = {_eventname: "event for add merchant"; name: result_name; id: result_merchantID};
+event eventadd
+end

@@ -1,0 +1,8 @@
+(base) thangarajmuruganantham@Thangarajs-MacBook-Pro thanga_ethereum-fork % pwd
+/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/100DaysOfCode/day11/thanga_ethereum-fork
+(base) thangarajmuruganantham@Thangarajs-MacBook-Pro thanga_ethereum-fork % geth init "/Users/thangarajmuruganantham/Documents/Documents_ThangarajMacBookPro/100daysofcode/100DaysOfCode/day11/thanga_ethereum-fork/genesis.json" 
+INFO [03-18|12:58:22.691] Maximum peer count                       ETH=50 LES=0 total=50
+INFO [03-18|12:58:22.717] Allocated cache and file handles         database=/Users/thangarajmuruganantham/Library/Ethereum/geth/chaindata cache=16.00MiB handles=16
+INFO [03-18|12:58:22.781] Persisted trie from memory database      nodes=0 size=0.00B time="12.988µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+Fatal: Failed to write genesis block: database contains incompatible genesis (have d4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3, new 5e1fc79cb4ffa4739177b5408045cd5d51c6cf766133f23f7cd72ee1f8d790e0)
+(base) thangarajmuruganantham@Thangarajs-MacBook-Pro thanga_ethereum-fork % 

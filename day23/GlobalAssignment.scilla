@@ -1,0 +1,28 @@
+scilla_version 0
+
+contract Miracle(oracle: ByStr20)
+
+field c_questionId : Int32 = Int32 0
+field finalOutput : Map Int32 String = Emp Int32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+transition addQuestion (description : String)
+  
+end
+
+transition ResultDeclaration (qid: Int32)
+   
+end
+
+transition userAnswer (qID: Int32, ans: String)
+  temp = ans;
+  accept;
+  userVsAnswer[_sender] := ans;
+  result <- userVsAnswer[_sender];
+  eventuseranser = {_eventname: "User answer !"; question_Id_is: qID; user_answer_is:  result};
+  event eventuseranser
+
+end
+
+transition redeem (qid: Int32)
+end

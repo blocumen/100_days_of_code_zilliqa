@@ -1,0 +1,9 @@
+Maps acts like a disctionary in python to put it simple it acts like a hash table.
+
+used to store the data in the form of key-value pairs
+
+key can be of built in data-types
+
+Ethereum :
+
+mapping(key => value) <access specifier> <name>;

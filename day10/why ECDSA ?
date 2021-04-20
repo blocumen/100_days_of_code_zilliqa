@@ -1,0 +1,21 @@
+Does Bitcoin use Ecdsa?
+
+Elliptic Curve Digital Signature Algorithm or ECDSA is a cryptographic algorithm used by Bitcoin to ensure that funds can only be spent by their rightful owners.
+
+Refer example test_ecdsa.js file
+
+
+Bitcoin and Ethereum included — use elliptic curves, 
+because a 256-bit elliptic curve private key is just as secure as a 3072-bit RSA private key.
+
+
+#############################################################################################################
+
+Transfer 5 bitcoin from 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa (your address) to 12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX (the recipient address).
+
+Of course, anyone can create a transaction that looks like the one above, so if it was added to the blockchain as is and without issue, 
+then you would be out $30,000+ whether you like it or not. 
+Luckily, such a transaction does not belong in the blockchain, because it is missing a valid digital signature.
+
+By adding a digital signature, you can prove that you know the private key that corresponds to the address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfN.
+

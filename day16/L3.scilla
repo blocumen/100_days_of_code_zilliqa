@@ -1,0 +1,7 @@
+
+scilla_version 0
+
+contract SocialMediaPayment (owner: ByStr20)
+(* Start typing from the line below. *)
+
+field username : String = "Alice"

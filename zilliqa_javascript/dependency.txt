@@ -1,0 +1,5 @@
+npm i @zilliqa-js/util
+
+npm i @zilliqa-js/zilliqa
+
+npm i tslib

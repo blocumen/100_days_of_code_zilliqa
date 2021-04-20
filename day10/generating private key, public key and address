@@ -1,0 +1,19 @@
+When you create a bitcoin address for yourself (or an address/account for any other cryptocurrency), 
+you generate the private key first. 
+From the private key, you compute the corresponding public key and 
+by hashing that public key you get your address.
+
+
+It is computationally infeasible to derive the private key corresponding to a given public key.
+
+It is possible to prove that one knows the private key corresponding to a public key without revealing any useful information about the private key in the process. 
+Furthermore, such a proof can be constructed in a way that it requires a specific message to be verified. 
+This way, the proof forms a digital signature for that message.
+
+refer test_ecdsa.js
+
+Private and public keys
+
+So, because someone can’t figure out x given X, where X=x•P, 
+it might be convenient to make x your private key and X your public key. Your private key would then be a random 256-bit integer and 
+your public key would be the x- and y- coordinates of a point on an elliptic curve. 

@@ -1,0 +1,12 @@
+Two transitions / functions - 
+* setHello()
+* getHello()
+
+setHello() allows the contract owner to modify the mutable variable 'welcome_msg'
+getHello() is an interface that welcomes any one with welcome message.
+
+owner is an immutable variable.
+
+library has only global variable and functions.
+code present inside library will never change state of the blockchain
+

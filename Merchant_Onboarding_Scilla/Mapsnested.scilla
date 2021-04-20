@@ -1,0 +1,63 @@
+scilla_version 0
+
+library Blocumen
+
+let already_exists = Int32 1
+
+contract MerchantOnboard (retail : ByStr20 )
+
+field merchant: Map ByStr20 (Map Uint128 String)
+  = Emp ByStr20 (Map Uint128 String)
+field verifier: Map Uint128 String 
+  = Emp Uint128 String 
+
+transition addmerchant(m_id: Uint128, m_name: String)
+accept;
+check <- exists merchant[_sender][m_id];
+match check with
+  | True =>
+        eventexists = {_eventname : "user exists"; code: already_exists};
+        event eventexists
+  | False =>  
+    validate = builtin eq _sender retail;
+    match validate with
+    | True =>
+      merchant[_sender][m_id] := m_name;
+      result <- merchant[_sender][m_id];
+      eventtrue = { _eventname : "merchant event" ; merchantName: result ; merchantID: m_id; added_by: _sender};
+      event eventtrue
+    | False =>  
+        evenfalse = { _eventname : "false" };
+      event evenfalse
+    end 
+
+  end
+end
+
+transition getmerchantname(m_id: Uint128)
+name <- merchant[_sender][m_id];
+eventmerchantname = { _eventname: "" ; merchantName : name};
+event eventmerchantname
+end
+
+transition deletemerchant(m_id: Uint128)
+validate = builtin eq _sender retail;
+match validate with
+  | True =>
+    delete merchant[_sender][m_id]
+    
+  | False =>
+    eventnotpermitted = {_eventname: "oh sorry you are not permitted"};
+    event eventnotpermitted
+    end
+
+end
+
+(*testing functional map*)
+
+transition listmerchant()
+merchant_copy <- merchant;
+list = builtin to_list merchant_copy;
+eventlistmap = {_eventname: "list map"};
+event eventlistmap
+end
