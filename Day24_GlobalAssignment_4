@@ -1,0 +1,43 @@
+
+scilla_version 0
+
+library Miracle
+let not_oracle_code = Int32 0
+let oracle_code = Int32 1
+
+
+contract Miracle (oracle :ByStr20)
+
+field currentQuestionId : Uint128 = Uint128 0
+field finalOutput : Map Uint128 String  = Emp Uint128 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+transition addQuestion (qDescription : String)
+
+end
+
+transition resultDeclaration (qID : Uint128 , qResponse : String)
+is_sender_oracle = builtin eq _sender oracle;
+
+match is_sender_oracle with
+  | False =>
+    e = {_eventname : "resultDeclaration" ; code: not_oracle_code};
+    event e
+    | True =>
+      finalOutput[qID] :=qResponse;
+      e = {_eventname : "resultDeclaration" ; code: oracle_code};
+      event e
+      end
+      
+end
+
+transition userAnswer (qID: Uint128 , uResponse : String)
+
+userVsAnswer[_sender] := uResponse;
+
+accept
+end
+
+transition redeem (qID : Uint128)
+end
+
