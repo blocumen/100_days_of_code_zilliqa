@@ -1,0 +1,27 @@
+
+org_ans = builtin get userVsAnswer _sender;
+match usr_ans with
+| Some u =>
+  (* _sender was associated with v in m *)
+    usr_anss = u
+    
+| None =>
+  (* _sender was not associated with a value in m *)
+  e= {_eventname : "QuestionNot"; caller: _sender; code: no_ans};
+  event e
+    
+end
+
+ is_right = builtin eq org_anss usr_ans;
+           match is_right with
+            | True =>
+              msg = {_tag: ""; _recipient : _sender; _amount : rewards; code : right_ans };
+              msgs =one_msg msg;
+              send msgs ;
+              e= {_eventname : "Right_answer"; caller: _sender; code: right_ans};
+              event e
+              
+            | False =>
+            
+            end
+        

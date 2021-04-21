@@ -1,0 +1,32 @@
+scilla_version 0
+
+library Test
+let no_zero_divide = Int32 0
+let zero = Int32 0
+let divided_success = Int32 0
+
+contract Calculation(owner: ByStr20)
+
+field divided: Int32 = Int32 0
+
+
+transition divd(var1: Int32, var2: Int32)
+accept;
+
+is_zero = builtin eq var2 zero;
+match is_zero with
+    | True =>
+    e = { _exception : "NotDividedByZero"; code: no_zero_divide };
+    throw e
+    
+    
+    | False =>
+    da = builtin div var1 var2;
+    divided := da;
+
+    e = {_eventname:"SuccessfullyDivided"; code: divided_success};
+    event e
+ end
+
+
+end

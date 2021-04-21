@@ -1,0 +1,43 @@
+scilla_version 0
+
+
+library Stringop
+
+contract Stringop(owner: ByStr20)
+
+(* Mutable fields declaration *)
+
+field output : String = ""
+field output2 : String = ""
+field booloutput : Bool = False
+field lengthoutput : Uint32 = Uint32 0
+
+(* Transitions *)
+
+transition equate (str1 : String, str2 : String)
+  accept;
+  result = builtin eq str1 str2;
+  booloutput := result
+
+end
+
+transition concatination (str1 : String, str2 : String)
+  accept;
+  result = builtin concat str1 str2;
+  output := result
+
+end
+
+transition findLength (str1 : String)
+  accept;
+  result = builtin strlen str1;
+  lengthoutput := result
+
+end
+(***********ide is not recognizing strrev as builtin ************)
+transition findreverse (str1 : String)
+  accept;
+  result = builtin strrev str1;
+  output2 := result
+
+end
