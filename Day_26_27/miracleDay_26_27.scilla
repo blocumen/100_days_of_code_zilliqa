@@ -1,6 +1,5 @@
 scilla_version 0
 
-import BoolUtils
 
 library MyContractLib
 
@@ -15,7 +14,7 @@ fun (msg : Message) =>
 let nil_msg = Nil {Message} in
   Cons {Message} msg nil_msg
 
-let reward = Uint128 10000000000000 (reward 10 Zil)
+let reward = Uint128 10000000000000 (*reward 10 Zil*)
 let one = Int32 1
 let not_an_oracle = Int32 1
 let wrong_ans = Int32 2
@@ -61,9 +60,9 @@ end
 
 transition userAnswer (qid: Int32, ans: String)
 
-  anss = ans;
+  
   accept;
-  userVsAnswer[_sender] := anss
+  userVsAnswer[_sender] := ans
 
 end
 
