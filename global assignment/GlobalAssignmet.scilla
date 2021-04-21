@@ -4,7 +4,7 @@
 scilla_version 0
 
 library Miracle
-let reward = Uint128 0
+let reward = Uint128 1000
 let one = Uint32 1
 type Question= 
   | Question of String ByStr20
