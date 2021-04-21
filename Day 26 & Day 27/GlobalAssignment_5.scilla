@@ -1,0 +1,83 @@
+scilla_version 0
+
+library MiracleLib
+let not_owner_code  = Uint32 1
+
+let one_msg =
+fun (msg : Message) =>
+let nil_msg = Nil {Message} in
+  Cons {Message} msg nil_msg
+type Question =
+  | Question of String ByStr20
+  
+let zil = Uint128 1000000000000000
+
+contract Miracle(oracle : ByStr20)
+
+field currentQuestionId : Uint32 = Uint32 0
+
+field finalOutput : Map Uint32 String = Emp Uint32 String
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+field questionMapping : Map Uint32 Question = Emp Uint32 Question
+
+transition addQuestion ( question : String)
+increment = Uint32 1;
+currentnumber <- currentQuestionId;
+incrementbyone = builtin add currentnumber increment;
+currentQuestionId := incrementbyone;
+
+desc = Question question _sender;
+questionMapping[incrementbyone] := desc
+
+end
+
+transition resultDeclartion (responseType : String,questionId : Uint32)
+is_owner = builtin eq oracle _sender;
+    match is_owner with
+    | False =>
+        e = {_eventname : "NotaMatch"; code : not_owner_code};
+        event e
+    | True =>
+        finalOutput[questionId] := responseType;
+        e = {_eventname : "Response"; outPut : responseType};
+        event e
+    end
+
+end
+
+transition userAnswer (userResponse : String,questionId : Uint32)
+accept;
+answer = userResponse;
+userVsAnswer[_sender]:= answer
+
+end
+/*
+need to more focus on this
+*/
+transition redeem (questionId : Uint32)
+ans <- finalOutput[questionId] ;
+usrAns <- userVsAnswer[_sender] ;
+     match ans with
+        | Some a => 
+           match usrAns with
+              |Some b => 
+                 checkCorrect =  builtin eq a b ;
+                    match checkCorrect with
+                      |True =>
+                         msg = {_tag: ""; _recipient : _sender; _amount : zil; message : "Zil Transfered" };
+                                msgs =one_msg msg;
+                                send msgs 
+                      |False =>
+                        e  = {_eventname : "Incorrect Answer"; message: "Incorrect answer ! "};
+                        event e
+                    end
+              |None =>
+            end
+        | None=>
+      f  = {_eventname : "Invalid Question ID"; message: "Question ID does not exists ! "};
+          event f
+      end  
+  
+
+end
+    
