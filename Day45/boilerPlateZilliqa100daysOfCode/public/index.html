@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Zilliqa dapps</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+    
+
+      <div class="row justify-content-md-center pt-5">
+        <ul class="list-group list-group-flush display-4">
+         
+          <li class="list-group-item"><a style="background-color: green;color:white; border-style: solid; border-width: 1;border-color: black;" onclick="test()">Click me to Test</a></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    function test(){
+      if (window.zilPay){
+        console.log("ZilPay Wallet Detected");
+        if(window.zilPay.wallet.connect()){
+          console.log("Connected successfully");
+          console.log("DefaultAddress is "+window.zilPay.wallet.defaultAccount.bech32);
+          
+          window.zilPay.wallet.observableAccount().subscribe(function (account) {
+            console.log("Account changed to " + account.bech32);
+          });
+
+          window.zilPay.wallet.observableNetwork().subscribe(function (net) {
+            console.log("Network changed to " + net);
+          });
+
+          //getting marvel mvl constract zil15qu3rqqsu6tpszp69c7eqzrps2pyccufds40uh
+          MarvelContract = window.zilPay.contracts.at("zil15qu3rqqsu6tpszp69c7eqzrps2pyccufds40uh");
+
+          MarvelContract.getInit().then(function(Inits){
+            console.log("Marvel Contract fetched successfully.");
+            console.log("Marvel Contract Inits are:");
+            for (i in Inits) {
+              console.log("-> " + Inits[i].vname + "-" + Inits[i].value);
+            }
+
+            MarvelContract.getState().then(function(StateData){
+              console.log("Marvel Contract state fetched successfully.");
+              console.log("Minter List is as follows:");
+              for(i in StateData.minters){
+                console.log("-> " + i);
+              }
+            });
+
+          });
+
+
+        }else{
+          console.log("Failed to connect. Try again later.");
+        }
+      }else{
+        console.log("Zilpay Not Detected.");
+      }
+      alert("Check console for logs");
+    }
+
+  </script>
+</html>
