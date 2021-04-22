@@ -85,6 +85,8 @@
             console.log("Account changed to " + account.bech32);
             var txt = "Active Account: " + account.bech32;
             document.getElementById("CurrentUsedAccount").innerHTML = txt;
+
+            //Display result declare section only to oracle address
             if(oracleAddr == account.base16){
             	document.getElementById("forOracle").style.display = "";
             }else{
@@ -92,18 +94,22 @@
             }
           });
 
+          //Track network change
           Zilliqa.wallet.observableNetwork().subscribe(function (net) {
             console.log("Network changed to " + net);
           });
 
           ContractAddress = "zil1umn3vdehln68stmwxjxh2005jjwuk6ukueyhcz";
           oracleAddr = "0x2fCEC8dDeEBaB3cad24065c1184b3e0DfCa46e0E";
-          //getting Miracle  contract at zil1umn3vdehln68stmwxjxh2005jjwuk6ukueyhcz
+
+          //Fetch Miracle contract at zil1umn3vdehln68stmwxjxh2005jjwuk6ukueyhcz
           MiracleContract = Zilliqa.contracts.at(ContractAddress);
 
           MiracleContract.getInit().then(function(Inits){
             console.log("Miracle Contract fetched successfully.");
-            //console.log("Miracle Contract Inits are:");
+            console.log("Miracle Contract Inits fetched successfully.");
+
+            //Dynamically build table to display contract inits
             dat = "<table width='100%' border=1><tr><td colspan='2'><b>Contract Init Data</b></td></tr>";
             for (i in Inits) {
               dat += "<tr><td>" + Inits[i].vname + "</td><td>" + Inits[i].value + "</td>";
@@ -114,7 +120,9 @@
 
             MiracleContract.getState().then(function(StateData){
               console.log("Miracle Contract state fetched successfully.");
-              //console.log("Questions List is as follows:");
+              console.log("Questions List fetch successfully.");
+
+              //Dynamically build table to display questions list and contrals to trigger transition
               dat = "<table width='100%' border=1><tr><td colspan='3'><b>Questions List and Ids</b></td></tr>";
               for(i in StateData.questionMapping){
                 dat += "<tr><td>" + i + "</td><td>" + StateData.questionMapping[i].arguments[0] + "</td><td align='right'><button onclick='userAnswer(" + i +")'>Answer qId" + i + "</button></td>";
@@ -126,7 +134,6 @@
 
           });
 
-
         }else{
           console.log("Failed to connect. Try again later.");
         }
@@ -135,6 +142,7 @@
       }
     }
 
+    //Call to addQuestion transition
     function addQuestion(){
       const gasPrice = Zilliqa.utils.units.toQa('1000', Zilliqa.utils.units.Units.Li);
       var newq = document.getElementById("NewQuestionDesc").value;
@@ -150,6 +158,7 @@
         });
     }
 
+    //Call to userAnswer transition
     function userAnswer(qId){
     	console.log(qId);
     	var userResp = prompt("Pl enter answer for QId "+qId+":");
@@ -172,6 +181,7 @@
     	}
     }
 
+    //Call to resultDeclartion transition
     function resultDeclartion(qId){
     	var userResp = prompt("Pl enter answer for QId "+qId+":");
     	if(userResp){
@@ -193,6 +203,7 @@
     	}
     }
 
+    //Call to redeem transition
     function redeem(){
     	var qId = prompt("Pl enter QId to redeem:");
     	if(qId){
