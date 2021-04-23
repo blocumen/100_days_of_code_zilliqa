@@ -1,0 +1,32 @@
+(*Write transitions for below operations:
+	1. Accept two strings and equate it.
+	2. Accept two strings and concat it.
+	3. Accept a string and find the length of it.
+	4. Accept a string and reverse it.
+Each of the operations result needs to be stored in mutable variable.
+*)
+scilla_version 0
+
+contract stringOperations
+()
+
+field result: Option Bool = None {Bool}
+field concatString: String=""
+field length: Uint32 = Uint32 0
+
+transition isEqual(s1 String, s2 String)
+  result = builtin eq s1 s2
+end
+
+transition concatenate(s1 String, s2 String)
+  concatString = builtin concat s1 s2
+end
+
+
+transition findLength(s String)
+  length = builtin strlen s
+end
+
+transition strReverse(s string)
+  reverse = builtin strrev s
+end
