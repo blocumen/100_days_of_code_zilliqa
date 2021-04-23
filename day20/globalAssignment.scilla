@@ -1,0 +1,33 @@
+(* day20 assignment - global assignment part 1 & part 2 *)
+
+(*  Scilla version  *)
+scilla_version 0
+
+(*  Associated library *)
+library Miracle
+
+(* The contract definition *)
+contract Miracle
+(oracle: ByStr20)
+
+(* Mutable parameter *)
+field currentQuestionId : Uint32 = None {Uint32}
+
+
+(* Transactions *)
+transition addQuestion(question_description : String)
+
+end
+
+transition resultDeclation(question_id : Uint32, response : String)
+
+end
+
+transition userAnswer(question_id : Uint32, response : String)
+
+end
+
+transition redeem(question_id)
+
+end
+
