@@ -1,0 +1,40 @@
+scilla_version 0
+
+contract Assignment 
+()
+
+field equal : Bool = True
+field length : Uint32 = Uint32  0
+field concate : String = ""
+
+(***Compare Two String***)
+
+
+transition equal (whoWaswinnerOfCohort2: String , whoWillWinCohort3: String)
+
+  result = builtin eq whoWaswinnerOfCohort2 whoWillWinCohort3;
+  equal := result
+    
+end
+
+(***Concatenate Two String***)
+
+transition concat (whoWaswinnerOfCohort2: String , whoWillWinCohort3: String)
+accept;
+  result = builtin concat whoWaswinnerOfCohort2 whoWillWinCohort3;
+  concate := result
+end
+
+(***Length Two String***)
+transition calcLength (winnerLength: String)
+
+  result = builtin strlen winnerLength;
+  length := result
+end
+
+(***Length Two String***)
+transition reverse (winnerRev: String)
+
+  (***result = builtin strrev winnerRev**)
+  
+end

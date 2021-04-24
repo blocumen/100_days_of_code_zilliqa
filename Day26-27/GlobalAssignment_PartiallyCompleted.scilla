@@ -1,0 +1,97 @@
+(********* Global Assignment *************)
+
+
+scilla_version 0
+
+library Miracle
+let not_owner_code  = Uint32 1
+let accepted_code = Uint32 0
+
+let one_msg =
+fun (msg : Message) =>
+let nil_msg = Nil {Message} in
+  Cons {Message} msg nil_msg
+
+type Question =
+  | Question of String ByStr20
+
+let zil = Uint128 1000000000000000
+
+contract Miracle
+(oracle: ByStr20)
+
+field currentquestionId : Int32 = Int32 0
+
+field chkout: String = ""
+field finalOutput : Map Int32 String = Emp Int32 String
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+
+field questionMapping : Map Int32 Question = Emp Int32 Question
+
+(*Doing C part *)
+
+transition addQuestion (description : String)
+  
+(*Incementing the CurrentQuestionID Mutable Variable*)  
+  incr = Int32 1;
+  currentnum <- currentquestionId;
+  incrBy1 = builtin add currentnum incr;
+  currentquestionId := incrBy1;
+  
+(**Storing the Question Information***)
+  desc = Question description _sender;
+  questionMapping[incrBy1] := desc
+  
+end
+
+(******(GLobal Assignment Part-4, Season 3)*****)
+transition resultDeclaration (questionid: Int32, res: String)
+is_owner = builtin eq oracle _sender;
+match is_owner with
+  | False =>
+    e = {_eventname : "NotaMatch"; code : not_owner_code};
+    event e
+  | True =>
+    finalOutput[questionid] := res;
+    e = {_eventname : "Response"; outPut : res};
+    event e
+  end
+end
+(******(GLobal Assignment Part-4, Season 3)*****)
+
+transition userAnswer (questionid: Int32, usrRes: String)
+accept;
+answer = usrRes;
+userVsAnswer[_sender]:= answer
+
+
+end
+
+transition redeem (questionid: Int32)
+
+ans <- finalOutput[questionid] ;
+usrAns <- userVsAnswer[_sender] ;
+     match ans with
+        | Some a => 
+           match usrAns with
+              |Some b => 
+                 checkCorrect =  builtin eq a b ;
+                    match checkCorrect with
+                      |True =>
+                         msg = {_tag: ""; _recipient : _sender; _amount : zil; message : "Zil Transfered" };
+                                msgs =one_msg msg;
+                                send msgs 
+                      |False =>
+                        e  = {_eventname : "Incorrect Answer"; message: "Incorrect answer ! "};
+                        event e
+                    end
+              |None =>
+            end
+        | None=>
+      f  = {_eventname : "Invalid Question ID"; message: "Question ID does not exists ! "};
+          event f
+      end  
+  
+
+
+end
