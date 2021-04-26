@@ -1,23 +1,83 @@
-scilla version 0
+scilla_version 0
+import BoolUtils
 
 library Miracle
+(*It contract the question description and the owner of the question*)
+type Question =
+  | Question of String ByStr20
+  
+let x = Uint128 1
 
+let one_msg =
+  fun (msg : Message) =>
+  let nil_msg = Nil {Message} in
+    Cons {Message} msg nil_msg
+  
 contract Miracle
 (oracle : ByStr20)
-field currentQuestionId : Uint128 = Uint128 0;
 
-transition addQuestion (questionDesc : String){
-  
-}
+field currentQuestionId : Uint128 = Uint128 0
+field finalOutput: Map Uint128 String = Emp Uint128 String
+field userVsAnswer: Map ByStr20 String = Emp ByStr20 String
+field questionMapping: Map Uint128 Question = Emp Uint128 Question
 
-transition resultDeclaration (questionId : Uint128 , response : String){
-  
-}
+transition userAnswer(questionId : Uint128 , userResponse : String)
+  accept;
+  userVsAnswer[_sender]:= userResponse
+end
 
-transition userAnswer(questionId : Uint128 , userResponse : String){
-  
-}
+transition addQuestion (questionDesc : String)
+  qId <- currentQuestionId;
+  counter = builtin add qId x;
+  currentQuestionId := counter;
+  qstnDesc = Question questionDesc _sender;
+  questionMapping[qId] := qstnDesc
+end
 
-transition redeem(questionId : Uint128){
-  
-}
+transition resultDeclaration (questionId : Uint128 , response : String)
+  isOwner = builtin eq oracle _sender;
+  match isOwner with
+  	| False =>
+  		e = {_eventname : "You are not owner"; code : isOwner};
+  		event e
+  	| True =>
+  		finalOutput[questionId] := response;
+  		e = {_eventname : "Result Declared"; outPut : response};
+  		event e
+  end
+end
+
+transition redeem(questionId : Uint128)
+  fValue <- finalOutput[questionId];
+  uValue <- userVsAnswer[_sender];
+  match fValue with
+    | Some f =>
+      finalValue = f;
+      e = {_eventname : "Final Value"; outPut : finalValue};
+  		event e;
+  		  match uValue with
+          | Some v =>
+            userValue = v;
+            e = {_eventname : "User Value"; outPut : userValue};
+  		      event e;
+  		      isSame = builtin eq finalValue userValue;
+              match isSame with
+              	| False =>
+              		e = {_eventname : "Answer not Matched"; code : isSame};
+              		event e
+              	| True =>
+              		msg = {_tag : "You got rewarded"; _recipient : _sender; _amount : Uint128 1};
+                  msgs = one_msg msg;
+                  send msgs;
+              		e = {_eventname : "Answer Matched"; outPut : isSame};
+              		event e
+              end
+          | None =>
+            e = {_eventname : "No Value"; message : "None"};
+  		      event e
+            end
+    | None =>
+      e = {_eventname : "No Value"; message : "None"};
+  		event e
+  end
+end
