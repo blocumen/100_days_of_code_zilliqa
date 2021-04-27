@@ -260,10 +260,8 @@
 
     	          	MyNFTCards += "<div class='col-ld-4 col-md-6 col-sd-12'><div class='NFTCard'><div class='NFTId'>TokenID " + i + "</div><div class='NFTImg'>" + img + "</div><div class='NFTOwner'>Owner: " + StateData.token_owners[i] + "</div></div></div>";	
             	}
-
-            	document.getElementById("NFTList").innerHTML = NFTCards;
-
               }
+	      document.getElementById("NFTList").innerHTML = NFTCards;
             });
 
         }else{
@@ -298,7 +296,6 @@
 	            document.getElementById("MyNFTList").innerHTML = MyNFTCards;
 			}
 		}
-
 	}
 
   </script>
