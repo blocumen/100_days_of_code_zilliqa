@@ -9,7 +9,7 @@ contract Miracle
 (oracle: ByStr20)
 
 (* Mutable parameter *)
-field currentQuestionId : Uint32 = None {Uint32}
+field currentQuestionId : Uint32 = Uint32 0
 
 
 (* Transactions *)
@@ -25,7 +25,7 @@ transition userAnswer(question_id : Uint32, response : String)
 
 end
 
-transition redeem(question_id)
+transition redeem(question_id : Uint32)
 
 end
 
