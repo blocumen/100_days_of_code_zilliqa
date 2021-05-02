@@ -1,0 +1,34 @@
+(*  Scilla version  *)
+scilla_version 0
+
+(*  Associated library *)
+library Miracle
+
+(* The contract definition *)
+contract Miracle
+(oracle: ByStr20)
+
+(* Mutable parameter *)
+field currentQuestionId : Uint32 = Uint32 0
+field finalOutput : Map Uint32 String = Emp Uint32 String
+field userVsAnswer : Map ByStr20 String = Emp ByStr20 String
+
+(* Transactions *)
+transition addQuestion(question_description : String)
+
+end
+
+transition resultDeclation(question_id : Uint32, response : String)
+
+end
+
+transition userAnswer(question_id : Uint32, response : String)
+  accept;
+  userVsAnswer[_sender]:=response (*in-place insert operation*)
+end
+
+transition redeem(question_id: Uint32)
+
+end
+
+
