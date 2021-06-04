@@ -1,0 +1,19 @@
+scilla_version 0
+
+library Receiver
+type T =
+  |C1 of Uint32
+  |C2 of Bool
+
+contract Receiver()
+
+transition rcvr(a : T)
+  match a with
+    |C1 v =>
+      m = {_eventname:"rcvr";response:"Uint32 received"};
+      event m
+    |C2 u =>
+      m = {_eventname:"rcvr";response:"Bool received"};
+      event m
+  end
+end

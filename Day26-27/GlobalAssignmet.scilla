@@ -1,0 +1,77 @@
+(* Updated(upto part-4) on 31th March 2021 *)
+(* 0xe6e7163737fcf4782f6e348d753df4949dcb6b96 *)
+
+scilla_version 0
+
+library Miracle
+let responseStrDummyForNow1 = "response result1"
+let responseStrDummyForNow2 = "response result2"
+let reward = Uint128 0
+let one = Uint32 1
+type Question= 
+  | Question of String ByStr20
+
+contract Miracle (oracle : ByStr20)
+field currentQuestionId : Uint32 = Uint32 0
+field finalOutput : Map Uint32 String = Emp Uint32 String
+field userVsAnswer : Map ByStr20 (Map Uint32 String) = Emp ByStr20 (Map Uint32 String)
+field questionMapping : Map Uint32 Question = Emp Uint32 Question
+
+transition addQuestion(qDesc : String)
+  x <- currentQuestionId;
+  cQuestionId = builtin add x one;
+  currentQuestionId := cQuestionId;
+  q = Question qDesc _sender;
+  questionMapping[cQuestionId] := q
+end
+
+transition resultDeclartion(qId : Uint32, userResp : String)
+  r = builtin eq oracle _sender;
+  match r with
+    |True =>
+      finalOutput[qId] := userResp;
+      e = {_eventname: "resultDec"; response: "Successfully added."};
+      event e
+    |False =>
+      e = {_eventname: "resultDec"; response: "Not the oracle."};
+      event e
+  end
+end
+
+transition userAnswer(qId : Uint32, userResp : String)
+  accept;
+  userVsAnswer[_sender][qId] := userResp;
+  r = responseStrDummyForNow2;
+  e = {_eventname: "userAnswer"; response: r};
+  event e
+end
+
+transition redeem(qId : Uint32)
+  ans <- finalOutput[qId];
+  subAns <- userVsAnswer[_sender][qId];
+  match ans with
+    |None=>
+      m = {_eventname:"redeem";resp:"Answer not available!!"};
+      event m
+    |Some v =>
+      match subAns with
+        |None =>
+          m = {_eventname:"redeem"; resp:"No ans submited by u for qid"};
+          event m
+        |Some w =>
+          isEql = builtin eq v w;
+          match isEql with
+            |True=>
+              msg = {_tag:"";
+                    _recipient: _sender;
+                    _amount: reward};
+              no_msg = Nil {Message};
+              msgs = Cons {Message} msg no_msg;
+              send msgs
+            |False=>
+              m = {_eventname:"redeem"; resp:"Incorrect ans!!!"};
+              event m
+          end
+      end
+  end
+end

@@ -1,0 +1,35 @@
+(* Testnet Address 0x8e2252114ee58c4d0bff886e961156a686ce3b90 *)
+
+scilla_version 0
+
+contract StringOps()
+
+transition areEq(a:String, b:String)
+  r = builtin eq a b;
+  match r with
+    |True=>
+      m = {_eventname:"areEq";resp:"Strings are Equal"};
+      event m
+    |False =>
+      m = {_eventname:"areEq"; resp:"Strings are Not Equal"};
+      event m
+  end
+end
+
+transition conct(a : String, b : String)
+  r = builtin concat a b;
+  m = {_eventname: "conct"; resp:r};
+  event m
+end
+
+transition stlen(a:String)
+  r = builtin strlen a;
+  m = {_eventname:"strlen";resp:r};
+  event m
+end
+
+transition toStr(a:ByStr20)
+  r = builtin to_string a;
+  m = {_eventname:"toStr"; resp:r};
+  event m
+end

@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Zilliqa dapps</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style type="text/css">
+    	button {
+			background-color: orange; /* Green */
+			border: 1px solid grey;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			font-size: 16px;
+			cursor: pointer;
+		}    	
+
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+
+		th, td {
+		  padding: 8px;
+		}
+
+		tr:nth-child(even){background-color: #f2f2f2}
+
+		th {
+		  background-color: #4CAF50;
+		  color: white;
+		}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    
+      <div style="align-content: center;" class="row justify-content-md-center pt-5">
+          <button onclick="test()">Load Contract</button>
+      </div>
+      <div class="row justify-content-md-center pt-5" id="ContractInits">
+      </div>
+      <div class="row justify-content-md-center pt-5" id="QuestionMapping">
+      </div>
+    <div class="row justify-content-md-center pt-5" id="QuestionMapping">
+    	<table style="visibility: hidden;" id="forOracle" border="1">
+    		<tr>
+    			<td><b>Result Declare</b></td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<input type="text" id="ResDecQid" placeholder="QId" />
+    				<input type="text" id="ResDecAns" placeholder="Answer" />
+    				<button onclick="resultDeclartion()">Result Declare</button>
+    			</td>
+    		</tr>
+    	</table>
+    </div>      
+    </div>
+
+    <div id="CurrentUsedAccount" style="color:blue;display: block;position: absolute;right: 5px;top:5px;border-style: solid;border-width: 1px;">
+    </div>
+
+  </body>
+  <script type="text/javascript">
+    var ContractAddress;
+    var Zilliqa;
+    var MiracleContract;
+    var oracleAddr;
+
+    function test(){
+      Zilliqa = window.zilPay;
+      if (Zilliqa){
+        console.log("ZilPay Wallet Detected");
+        if(Zilliqa.wallet.connect()){
+          console.log("Connected successfully");
+          console.log("DefaultAddress is " + Zilliqa.wallet.defaultAccount.bech32);
+          
+          Zilliqa.wallet.observableAccount().subscribe(function (account) {
+            console.log("Account changed to " + account.bech32);
+            var txt = "Active Account: " + account.bech32;
+            document.getElementById("CurrentUsedAccount").innerHTML = txt;
+
+            //Display result declare section only to oracle address
+            if(oracleAddr == account.base16){
+            	document.getElementById("forOracle").style.display = "";
+            }else{
+            	document.getElementById("forOracle").style.visibility = "hidden";
+            }
+          });
+
+          //Track network change
+          Zilliqa.wallet.observableNetwork().subscribe(function (net) {
+            console.log("Network changed to " + net);
+          });
+
+          ContractAddress = "zil1umn3vdehln68stmwxjxh2005jjwuk6ukueyhcz";
+          oracleAddr = "0x2fCEC8dDeEBaB3cad24065c1184b3e0DfCa46e0E";
+
+          //Fetch Miracle contract at zil1umn3vdehln68stmwxjxh2005jjwuk6ukueyhcz
+          MiracleContract = Zilliqa.contracts.at(ContractAddress);
+
+          MiracleContract.getInit().then(function(Inits){
+            console.log("Miracle Contract fetched successfully.");
+            console.log("Miracle Contract Inits fetched successfully.");
+
+            //Dynamically build table to display contract inits
+            dat = "<table width='100%' border=1><tr><td colspan='2'><b>Contract Init Data</b></td></tr>";
+            for (i in Inits) {
+              dat += "<tr><td>" + Inits[i].vname + "</td><td>" + Inits[i].value + "</td>";
+            }
+            dat += "</table>"
+
+            document.getElementById("ContractInits").innerHTML = dat;
+
+            MiracleContract.getState().then(function(StateData){
+              console.log("Miracle Contract state fetched successfully.");
+              console.log("Questions List fetch successfully.");
+
+              //Dynamically build table to display questions list and contrals to trigger transition
+              dat = "<table width='100%' border=1><tr><td colspan='3'><b>Questions List and Ids</b></td></tr>";
+              for(i in StateData.questionMapping){
+                dat += "<tr><td>" + i + "</td><td>" + StateData.questionMapping[i].arguments[0] + "</td><td align='right'><button onclick='userAnswer(" + i +")'>Answer qId" + i + "</button></td>";
+              }
+              dat += "<tr><td><button onclick='redeem()'>Redeem</button></td><td align='right' colspan='2'><button onclick='addQuestion()'>Add Question</button><input id='NewQuestionDesc' placeholder='New Question' type='text' /></td></tr></table>";
+
+              document.getElementById("QuestionMapping").innerHTML = dat;
+            });
+
+          });
+
+        }else{
+          console.log("Failed to connect. Try again later.");
+        }
+      }else{
+        console.log("Zilpay Not Detected.");
+      }
+    }
+
+    //Call to addQuestion transition
+    function addQuestion(){
+      const gasPrice = Zilliqa.utils.units.toQa('1000', Zilliqa.utils.units.Units.Li);
+      var newq = document.getElementById("NewQuestionDesc").value;
+
+      MiracleContract.call('addQuestion',[{
+        vname: "qDesc",
+        type: "String",
+        value: newq
+      }],
+        {
+          gasPrice: gasPrice,
+          gasLimit: Zilliqa.utils.Long.fromNumber(9000)
+        });
+    }
+
+    //Call to userAnswer transition
+    function userAnswer(qId){
+    	console.log(qId);
+    	var userResp = prompt("Pl enter answer for QId "+qId+":");
+    	if(userResp){
+			const gasPrice = Zilliqa.utils.units.toQa('1000', Zilliqa.utils.units.Units.Li);
+
+			MiracleContract.call('userAnswer',[{
+				vname: "qId",
+				type: "Uint32",
+				value: ""+qId
+			},{
+				vname: "userResp",
+				type: "String",
+				value: userResp
+			}],
+			{
+			  gasPrice: gasPrice,
+			  gasLimit: Zilliqa.utils.Long.fromNumber(25000)
+			});
+    	}
+    }
+
+    //Call to resultDeclartion transition
+    function resultDeclartion(qId){
+    	var userResp = prompt("Pl enter answer for QId "+qId+":");
+    	if(userResp){
+			const gasPrice = Zilliqa.utils.units.toQa('1000', Zilliqa.utils.units.Units.Li);
+
+			MiracleContract.call('resultDeclartion',[{
+				vname: "qId",
+				type: "Uint32",
+				value: ""+qId
+			},{
+				vname: "userResp",
+				type: "String",
+				value: userResp
+			}],
+			{
+			  gasPrice: gasPrice,
+			  gasLimit: Zilliqa.utils.Long.fromNumber(25000)
+			});
+    	}
+    }
+
+    //Call to redeem transition
+    function redeem(){
+    	var qId = prompt("Pl enter QId to redeem:");
+    	if(qId){
+			const gasPrice = Zilliqa.utils.units.toQa('1000', Zilliqa.utils.units.Units.Li);
+
+			MiracleContract.call('redeem',[{
+				vname: "qId",
+				type: "Uint32",
+				value: ""+qId
+			}],
+			{
+			  gasPrice: gasPrice,
+			  gasLimit: Zilliqa.utils.Long.fromNumber(25000)
+			});
+    	}
+    }
+
+  </script>
+</html>

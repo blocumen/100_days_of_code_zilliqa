@@ -1,0 +1,1207 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Token Generator</title>
+		<style type="text/css">
+
+		* {
+			box-sizing: border-box;
+			padding: 0px;
+			margin: 0px;
+		}
+
+		.container {
+			position: relative;
+			width: 100%;
+			max-width: 1500px;
+			margin: auto;
+		}
+
+		[class*="col-"] {
+			float: left;
+			min-height: 1px;
+		}
+
+		[class*="col-"] {
+			width: 100%;
+		}
+
+		.row:after , .row:before {
+			content: '';
+			display: table;
+		}
+
+		.row:after {
+			clear:both;
+		}
+
+
+		@media screen and (max-width: 799px) and (min-width: 500px) {
+
+			.col-md-0 { width: 0%; }
+			.col-md-1 { width: 8.33%; }
+			.col-md-2 { width: 16.66%; }
+			.col-md-3 { width: 24.99%; }
+			.col-md-4 { width: 33.33%; }
+			.col-md-5 { width: 41.66%; }
+			.col-md-6 { width: 50%; }
+			.col-md-7 { width: 58.33%; }
+			.col-md-8 { width: 66.66%; }
+			.col-md-9 { width: 74.99%; }
+			.col-md-10 { width: 83.33%; }
+			.col-md-11 { width: 91.66%; }
+			.col-md-12 { width: 100%; }
+		}
+
+		@media screen and (max-width: 499px) {
+
+			.col-sd-0 { width: 0%; }
+			.col-sd-1 { width: 8.33%; }
+			.col-sd-2 { width: 16.66%; }
+			.col-sd-3 { width: 24.99%; }
+			.col-sd-4 { width: 33.33%; }
+			.col-sd-5 { width: 41.66%; }
+			.col-sd-6 { width: 50%; }
+			.col-sd-7 { width: 58.33%; }
+			.col-sd-8 { width: 66.66%; }
+			.col-sd-9 { width: 74.99%; }
+			.col-sd-10 { width: 83.33%; }
+			.col-sd-11 { width: 91.66%; }
+			.col-sd-12 { width: 100%; }
+
+		}
+
+		@media screen and (min-width: 800px) {
+
+			.col-ld-0 { width: 0%; }
+			.col-ld-1 { width: 8.33%; }
+			.col-ld-2 { width: 16.66%; }
+			.col-ld-3 { width: 24.99%; }
+			.col-ld-4 { width: 33.33%; }
+			.col-ld-5 { width: 41.66%; }
+			.col-ld-6 { width: 50%; }
+			.col-ld-7 { width: 58.33%; }
+			.col-ld-8 { width: 66.66%; }
+			.col-ld-9 { width: 74.99%; }
+			.col-ld-10 { width: 83.33%; }
+			.col-ld-11 { width: 91.66%; }
+			.col-ld-12 { width: 100%; }
+		}
+
+		body {
+			background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+		    background-size: 400% 400%;
+		    }
+
+		img {
+			width: 100%;
+		}
+
+		button {
+			background-color: orange;
+			border: 1px solid grey;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			font-size: 16px;
+			cursor: pointer;
+		}    	
+
+		/* Style the tab */
+		.tab{
+			overflow: hidden;
+		}
+
+		/* Style the buttons inside the tab */
+		.tab button {
+			background-color: inherit;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+			transition: 0.5s;
+			font-size: 150%;
+		}
+
+		/* Change background color of buttons on hover */
+		.tab button:hover {
+			color: yellow;
+		}
+
+		/* Create an active/current tablink class */
+		.tab button.active {
+			color: gold;
+		}
+
+		/* Style the tab content */
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			border: 1px solid #ccc;
+			border-top: none;
+		}
+
+		@keyframes FormBgAnimation {
+		  0%   {transform: rotateY(0deg); background-image: linear-gradient(to bottom right, pink, yellow);}
+		  25%  {transform: rotateY(1deg);background-image: linear-gradient(to bottom left, pink, yellow);}
+		  50%  {transform: rotateY(-1deg);background-image: linear-gradient(to top left, pink, yellow);}
+		  75%  {transform: rotateY(-1deg);background-image: linear-gradient(to top right, pink, yellow);}
+		  100% {transform: rotateY(1deg);background-image: linear-gradient(to bottom right, pink, yellow);}
+		}
+
+		.GeneratorForm {
+			border-radius: 5px;
+			background-image: linear-gradient(to top left, blue, red);
+			padding:2%;
+			animation: FormBgAnimation;
+			transition: 12s;
+			animation-duration: 12s;
+			animation-direction: alternate;
+			animation-iteration-count: infinite;
+			color: rgb();lack;
+			font-size: 120%;
+		}
+
+		.GeneratorForm input[type=text], select {
+		  width: 100%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  display: inline-block;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  box-sizing: border-box;
+		}
+
+		.GeneratorForm input[type=submit] {
+		  width: 100%;
+		  background-color: #4CAF50;
+		  color: white;
+		  font-size: 120%;
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+		}
+
+		.GeneratorForm input[type=submit]:hover {
+		  background-color: #45a049;
+		}
+
+
+		</style>
+	</head>
+  <body onload="ConnectZilliqa();">
+
+	<div class="tab">
+		<button style="font-size: 150%;color: white;">Zilliqa Token Generator</button>
+		<button style="font-size:100%;float: right; margin-right: 0px;">Active Account: <span id="CurrentUsedAccount"></span></button>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-ld-4 col-md-6 col-sd-12"></div>
+			<div style="" class="tab col-ld-4 col-md-6 col-sd-12">
+				<center>
+					<button class="tablinks" onclick="ChangeTab(event, 'IdCreateCoin')">Create Coin</button>
+					<button class="tablinks" onclick="ChangeTab(event, 'IdCreateNFT')">Create NFT</button>
+				</center>	
+			</div>
+			<div class="col-ld-4 col-md-6 col-sd-12"></div>
+		</div>
+	</div>
+
+	<div id="ExploreAll" class="tabcontent active">
+		<div class="container">
+			<div id="NFTList" class="NFTList row"></div>
+		</div>
+	</div>
+
+	<div id="MyWallet" class="tabcontent">
+		<div class="container">
+			<div id="MyNFTList" class="NFTList row"></div>
+		</div>
+	</div>
+
+	<div id="InitData" class="tabcontent">
+		<div id="ContractInits"></div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-ld-4 col-md-6 col-sd-12"></div>
+			<div style="" class="col-ld-4 col-md-6 col-sd-12">
+				<div id="IdCreateCoin" class="GeneratorForm tabcontent active">
+					<div>
+						<label for="tokenname">Coin Name</label>
+						<input type="text" id="tokenname" placeholder="Coin Name">
+
+						<label for="tokensymbol">Symbol</label>
+						<input type="text" id="tokensymbol" placeholder="ZIL / ZWAP / ETH">
+
+						<label for="tokendecimals">Decimals</label>
+						<input type="text" id="tokendecimal" placeholder="9">
+
+						<label for="tokensupply">Supply</label>
+						<input type="text" id="tokensupply" placeholder="21000000">
+
+						<input type="submit" onclick="CreateCoin()" value="Create Coin">
+					</div>
+				</div>
+				<div id="IdCreateNFT" class="GeneratorForm tabcontent">
+					<div>
+						<label for="tokenname">NFT Name</label>
+						<input type="text" id="nftname" placeholder="NFTName">
+
+						<label for="tokensymbol">Symbol</label>
+						<input type="text" id="nftsymbol" placeholder="DZT / MVL">
+
+						<input type="submit" onclick="CreateNFT()" value="Create NFT">
+					</div>
+				</div>				
+			</div>
+			<div class="col-ld-4 col-md-6 col-sd-12"></div>
+			<div></div>
+		</div>
+	</div>
+
+  </body>
+  <script type="text/javascript">
+
+    var ZRC2ContractCode = `scilla_version 0
+
+		(***************************************************)
+		(*               Associated library                *)
+		(***************************************************)
+		import IntUtils
+		library FungibleToken
+
+		let one_msg = 
+		  fun (msg : Message) => 
+		  let nil_msg = Nil {Message} in
+		  Cons {Message} msg nil_msg
+
+		let two_msgs =
+		fun (msg1 : Message) =>
+		fun (msg2 : Message) =>
+		  let msgs_tmp = one_msg msg2 in
+		  Cons {Message} msg1 msgs_tmp
+
+		(* Error events *)
+		type Error =
+		| CodeIsSender
+		| CodeInsufficientFunds
+		| CodeInsufficientAllowance
+
+		let make_error =
+		  fun (result : Error) =>
+		    let result_code = 
+		      match result with
+		      | CodeIsSender              => Int32 -1
+		      | CodeInsufficientFunds     => Int32 -2
+		      | CodeInsufficientAllowance => Int32 -3
+		      end
+		    in
+		    { _exception : "Error"; code : result_code }
+		  
+		let zero = Uint128 0
+
+		(* Dummy user-defined ADT *)
+		type Unit =
+		| Unit
+
+		let get_val =
+		  fun (some_val: Option Uint128) =>
+		  match some_val with
+		  | Some val => val
+		  | None => zero
+		  end
+
+		(***************************************************)
+		(*             The contract definition             *)
+		(***************************************************)
+
+		contract FungibleToken
+		(
+		  contract_owner: ByStr20,
+		  name : String,
+		  symbol: String,
+		  decimals: Uint32,
+		  init_supply : Uint128
+		)
+
+		(* Mutable fields *)
+
+		field total_supply : Uint128 = init_supply
+
+		field balances: Map ByStr20 Uint128 
+		  = let emp_map = Emp ByStr20 Uint128 in
+		    builtin put emp_map contract_owner init_supply
+
+		field allowances: Map ByStr20 (Map ByStr20 Uint128) 
+		  = Emp ByStr20 (Map ByStr20 Uint128)
+
+		(**************************************)
+		(*             Procedures             *)
+		(**************************************)
+
+		procedure ThrowError(err : Error)
+		  e = make_error err;
+		  throw e
+		end
+
+		procedure IsNotSender(address: ByStr20)
+		  is_sender = builtin eq _sender address;
+		  match is_sender with
+		  | True =>
+		    err = CodeIsSender;
+		    ThrowError err
+		  | False =>
+		  end
+		end
+
+		procedure AuthorizedMoveIfSufficientBalance(from: ByStr20, to: ByStr20, amount: Uint128)
+		  o_from_bal <- balances[from];
+		  bal = get_val o_from_bal;
+		  can_do = uint128_le amount bal;
+		  match can_do with
+		  | True =>
+		    (* Subtract amount from from and add it to to address *)
+		    new_from_bal = builtin sub bal amount;
+		    balances[from] := new_from_bal;
+		    (* Adds amount to to address *)
+		    get_to_bal <- balances[to];
+		    new_to_bal = match get_to_bal with
+		    | Some bal => builtin add bal amount
+		    | None => amount
+		    end;
+		    balances[to] := new_to_bal
+		  | False =>
+		    (* Balance not sufficient *)
+		    err = CodeInsufficientFunds;
+		    ThrowError err
+		  end
+		end
+
+		(***************************************)
+		(*             Transitions             *)
+		(***************************************)
+
+		(* @dev: Increase the allowance of an approved_spender over the caller tokens. Only token_owner allowed to invoke.   *)
+		(* param spender:      Address of the designated approved_spender.                                                   *)
+		(* param amount:       Number of tokens to be increased as allowance for the approved_spender.                       *)
+		transition IncreaseAllowance(spender: ByStr20, amount: Uint128)
+		  IsNotSender spender;
+		  some_current_allowance <- allowances[_sender][spender];
+		  current_allowance = get_val some_current_allowance;
+		  new_allowance = builtin add current_allowance amount;
+		  allowances[_sender][spender] := new_allowance;
+		  e = {_eventname : "IncreasedAllowance"; token_owner : _sender; spender: spender; new_allowance : new_allowance};
+		  event e
+		end
+
+		(* @dev: Decrease the allowance of an approved_spender over the caller tokens. Only token_owner allowed to invoke. *)
+		(* param spender:      Address of the designated approved_spender.                                                 *)
+		(* param amount:       Number of tokens to be decreased as allowance for the approved_spender.                     *)
+		transition DecreaseAllowance(spender: ByStr20, amount: Uint128)
+		  IsNotSender spender;
+		  some_current_allowance <- allowances[_sender][spender];
+		  current_allowance = get_val some_current_allowance;
+		  new_allowance =
+		    let amount_le_allowance = uint128_le amount current_allowance in
+		      match amount_le_allowance with
+		      | True => builtin sub current_allowance amount
+		      | False => zero
+		      end;
+		  allowances[_sender][spender] := new_allowance;
+		  e = {_eventname : "DecreasedAllowance"; token_owner : _sender; spender: spender; new_allowance : new_allowance};
+		  event e
+		end
+
+		(* @dev: Moves an amount tokens from _sender to the recipient. Used by token_owner. *)
+		(* @dev: Balance of recipient will increase. Balance of _sender will decrease.      *)
+		(* @param to:  Address of the recipient whose balance is increased.                 *)
+		(* @param amount:     Amount of tokens to be sent.                                  *)
+		transition Transfer(to: ByStr20, amount: Uint128)
+		  AuthorizedMoveIfSufficientBalance _sender to amount;
+		  e = {_eventname : "TransferSuccess"; sender : _sender; recipient : to; amount : amount};
+		  event e;
+		  (* Prevent sending to a contract address that does not support transfers of token *)
+		  msg_to_recipient = {_tag : "RecipientAcceptTransfer"; _recipient : to; _amount : zero; 
+		                      sender : _sender; recipient : to; amount : amount};
+		  msg_to_sender = {_tag : "TransferSuccessCallBack"; _recipient : _sender; _amount : zero; 
+		                  sender : _sender; recipient : to; amount : amount};
+		  msgs = two_msgs msg_to_recipient msg_to_sender;
+		  send msgs
+		end
+
+		(* @dev: Move a given amount of tokens from one address to another using the allowance mechanism. The caller must be an approved_spender. *)
+		(* @dev: Balance of recipient will increase. Balance of token_owner will decrease.                                                        *)
+		(* @param from:    Address of the token_owner whose balance is decreased.                                                                 *)
+		(* @param to:      Address of the recipient whose balance is increased.                                                                   *)
+		(* @param amount:  Amount of tokens to be transferred.                                                                                    *)
+		transition TransferFrom(from: ByStr20, to: ByStr20, amount: Uint128)
+		  o_spender_allowed <- allowances[from][_sender];
+		  allowed = get_val o_spender_allowed;
+		  can_do = uint128_le amount allowed;
+		  match can_do with
+		  | True =>
+		    AuthorizedMoveIfSufficientBalance from to amount;
+		    e = {_eventname : "TransferFromSuccess"; initiator : _sender; sender : from; recipient : to; amount : amount};
+		    event e;
+		    new_allowed = builtin sub allowed amount;
+		    allowances[from][_sender] := new_allowed;
+		    (* Prevent sending to a contract address that does not support transfers of token *)
+		    msg_to_recipient = {_tag: "RecipientAcceptTransferFrom"; _recipient : to; _amount: zero; 
+		                        initiator: _sender; sender : from; recipient: to; amount: amount};
+		    msg_to_sender = {_tag: "TransferFromSuccessCallBack"; _recipient: _sender; _amount: zero; 
+		                    initiator: _sender; sender: from; recipient: to; amount: amount};
+		    msgs = two_msgs msg_to_recipient msg_to_sender;
+		    send msgs
+		  | False =>
+		    err = CodeInsufficientAllowance;
+		    ThrowError err
+		  end
+		end`;
+
+    var	ZRC2ContractInits = [{
+	    		vname: 'contract_owner',
+				type: 'ByStr20',
+				value: '',
+			},{
+	    		vname: 'name',
+				type: 'String',
+				value: '',
+			},{
+	    		vname: 'symbol',
+				type: 'String',
+				value: '',
+			},{
+	    		vname: 'decimals',
+				type: 'Uint32',
+				value: '',
+			},{
+	    		vname: 'init_supply',
+				type: 'Uint128',
+				value: '',
+			},{
+				vname: '_scilla_version',
+				type: 'Uint32',
+				value: '0'
+			}];
+
+	var NftContractCode = `scilla_version 0
+
+			(***************************************************)
+			(*               Associated library                *)
+			(***************************************************)
+			import BoolUtils PairUtils ListUtils
+			library NonfungibleToken
+
+			(* User-defined ADTs *)
+			type Dummy =
+			| Dummy
+
+			type Operation =
+			| Add
+			| Sub
+
+			(* Global variables *)
+			let zero = Uint256 0
+			let one = Uint256 1
+			let verdad = Dummy
+			let add_operation = Add
+			let sub_operation = Sub
+
+			(* Library functions *)
+			let one_msg = 
+			  fun (msg : Message) => 
+			    let nil_msg = Nil {Message} in
+			    Cons {Message} msg nil_msg
+
+			let two_msgs =
+			  fun (msg1 : Message) =>
+			  fun (msg2 : Message) =>
+			    let msgs_tmp = one_msg msg2 in
+			    Cons {Message} msg1 msgs_tmp
+
+			let get_bal =
+			  fun (some_bal: Option Uint256) =>
+			    match some_bal with
+			    | Some bal => bal
+			    | None => zero
+			    end
+
+			let build_pair =
+			  fun (input_to_address : ByStr20) =>
+			  fun (input_token_uri : String) =>
+			    Pair {ByStr20 String} input_to_address input_token_uri
+
+			(* Error exception *)
+			type Error =
+			  | CodeNotContractOwner
+			  | CodeIsSelf
+			  | CodeTokenExists
+			  | CodeIsNotMinter
+			  | CodeNotApproved
+			  | CodeNotTokenOwner
+			  | CodeNotFound
+			  | CodeNotApprovedForAll
+			  | CodeNotOwnerOrOperator
+			  | CodeNotApprovedSpenderOrOperator
+
+			let make_error =
+			  fun (result : Error) =>
+			    let result_code = 
+			      match result with
+			      | CodeNotContractOwner             => Int32 -1
+			      | CodeIsSelf                       => Int32 -2
+			      | CodeTokenExists                  => Int32 -3
+			      | CodeIsNotMinter                  => Int32 -4
+			      | CodeNotApproved                  => Int32 -5
+			      | CodeNotTokenOwner                => Int32 -6
+			      | CodeNotFound                     => Int32 -7
+			      | CodeNotApprovedForAll            => Int32 -8
+			      | CodeNotOwnerOrOperator           => Int32 -9
+			      | CodeNotApprovedSpenderOrOperator => Int32 -10
+			      end
+			    in
+			    { _exception : "Error"; code : result_code }
+
+			(***************************************************)
+			(*             The contract definition             *)
+			(***************************************************)
+
+			contract NonfungibleToken
+			(
+			  contract_owner: ByStr20,
+			  name : String,
+			  symbol: String
+			)
+
+			(* Mutable fields *)
+
+			(* Mapping of minters available *)
+			field minters: Map ByStr20 Dummy =
+			    let emp_map = Emp ByStr20 Dummy in
+			    builtin put emp_map contract_owner verdad
+
+			(* Mapping between token_id to token_owner *)
+			field token_owners: Map Uint256 ByStr20 = Emp Uint256 ByStr20
+
+			(* Mapping from owner to number of owned tokens *)
+			field owned_token_count: Map ByStr20 Uint256 = Emp ByStr20 Uint256
+
+			(* Mapping between token_id to approved address                              *)
+			(* @dev: There can only be one approved address per token at any given time. *)
+			field token_approvals: Map Uint256 ByStr20 = Emp Uint256 ByStr20
+
+			(* Mapping of token_owner to operator  *)
+			field operator_approvals: Map ByStr20 (Map ByStr20 Dummy)
+			                            = Emp ByStr20 (Map ByStr20 Dummy)
+
+			(* Mapping from token_id to token_uri *)
+			field token_uris: Map Uint256 String = Emp Uint256 String
+
+			(* Total token count *)
+			field total_supply: Uint256 = Uint256 0
+
+			(* Used token id *)
+			field token_id_count: Uint256 = Uint256 0
+
+
+			(* Emit Errors *)
+			procedure ThrowError(err : Error)
+			  e = make_error err;
+			  throw e
+			end
+
+			procedure IsContractOwner()
+			  is_contract_owner = builtin eq contract_owner _sender;
+			  match is_contract_owner with
+			  | True => 
+			  | False =>
+			    err = CodeNotContractOwner;
+			    ThrowError err
+			  end
+			end
+
+			procedure IsSelf(address_a: ByStr20, address_b: ByStr20)
+			  is_self = builtin eq address_a address_b;
+			  match is_self with
+			  | False =>
+			  | True =>
+			    err = CodeIsSelf;
+			    ThrowError err
+			  end
+			end
+
+			procedure IsTokenExists(token_id: Uint256)
+			  token_exist <- exists token_owners[token_id];
+			  match token_exist with
+			  | False =>
+			  | True =>
+			    err = CodeTokenExists;
+			    ThrowError err
+			  end
+			end
+
+			procedure IsMinter(address: ByStr20)
+			  is_minter <- exists minters[address];
+			  match is_minter with
+			  | True =>
+			  | False =>
+			    err = CodeIsNotMinter;
+			    ThrowError err
+			  end
+			end
+
+			procedure IsTokenOwner(token_id: Uint256, address: ByStr20)
+			  some_token_owner <- token_owners[token_id];
+			  match some_token_owner with
+			  | Some addr => 
+			    is_token_owner = builtin eq addr address;
+			    match is_token_owner with
+			    | True =>
+			    | False =>
+			      err = CodeNotTokenOwner;
+			      ThrowError err
+			    end
+			  | None =>
+			    err = CodeNotFound;
+			    ThrowError err
+			  end
+			end
+
+			procedure IsApprovedForAll(token_owner: ByStr20, operator: ByStr20)
+			  is_operator_approved <- exists operator_approvals[token_owner][operator];
+			  match is_operator_approved with
+			  | True =>
+			  | False =>
+			    err = CodeNotApprovedForAll;
+			    ThrowError err
+			  end
+			end
+
+			procedure IsOwnerOrOperator(token_owner: ByStr20)
+			  is_owner = builtin eq _sender token_owner;
+			  is_approved_for_all <- exists operator_approvals[token_owner][_sender];
+			  is_authorised = orb is_owner is_approved_for_all;
+			  match is_authorised with
+			  | True =>
+			  | False =>
+			    err = CodeNotOwnerOrOperator;
+			    ThrowError err
+			  end
+			end
+
+			procedure IsApprovedSpenderOrOperator(token_id: Uint256, token_owner: ByStr20)
+			  some_token_approval <- token_approvals[token_id];
+			  is_approved = match some_token_approval with
+			    | None => False
+			    | Some approved_address => 
+			      builtin eq _sender approved_address
+			    end;
+			  is_operator <- exists operator_approvals[token_owner][_sender];
+			  is_authorised = orb is_approved is_operator;
+			  match is_authorised with
+			  | True =>
+			  | False =>
+			    err = CodeNotApprovedSpenderOrOperator;
+			    ThrowError err
+			  end
+			end
+
+			procedure UpdateTokenCount(operation: Operation, address: ByStr20)
+			  match operation with
+			  | Add =>
+			    some_to_count <- owned_token_count[address];
+			    new_to_count = 
+			      let current_count = get_bal some_to_count in
+			      builtin add current_count one;
+			    owned_token_count[address] := new_to_count
+			  | Sub =>
+			    some_from_count <- owned_token_count[address];
+			    new_from_count = 
+			      let current_count = get_bal some_from_count in
+			        let is_zero = builtin eq current_count zero in
+			          match is_zero with
+			          | True => zero
+			          | False => builtin sub current_count one
+			          end;
+			    owned_token_count[address] := new_from_count
+			  end
+			end
+
+			(* Getter transitions *)
+
+			(* @dev: Get number of NFTs assigned to a token_owner *)
+			transition BalanceOf(address: ByStr20)
+			  some_bal <- owned_token_count[address];
+			  balance = get_bal some_bal;
+			  msg_to_sender = { _tag : "BalanceOfCallBack"; _recipient : _sender; _amount : Uint128 0;
+			                   balance : balance};
+			  msgs = one_msg msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev: Get total supply of NFTs minted *)
+			transition TotalSupply()
+			  current_supply <- total_supply;
+			  msg_to_sender = { _tag : "TotalSupplyCallBack"; _recipient : _sender; _amount : Uint128 0;
+			                   total_supply : current_supply};
+			  msgs = one_msg msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev: Get name of the NFTs *)
+			transition Name()
+			  msg_to_sender = { _tag : "NameCallBack"; _recipient : _sender; _amount : Uint128 0;
+			                   name : name};
+			  msgs = one_msg msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev: Get name of the NFTs *)
+			transition Symbol()
+			  msg_to_sender = { _tag : "SymbolCallBack"; _recipient : _sender; _amount : Uint128 0;
+			                   symbol : symbol};
+			  msgs = one_msg msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev: Get approved_addr for token_id *)
+			transition GetApproved(token_id: Uint256)
+			  some_token_approval <- token_approvals[token_id];
+			  match some_token_approval with
+			  | Some addr => 
+			    msg_to_sender = { _tag : "GetApprovedCallBack"; _recipient : _sender; _amount : Uint128 0; 
+			                      approved_addr : addr; token_id : token_id};
+			    msgs = one_msg msg_to_sender;
+			    send msgs
+			  | None => 
+			    err = CodeNotApproved;
+			    ThrowError err
+			  end
+			end
+
+			(* @dev: Get the token_uri of a certain token_id *)
+			transition GetTokenURI(token_id: Uint256)
+			  some_token_uri <- token_uris[token_id];
+			  match some_token_uri with
+			  | Some token_uri =>
+			    msg_to_sender = { _tag : "GetTokenURICallBack"; _recipient : _sender; _amount : Uint128 0; 
+			                      token_uri : token_uri};
+			    msgs = one_msg msg_to_sender;
+			    send msgs
+			  | None =>
+			    err = CodeNotFound;
+			    ThrowError err
+			  end
+			end
+
+			(* @dev: Check if a token_id is owned by a token_owner *)
+			transition CheckTokenOwner(token_id: Uint256, address: ByStr20)
+			  IsTokenOwner token_id address;
+			  msg_to_sender = { _tag : "IsTokenOwnerCallBack"; _recipient : _sender; _amount : Uint128 0};
+			  msgs = one_msg msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev: Check if address is operator for token_owner *)
+			transition CheckApprovedForAll(token_owner: ByStr20, operator: ByStr20)
+			  IsApprovedForAll token_owner operator;
+			  msg_to_sender = { _tag : "IsApprovedForAllCallBack"; _recipient : _sender; _amount : Uint128 0;
+			                    token_owner : token_owner; operator : operator};
+			  msgs = one_msg msg_to_sender;
+			  send msgs
+			end
+
+			(* Interface transitions *)
+
+			(* @dev:    Add or remove approved minters. Only contract_owner can approve minters. *)
+			(* @param:  minter      - Address of the minter to be approved or removed            *)
+			transition ConfigureMinter(minter: ByStr20)
+			  IsContractOwner;
+			  some_minter <- minters[minter];
+			  match some_minter with
+			  | Some Dummy => 
+			    (* Remove minter *)
+			    delete minters[minter];
+			    e = {_eventname: "RemovedMinterSuccess"; minter: minter};
+			    event e
+			  | None =>
+			    (* Add minter *)
+			    minters[minter] := verdad;
+			    e = {_eventname: "AddMinterSuccess"; minter: minter};
+			    event e
+			  end
+			end
+
+			procedure Minting(input_pair: Pair ByStr20 String)
+			  to = let fst_string_bystr20 = @fst ByStr20 String in
+			    fst_string_bystr20 input_pair;
+			  token_uri = let snd_string_bystr20 = @snd ByStr20 String in
+			    snd_string_bystr20 input_pair;
+			  IsMinter _sender;
+			  (* Add to owner count *)
+			  UpdateTokenCount add_operation to;
+			  (* Add to total_supply *)
+			  current_supply <- total_supply;
+			  new_supply = builtin add current_supply one;
+			  total_supply := new_supply;
+			  (* Initiate token_id and check if exists *)
+			  current_token_id_count <- token_id_count;
+			  new_token_id_count = builtin add current_token_id_count one;
+			  token_id_count := new_token_id_count;
+			  token_id = new_token_id_count;
+			  IsTokenExists token_id;
+			  (* Mint new non-fungible token *)
+			  token_owners[token_id] := to;
+			  (* Add token_uri for token_id *)
+			  token_uris[token_id] := token_uri;
+			  e = {_eventname: "MintSuccess"; by: _sender; recipient: to;
+			        token_id: token_id; token_uri: token_uri};
+			  event e
+			end
+
+			(* @dev:    Mint new tokens. Only minters can mint.           *)
+			(* @param:  to        - Address of the token recipient        *)
+			(* @param:  token_uri - URI of the the new token to be minted *)
+			transition Mint(to: ByStr20, token_uri: String)
+			  input_pair = build_pair to token_uri;
+			  Minting input_pair;
+			  token_id <- token_id_count;
+			  msg_to_recipient = { _tag : "RecipientAcceptMint"; _recipient : to; _amount : Uint128 0 };
+			  msg_to_sender = { _tag : "MintCallBack"; _recipient : _sender; _amount : Uint128 0;
+			                    recipient : _sender; token_id : token_id; token_uri : token_uri };
+			  msgs = two_msgs msg_to_recipient msg_to_sender;
+			  send msgs
+			end
+
+			transition BatchMint(to: ByStr20, token_uris_list: List String)
+			  pair_token_uri_list = @list_map String (Pair ByStr20 String);
+			  tmp_fun = build_pair to;
+			  input_list = pair_token_uri_list tmp_fun token_uris_list;
+			  forall input_list Minting;
+			  msg_to_recipient = { _tag : "RecipientAcceptBatchMint"; _recipient : to; _amount : Uint128 0 };
+			  msg_to_sender = { _tag : "BatchMintCallBack"; _recipient : _sender; _amount : Uint128 0 };
+			  msgs = two_msgs msg_to_recipient msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev:    Burn existing tokens. Only token_owner or an operator can burn a NFT. *)
+			(* @param:  token_id - Unique ID of the NFT to be destroyed                       *)
+			transition Burn(token_id: Uint256)
+			  (* Check if token exists *)
+			  some_token_owner <- token_owners[token_id];
+			  match some_token_owner with
+			  | None =>
+			    err = CodeNotFound;
+			    ThrowError err
+			  | Some token_owner =>
+			    IsOwnerOrOperator token_owner;
+			    (* Destroy existing token *)
+			    delete token_owners[token_id];
+			    delete token_approvals[token_id];
+			    delete token_uris[token_id];
+			    (* Deduct from owned_token_count *)
+			    UpdateTokenCount sub_operation token_owner;
+			    (* Deduct from total_supply *)
+			    current_supply <- total_supply;
+			    new_supply = builtin sub current_supply one;
+			    total_supply := new_supply;
+			    e = {_eventname: "BurnSuccess"; initiator: _sender; burn_address: token_owner; token_id: token_id};
+			    event e;
+			    msg_to_sender = { _tag : "BurnCallBack"; _recipient : _sender; _amount : Uint128 0;
+			                      initiator : _sender; burn_address : token_owner; token_id : token_id };
+			    msgs = one_msg msg_to_sender;
+			    send msgs
+			  end
+			end
+
+
+			(* @dev: Approves OR remove an address ability to transfer a given token_id *)
+			(* There can only be one approved_spender per token at any given time       *)
+			(* param: to       - Address to be approved for the given token_id          *)
+			(* param: token_id - Unique ID of the NFT to be approved                    *)
+			transition SetApprove(to: ByStr20, token_id: Uint256)
+			  some_token_owner <- token_owners[token_id];
+			  match some_token_owner with
+			  | None =>
+			    err = CodeNotFound;
+			    ThrowError err
+			  | Some token_owner =>
+			    IsOwnerOrOperator token_owner;
+			    is_approved <- token_approvals[token_id];
+			    match is_approved with
+			    | Some approved_spender =>
+			      (* Remove approved_spender *)
+			      is_approved_spender = builtin eq to approved_spender;
+			      match is_approved_spender with
+			      | True =>
+			        delete token_approvals[token_id];
+			        e = {_eventname: "RemoveApprovalSuccess"; initiator: _sender; removed_spender: to; token_id: token_id};
+			        event e;
+			        msg_to_sender = { _tag : "RemoveApprovalSuccessCallBack"; _recipient : _sender; _amount : Uint128 0; 
+			                          removed_spender : to; token_id : token_id };
+			        msgs = one_msg msg_to_sender;
+			        send msgs
+			      | False =>
+			        err = CodeNotApproved;
+			        ThrowError err
+			      end
+			    | None =>
+			      (* Add approved_spender *)
+			      token_approvals[token_id] := to;
+			      e = {_eventname: "AddApprovalSuccess"; initiator: _sender; approved_spender: to; token_id: token_id};
+			      event e;
+			      msg_to_sender = { _tag : "AddApprovalSuccessCallBack"; _recipient : _sender; _amount : Uint128 0; 
+			                        approved_spender : to; token_id : token_id };
+			      msgs = one_msg msg_to_sender;
+			      send msgs
+			    end
+			  end
+			end
+
+			(* @dev: Sets or unsets an operator for the _sender       *)
+			(* @param: to - Address to be set or unset as an operator *)
+			transition SetApprovalForAll(to: ByStr20)
+			  IsSelf to _sender;
+			  is_operator <- exists operator_approvals[_sender][to];
+			  match is_operator with
+			  | False =>
+			    (* Add operator *)
+			    operator_approvals[_sender][to] := verdad;
+			    e = {_eventname: "AddApprovalForAllSuccess"; initiator: _sender; operator: to};
+			    event e
+			  | True =>
+			    (* Remove operator *)
+			    delete operator_approvals[_sender][to];
+			    e = {_eventname: "RemoveApprovalForAllSuccess"; initiator: _sender; operator: to};
+			    event e
+			  end;
+			  new_status = negb is_operator;
+			  msg_to_sender = { _tag : "SetApprovalForAllSuccessCallBack"; _recipient : _sender; _amount : Uint128 0; 
+			                    operator : to; status : new_status};
+			  msgs = one_msg msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev: Transfer the ownership of a given token_id to another address. token_owner only transition. *)
+			(* @param: to       - Recipient address for the token                                                *)
+			(* @param: token_id - Unique ID of the NFT to be transferred                                         *)
+			transition Transfer(to: ByStr20, token_id: Uint256)
+			  IsSelf to _sender;
+			  IsTokenOwner token_id _sender;
+			  (* Change token_owner for that token_id *)
+			  token_owners[token_id] := to;
+			  (* Delete tokenApproval entry for that token_id *)
+			  delete token_approvals[token_id];
+			  (* Subtract one from previous token owner count *)
+			  UpdateTokenCount sub_operation _sender;
+			  (* Add one to the new token owner count *)
+			  UpdateTokenCount add_operation to;
+			  e = {_eventname: "TransferSuccess"; from: _sender; recipient: to; token_id: token_id};
+			  event e;
+			  msg_to_recipient = { _tag : "RecipientAcceptTransfer"; _recipient : to; _amount : Uint128 0; 
+			                      from : _sender; recipient : to; token_id : token_id };
+			  msg_to_sender = { _tag : "TransferSuccessCallBack"; _recipient : _sender; _amount : Uint128 0; 
+			                    from : _sender; recipient : to; token_id : token_id };
+			  msgs = two_msgs msg_to_recipient msg_to_sender;
+			  send msgs
+			end
+
+			(* @dev: Transfer the ownership of a given token_id to another address. approved_spender or operator only transition. *)
+			(* @param: to       - Recipient address for the NFT                                                                   *)
+			(* @param: token_id - Unique ID of the NFT to be transferred                                                          *)
+			transition TransferFrom(to: ByStr20, token_id: Uint256)
+			  some_token_owner <- token_owners[token_id];
+			  match some_token_owner with
+			  | None =>
+			    err = CodeNotFound;
+			    ThrowError err
+			  | Some token_owner =>
+			    IsSelf to token_owner;
+			    IsApprovedSpenderOrOperator token_id token_owner;
+			    (* Change token_owner for that token_id *)
+			    token_owners[token_id] := to;
+			    (* Delete tokenApproval entry for that token_id *)
+			    delete token_approvals[token_id];
+			    (* Subtract one from previous token owner count *)
+			    UpdateTokenCount sub_operation token_owner;
+			    (* Add one to the new token owner count *)
+			    UpdateTokenCount add_operation to;
+			    e = {_eventname: "TransferFromSuccess"; from: token_owner; recipient: to; token_id: token_id};
+			    event e;
+			    msg_to_recipient = { _tag : "RecipientAcceptTransferFrom"; _recipient : to; _amount : Uint128 0; 
+			                        from : token_owner; recipient : to; token_id : token_id };
+			    msg_to_sender = { _tag : "TransferFromSuccessCallBack"; _recipient : _sender; _amount : Uint128 0; 
+			                      from : token_owner; recipient : to; token_id : token_id };
+			    msgs = two_msgs msg_to_recipient msg_to_sender;
+			    send msgs
+			  end
+			end`;
+
+    var	NftContractInits = [{
+	    		vname: 'contract_owner',
+				type: 'ByStr20',
+				value: '',
+			},{
+	    		vname: 'name',
+				type: 'String',
+				value: '',
+			},{
+	    		vname: 'symbol',
+				type: 'String',
+				value: '',
+			},{
+				vname: '_scilla_version',
+				type: 'Uint32',
+				value: '0'
+			}];
+
+    var Zilliqa;
+    var ContractInits;
+    var ActiveAccount;
+    var ActiveNetwork;
+    var ChainId;
+    var NewCntrct;
+
+    function ConnectZilliqa() {
+		Zilliqa = window.zilPay;
+
+		if (Zilliqa){
+		console.log("ZilPay Wallet Detected");
+		if(Zilliqa.wallet.connect()){
+		  	console.log("Connected successfully");
+		  	console.log("DefaultAddress is " + Zilliqa.wallet.defaultAccount.bech32);
+		  	ActiveNetwork = Zilliqa.wallet.net;
+		  
+		  	//Track Network Change of Wallet
+			Zilliqa.wallet.observableNetwork().subscribe(function (net) {
+				console.log("Network changed to " + net);
+				ActiveNetwork = net;
+				if(ActiveNetwork == "mainnet"){
+					ChainId = 1;
+				}else if(ActiveNetwork == "testnet"){
+					ChainId = 333;
+				}
+				//alert("Network Changed to " + ActiveNetwork);
+			});
+
+			//Track Account Change of Wallet
+			Zilliqa.wallet.observableAccount().subscribe(function (account) {
+				console.log("Account changed to " + account.bech32);
+				ActiveAccount = account;
+				//alert("Account Changed to " + ActiveAccount.bech32);
+				document.getElementById("CurrentUsedAccount").innerHTML = ActiveAccount.bech32 + " (" + ActiveNetwork + ")";
+				if(ActiveNetwork == "mainnet"){
+					ChainId = 1;
+				}else if(ActiveNetwork == "testnet"){
+					ChainId = 333;
+				}
+			});
+
+		}else{
+		  console.log("Failed to connect. Try again later.");
+		}
+		}else{
+			console.log("Zilpay Not Detected.");
+		}
+		ChangeTab(event, 'IdCreateCoin');
+    }
+
+    function CreateCoin(){
+    	var tnm = document.getElementById("tokenname").value;
+    	var tsy = document.getElementById("tokensymbol").value;
+    	var tdc = document.getElementById("tokendecimal").value;
+    	var tsu = document.getElementById("tokensupply").value;
+
+    	ZRC2ContractInits[0].value = ActiveAccount.base16;
+    	ZRC2ContractInits[1].value = tnm;
+    	ZRC2ContractInits[2].value = tsy;
+    	ZRC2ContractInits[3].value = tdc;
+    	ZRC2ContractInits[4].value = ""+(tsu * (10**tdc));
+
+		const msgVersion = 1;
+		VERSION = Zilliqa.utils.bytes.pack(ChainId, msgVersion);
+		myGasPrice = Zilliqa.utils.units.toQa('2000', Zilliqa.utils.units.Units.Li);
+
+		console.log(ZRC2ContractInits);
+
+    	var NewContract = Zilliqa.contracts.new(ZRC2ContractCode,ZRC2ContractInits);
+
+		NewContract.deploy(
+		{
+			version: VERSION,
+			gasPrice: myGasPrice,
+			gasLimit: Zilliqa.utils.Long.fromNumber(25000),
+		},
+		33,
+		1000,
+		false,
+		).then(function(a){
+			console.log("ZRC2 Contract Deployment Tx Sent.")
+			console.log(a);
+			alert("Transaction Id:" + a[0].TranID);
+		});
+    }
+
+    function CreateNFT(){
+    	var nftnm = document.getElementById("nftname").value;
+    	var nftsy = document.getElementById("nftsymbol").value;
+
+    	NftContractInits[0].value = ActiveAccount.base16;
+    	NftContractInits[1].value = nftnm;
+    	NftContractInits[2].value = nftsy;
+
+		const msgVersion = 1;
+		VERSION = Zilliqa.utils.bytes.pack(ChainId, msgVersion);
+		myGasPrice = Zilliqa.utils.units.toQa('2000', Zilliqa.utils.units.Units.Li);
+
+		console.log(NftContractInits);
+
+    	var NewContract = Zilliqa.contracts.new(NftContractCode,NftContractInits);
+
+		NewContract.deploy(
+		{
+			version: VERSION,
+			gasPrice: myGasPrice,
+			gasLimit: Zilliqa.utils.Long.fromNumber(25000),
+		},
+		33,
+		1000,
+		false,
+		).then(function(a){
+			console.log("NFT Contract Deployment Tx Sent.")
+			console.log(a);
+			alert("Transaction Id:" + a[0].TranID);
+		});
+
+    }
+
+	function ChangeTab(evt, tabName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+
+		document.getElementById(tabName).style.display = "block";
+		evt.currentTarget.className += " active";
+
+	}
+
+  </script>
+</html>

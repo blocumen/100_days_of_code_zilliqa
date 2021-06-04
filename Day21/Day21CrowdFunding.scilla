@@ -1,0 +1,19 @@
+scilla_version 0
+
+contract CrowdFunding()
+field investor: Map ByStr20 Uint128 = Emp ByStr20 Uint128
+
+transition acceptZil()
+  investor_exists <- exists investor[_sender];
+  match investor_exists with
+    |True =>
+      m = {_eventname: "acceptZil"; msg: "Already funded, returning zils"};
+      event m
+    |False =>
+      accept;
+      investor[_sender] := _amount;
+      m = {_eventname: "acceptZil"; msg: "Funds received, Thank u 4 zils"};
+      event m
+  end
+
+end

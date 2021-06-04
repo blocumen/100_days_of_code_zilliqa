@@ -1,0 +1,22 @@
+(* Trying scilla transitions *)
+scilla_version 0
+
+library Day18
+let one = Uint32 1
+
+contract Day18()
+field count : Uint32 = Uint32 0
+
+(* Increment mutable count* )
+transition increment()
+  t <- count;
+  res = builtin add t one;
+  count := res
+end
+
+(* Decrement mutable count, only +ves *)
+transition decrement()
+  t <- count;
+  res = builtin sub t one;
+  count := res
+end

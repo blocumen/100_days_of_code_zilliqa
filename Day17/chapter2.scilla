@@ -1,0 +1,39 @@
+scilla_version 0
+import BoolUtils
+
+library SocialMediaPayment
+
+let one_msg = 
+  fun (msg : Message) => 
+  let nil_msg = Nil {Message} in
+  Cons {Message} msg nil_msg
+
+let zero = Uint128 0
+let not_owner_code = Uint32 1
+(*Start typing from the line below. declare a Uint32 type of variable with variable name “accepted_code” and value “0” *)
+let accepted_code = Uint32 0
+
+
+contract SocialMediaPayment(owner: ByStr20)
+
+transition deposit()
+sender_is_owner = builtin eq _sender owner;
+match sender_is_owner with
+     | False =>
+     
+          msg = {_tag: "";
+                _recipient: _sender;
+                _amount: zero;
+                code: not_owner_code};
+          msgs = one_msg msg;
+          send msgs
+
+     | True =>
+        (*Start typing from the line below for task 2, 3 and 4*)
+        accept;
+        msg = {_tag: ""; _recipient: _sender; _amount: zero; code: accepted_code};
+        msgs = one_msg msg;
+        send msgs
+        
+     end
+end
