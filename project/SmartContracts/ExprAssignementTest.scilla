@@ -1,0 +1,29 @@
+scilla_version 0
+
+import IntUtils
+
+library EXpressionTestLib
+
+(* Assignment is local to expression *)
+let sum = 
+  let one = Uint32 1 in
+  let two = Uint32 2 in
+  builtin add one two
+
+(* Assignment os global *)
+let two = Uint32 2
+let one = Uint32 1
+let diff = builtin sub two one
+
+contract ExpressionTest()
+
+  transition displayResult()
+    e = { 
+      _eventname : "disp_result";
+      result1 : sum;
+      result2 : diff
+    };
+    event e
+  end
+
+  

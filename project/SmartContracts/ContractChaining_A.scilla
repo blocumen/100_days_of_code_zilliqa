@@ -1,0 +1,19 @@
+scilla_version 0
+
+library FirstLib
+
+contract First()
+  
+  field contractAddressToCall : ByStr20 = 0xb55345788fb70073072485790caa0077ebf11edd
+  
+  transition callSmartContract_B()
+    addr <- contractAddressToCall;
+    
+    msg1 = { _tag : "CallMe"; _recipient : addr; _amount : Uint128 0};
+    msgs = 
+      let nil = Nil {Message} in
+      Cons {Message} msg1 nil
+    ;
+    send msgs
+    
+  end

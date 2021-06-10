@@ -1,0 +1,13 @@
+scilla_version 0
+
+library SecondLib
+
+contract Second()
+
+  field message : String = "Hello From Contract Second"
+  
+  transition c()
+    r <- message;
+    e = { _eventname : "call_me"; msg : r};
+    event e
+  end
