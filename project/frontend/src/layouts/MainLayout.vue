@@ -5,7 +5,7 @@
         <q-toolbar-title>
           Community Driven Alternate Risk Coverage
         </q-toolbar-title>
-        <div>on Zilliqa</div>
+        <div>MVP - Technical Feasibility</div>
       </q-toolbar>
     </q-header>
     <q-page-container>
@@ -15,14 +15,11 @@
 </template>
 
 <script>
-
-
 export default {
-  name: 'MainLayout',
-  components: { },
-  data () {
-    return {
-    }
-  }
-}
+  name: "MainLayout",
+  components: {},
+  data() {
+    return {};
+  },
+};
 </script>

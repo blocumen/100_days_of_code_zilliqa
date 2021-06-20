@@ -1,64 +1,48 @@
 <template>
   <q-page class="flex flex-center bg-grey-8">
-    <div class="row">
-      <div class="col-12 q-pa-lg">
-        <q-card
-          dark
-          class="bg-grey-10"
-          text-color="white"
-          flat
-          square
-          style="width: 80%"
-          v-if="proceed"
-        >
-          <q-card-section>
-            <div class="text-h6">Link your ZilPay Wallet</div>
-          </q-card-section>
+    <q-list style="width: 50%" dark v-if="proceed">
+      <q-expansion-item
+        dark
+        group="somegroup"
+        icon="link"
+        label="Step 1 - Connect ZilPay"
+        default-opened
+        header-class="bg-grey-10 text-white"
+        style="width: 100%"
+      >
+        <q-card class="bg-grey-9" text-color="white">
           <q-card-section>
             <q-form dark @submit="onSubmit">
               <!-- <p v-if="$v.form.password.$error">The input is needed!</p> -->
               <div class="row no-wrap">
-                <q-btn no-caps color="grey-9" type="submit" class="q-mr-sm">
+                <q-btn
+                  no-caps
+                  color="grey-8"
+                  type="submit"
+                  class="q-mr-sm full-width"
+                >
                   <span>Connect to ZilPay</span>
                 </q-btn>
               </div>
             </q-form>
           </q-card-section>
-        </q-card>
-      </div>
-      <div class="col-12 q-pa-lg">
-        <q-card
-          dark
-          class="bg-grey-9"
-          text-color="white"
-          flat
-          square
-          style="width: 80%"
-          v-if="proceed"
-        >
           <q-card-section>
-            <div class="text-h6">
-              Address : {{ this.wallet.address_base16 }}
-            </div>
-            <div class="text-h6">
-              Your Balance : {{ this.wallet.balance }} $Zils
+            <div>Address : {{ this.wallet.address_base16 }}</div>
+            <div>
+              Your Balance :
+              <q-chip>{{ this.wallet.balance }}</q-chip>
+              Zils
             </div>
           </q-card-section>
         </q-card>
-      </div>
-      <div class="col-12 q-pa-lg">
-        <q-card
-          dark
-          class="bg-grey-10"
-          text-color="white"
-          flat
-          square
-          style="width: 80%"
-          v-if="proceed"
-        >
-          <q-card-section>
-            <div class="text-h6">Hello World Smart Contract</div>
-          </q-card-section>
+      </q-expansion-item>
+      <q-expansion-item
+        group="somegroup"
+        icon="travel_explore"
+        label="Hello World Explorer (Testing only)"
+        header-class="bg-grey-10 text-white"
+      >
+        <q-card dark class="bg-grey-9" text-color="white">
           <q-card-section>
             <q-input
               dark
@@ -120,17 +104,40 @@
                 v-model="smartContract.responseText"
                 filled
                 type="textarea"
-                disable
                 readonly
               />
             </div>
           </q-card-section>
         </q-card>
-      </div>
-    </div>
+      </q-expansion-item>
+      <q-expansion-item
+        group="somegroup"
+        icon="description"
+        label="Step 2 - View Product Details"
+        header-class="bg-grey-10 text-white"
+      >
+        <q-card dark class="bg-grey-9" text-color="white"> </q-card>
+      </q-expansion-item>
+      <q-expansion-item
+        group="somegroup"
+        icon="description"
+        label="Step 3 - Purchase Coverage"
+        header-class="bg-grey-10 text-white"
+      >
+        <q-card dark class="bg-grey-9" text-color="white"> </q-card>
+      </q-expansion-item>
+      <q-expansion-item
+        group="somegroup"
+        icon="description"
+        label="Step 4 - Pay Premium"
+        header-class="bg-grey-10 text-white"
+      >
+        <q-card dark class="bg-grey-9" text-color="white"> </q-card>
+      </q-expansion-item>
+    </q-list>
 
     <q-dialog v-model="alert" dark no-backdrop-dismiss v-if="!proceed">
-      <q-card>
+      <q-card style="width: 80%; max-width: 350px">
         <q-card-section>
           <div class="text-h6">Sorry! We can't Proceed</div>
         </q-card-section>
@@ -219,6 +226,14 @@ export default {
     },
 
     validateSamrtContract() {
+      if (this.smartContract.address == null) {
+        this.$q.notify({
+          message:
+            "Smart Contract Address is null, please input Smart Contract address to validate",
+          type: "negative",
+        });
+        return;
+      }
       console.log("Validating : " + this.smartContract.address);
       try {
         const contract = this.zilliqa.contracts.at(this.smartContract.address);

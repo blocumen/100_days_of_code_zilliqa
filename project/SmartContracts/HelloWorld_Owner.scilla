@@ -1,0 +1,35 @@
+scilla_version 0
+
+import BoolUtils
+
+library MyHelloWorld_Owner
+
+let not_owner_code = Uint32 0
+let success_code = Uint32 1
+
+contract MyHelloWorld_Owner(owner : ByStr20)
+
+  field welcome_message : String = ""
+  
+  (* This is allowed to set message only for owner *)
+  
+  transition setMessage(msg : String)
+    is_sender_owner = builtin eq owner _sender;
+    
+    match is_sender_owner with
+      | False =>
+        e = { _eventname : "set_message"; code : not_owner_code };
+        event e
+        
+      | True =>
+        welcome_message := msg;
+        e = { _eventname : "set_message" ; code : success_code };
+        event e
+    end
+  end
+
+  transition getMessage()
+    r <- welcome_message;
+    e = { _eventname : "get_message"; msg : r };
+    event e
+  end

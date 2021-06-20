@@ -1,0 +1,325 @@
+scilla_version 0
+
+(* This contract implements a fungible token interface a la ERC20.*)
+
+(***************************************************)
+(*               Associated library                *)
+(***************************************************)
+library ERC20Faucet
+
+let one_msg = 
+  fun (msg : Message) => 
+  let nil_msg = Nil {Message} in
+  Cons {Message} msg nil_msg
+
+let no_msg = Nil {Message}
+
+let min_int =
+  fun (a : Uint128) => fun (b : Uint128) =>
+  let alt = builtin lt a b in
+  match alt with
+  | True =>
+    a
+  | False =>
+    b
+  end
+
+let le_int =
+  fun (a : Uint128) => fun (b : Uint128) =>
+    let x = builtin lt a b in
+    match x with
+    | True => True
+    | False =>
+      let y = builtin eq a b in
+      match y with
+      | True => True
+      | False => False
+      end
+    end
+    
+(* Constants *)
+let _zero   = Uint128 0
+
+(*Error codes*)
+let claimed=Int32 2
+let unclaimed=Int32 4
+let failure=Int32 5
+let notallowed=Int32 6
+
+(***************************************************)
+(*             The contract definition             *)
+(***************************************************)
+
+contract ERC20Faucet
+(owner : ByStr20,
+total_tokens:Uint128)
+
+(*maximum allowance for each account*)
+field maxAllowanceInclusive: Uint128 =Uint128 50
+
+(*mapping of account with claimed tokens*)
+field claimedTokens:  Map ByStr20 Uint128 =
+Emp ByStr20 Uint128
+
+(*0 -> false, 1 -> true*)
+field isPaused : Uint128 =  _zero
+
+(*all balances of tokens for each account including owner*)
+field balances : Map ByStr20 Uint128 =
+  let m = Emp ByStr20 Uint128 in
+    builtin put m owner total_tokens
+
+field allowed : Map ByStr20 (Map ByStr20 Uint128) = Emp ByStr20 (Map ByStr20 Uint128)
+
+
+transition getTokens(amount : Uint128)
+c <- claimedTokens[_sender];
+m <- maxAllowanceInclusive;
+bl <- balances[_sender];
+p <- isPaused;
+paused=builtin eq p _zero; 
+balContract<-balances[owner];
+match paused with
+  | True =>
+  match balContract with
+    | Some _bal =>
+    newBalContract=builtin sub _bal amount; 
+    match c with
+      | Some v =>
+      new_amount= builtin add v amount;
+      is_allowed=le_int new_amount m;
+      match is_allowed with
+        |True =>
+        match bl with
+          | Some v1 =>
+	    newBalAmount= builtin add v1 amount;
+            claimedTokens[_sender] := new_amount;
+	    balances[_sender]:= newBalAmount;
+	    balances[owner]:=newBalContract;
+            e = { _eventname : "GetTokens"; account : _sender  ; amount : amount  };
+            event e     
+         | None =>
+            claimedTokens[_sender] := new_amount;
+	    balances[_sender]:= amount;
+	    balances[owner]:=newBalContract;
+            e = { _eventname : "GetTokens"; account : _sender  ; amount : amount  };
+            event e     
+           end          
+       | False =>
+          e = { _eventname : "Error"; account : _sender  ; amount : amount ; code: notallowed  };
+          event e     
+        end     
+    | None =>
+    is_allowed=le_int amount m;
+    match is_allowed with
+        |True =>
+           match bl with
+           | Some v1 =>
+	    newBalAmount= builtin add v1 amount;
+            claimedTokens[_sender] := amount;
+	    balances[_sender]:= newBalAmount;
+	    balances[owner]:=newBalContract;
+            e = { _eventname : "GetTokens"; account : _sender  ; amount : amount  };
+            event e               
+           | None =>
+            claimedTokens[_sender] := amount;
+	    balances[_sender]:= amount;
+	    balances[owner]:=newBalContract;
+            e = { _eventname : "GetTokens"; account : _sender  ; amount : amount  };
+            event e     
+           end           
+       |False =>
+          e = { _eventname : "GetTokenError"; account : _sender  ; amount : amount ; code: notallowed  };
+          event e     
+        end
+        
+     end
+ | None =>
+    e = { _eventname : "GetTokenError"; account : _sender  ; amount : amount ; code: failure  };
+    event e     
+   end
+| False =>       
+    e = { _eventname : "GetTokenError"; account : _sender  ; amount : amount ; code: failure  };
+    event e     
+end
+end
+
+transition setMaxAllowance(_maxAllowanceInclusive : Uint128)
+ success="success";
+ isOwner= builtin eq _sender owner;
+ match isOwner with
+    | True =>
+        maxAllowanceInclusive := _maxAllowanceInclusive;
+        e = { _eventname : "SetMaxAllowance"; account : _sender  ; maxAllowanceInclusive : _maxAllowanceInclusive  };
+        event e     
+    | False =>
+        e = { _eventname : "AllowanceError"; sender : _sender ; code: notallowed  };
+        event e     
+      end
+ end
+  
+(*reclaims all the tokens of owner and set to zero*)
+transition reclaimTokens()
+true="true";
+false="false";
+bal <- balances[owner];
+isOwner= builtin eq _sender owner;
+match isOwner with
+  | True =>
+    match bal with
+    | Some b =>
+      balances[owner] := _zero;
+      e = { _eventname : "ReclaimTokens"; sender : _sender  ; transferred : true  };
+      event e     
+    | None =>
+    (* no balance record, can't transfer *)
+      e = { _eventname : "ReclaimTokens"; sender : _sender  ; transferred : false  };
+      event e     
+    end  
+  | False =>
+     e = { _eventname : "ReclaimError"; account : _sender ; code: notallowed  };
+     event e     
+  end
+end
+
+transition setPause( _isPaused : Uint128)
+isOwner= builtin eq _sender owner;
+match isOwner with
+    | True =>
+       isPaused := _isPaused;
+       e = { _eventname : "Paused"; sender : _sender };
+       event e     
+    | False =>
+      e = { _eventname : "PauseError"; sender : _sender ; code: notallowed  };
+      event e     
+     end
+end
+  
+
+transition BalanceOf (tokenOwner : ByStr20)
+  bl <- balances;
+  val = builtin get bl tokenOwner;
+  match val with
+  | Some v =>
+     e = { _eventname : "BalanceOf"; tokenOwner : tokenOwner; sender : _sender  ; balance : v  };
+     event e     
+  | None =>
+     e = { _eventname : "BalanceOf"; tokenOwner : tokenOwner; sender : _sender  ; balance : _zero  };
+     event e     
+  end
+end
+
+transition MaxAllowance ()
+ m <- maxAllowanceInclusive;
+ e = { _eventname : "MaxAllowance"; sender : _sender ; total_tokens : m };
+ event e     
+end
+
+transition TotalSupply ()
+ e = { _eventname : "TotalSupply"; sender : _sender ; total_tokens : total_tokens};
+ event e     
+end
+
+transition Transfer (to : ByStr20, tokens : Uint128)
+  insuffBal="Insufficient balance";
+  noBal="no Balance";
+  balFrom <- balances[_sender];
+  toBal <- balances[to];
+  match balFrom with
+  | Some b =>
+    can_do = le_int tokens b;
+    match can_do with
+    | True =>
+      (* subtract tokens from _sender and add it to to *)
+      new_sender_bal = builtin sub b tokens;
+      balances[_sender] := new_sender_bal;
+      match toBal with
+      | Some x =>
+        new_to_bal = builtin add x tokens;
+        balances[to] := new_to_bal;
+        e = { _eventname : "Transfer"; from : _sender ; to : to ; tokens : tokens};
+        event e     
+      | None =>
+        balances[to] := tokens;
+        e = { _eventname : "Transfer"; from : _sender ; to : to ; tokens : tokens};
+        event e     
+      end
+    | False =>
+      (* balance not sufficient. *)
+      e = { _eventname : "TransferError"; from : _sender ; to : to ; tokens : tokens; code: insuffBal };
+      event e     
+    end
+  | None =>
+    (* no balance record, can't transfer *)
+    e = { _eventname : "TransferError"; from : _sender ; to : to ; tokens : tokens; code: noBal};
+    event e     
+  end
+end
+
+transition TransferFrom (from : ByStr20, to : ByStr20, tokens : Uint128)
+  m_disallowed = "Transfer not allowed";
+  balFrom <- balances[from];
+  to_bal <- balances[to];
+  (* Check if _sender has been authorized by "from" *)
+  allowed_from <- allowed[from];
+  match allowed_from with
+  | Some m =>
+    (* How many tokens has _sender been authorized to transfer, by "from" *)
+    sender_allowed_from = builtin get m _sender;
+    all = Pair { (Option Uint128) (Option Uint128)} balFrom sender_allowed_from;
+    match all with
+    | Pair (Some a) (Some b) =>
+      (* We can only transfer the minimum of available or authorized tokens *)
+      t = min_int a b;
+      can_do = le_int tokens t;
+      match can_do with
+      | True =>
+        (* tokens is what we should subtract from "from" and add to "to" *)
+        new_from_bal = builtin sub a tokens;
+        balances[from] := new_from_bal;
+        (* reduce "allowed" by "tokens" *)
+        new_allowed = builtin sub b tokens;
+        allowed[from][_sender] := new_allowed;
+        match to_bal with
+        | Some tb =>
+          to_bal_new = builtin add tb tokens;
+          balances[to] := to_bal_new;
+          e = { _eventname : "TransferFrom"; from : from ; to : to ; tokens : tokens};
+          event e     
+        | None =>
+          (* "to" has no balance. So just set it to tokens *)
+          balances[to] := tokens;
+          e = { _eventname : "TransferFrom"; from : from ; to : to ; tokens : tokens};
+          event e     
+        end
+      | False =>
+         e = { _eventname : "TransferFromError"; from : from ; to : to ; tokens : tokens; code: m_disallowed};
+         event e     
+      end
+    | _ =>
+      e = { _eventname : "TransferFromError"; from : from ; to : to ; tokens : tokens; code: m_disallowed};
+      event e     
+    end
+  | None =>
+    e = { _eventname : "TransferFromError"; from : from ; to : to ; tokens : tokens; code: m_disallowed};
+    event e     
+  end
+end
+
+transition Approve (spender : ByStr20, tokens : Uint128)
+ allowed[_sender][spender] := tokens;
+ e = { _eventname : "Approve"; from : _sender ; spender : spender ; tokens : tokens};
+ event e     
+end
+
+transition Allowance (tokenOwner : ByStr20, spender : ByStr20)
+ al <- allowed [tokenOwner][spender];
+ match al with
+   | Some n =>
+      e = { _eventname : "Allowance"; from : _sender ; spender : spender ; tokenOwner : tokenOwner; allowed : n };
+      event e     
+   | None =>
+      e = { _eventname : "Allowance"; from : _sender ; spender : spender ; tokenOwner : tokenOwner; allowed : _zero };
+      event e     
+    end
+end

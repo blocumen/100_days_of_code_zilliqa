@@ -1,0 +1,22 @@
+scilla_version 0
+
+library MyHelloWorld
+
+let success_code = Uint32 1
+let failure_code = Uint32 0
+
+contract MyHelloWorld()
+
+field welcome_message : String = ""
+
+transition sayHello()
+  r <- welcome_message;
+  e = {_eventname : "say_hello"; msg : r};
+  event e
+end
+
+transition setMessage(msg : String)
+  welcome_message := msg;
+  e = {_eventname: "set_message"; msg : success_code };
+  event e
+end

@@ -1,0 +1,15 @@
+scilla_version 0
+
+contract TestBNum()
+
+  (* _creation_block is implicit immutable variable reprenting address of the smart contract *)
+  transition getBNum()
+    e = { _eventname : "get_block_num"; msg : _creation_block };
+    event e
+  end
+  
+  (* _this_address is implicit immutable variable reprenting address of the smart contract *)
+  transition getBlockAddress()
+    e = { _eventname : "get_block_address"; msg : _this_address};
+    event e
+  end

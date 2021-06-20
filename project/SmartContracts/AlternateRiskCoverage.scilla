@@ -1,0 +1,46 @@
+scilla_version 0
+
+library AlternateRiskCoverageLib
+
+let zero = Uint128 0
+
+let equal_int = 
+  fun(a : Uint128) => fun(b : Uint128) =>
+    let equal = builtin eq a b in
+    match equal with
+      | True =>
+        True
+      | False =>
+        False
+    end
+
+
+let one_msg = 
+  fun(msg : Message) =>
+    let nil_msg = Nil {Message} in
+    Cons {Message} msg nil_msg
+
+
+let no_msg = Nil {Message}
+
+
+(***************************************************)
+(*             The contract definition             *)
+(***************************************************)
+contract AlternateRiskCoverage()
+
+(**************  Purchase Policy *******************)
+transition purchase()
+  accept;
+  dep = _amount;
+  
+  policy_amount = equal_int dep zero;
+  match policy_amount with
+    | True =>
+        e = { _eventname : "purchasedSuccessfully"; _recipient : _sender; _amount : Uint128 0; message : "Policy Purchased Successfully" };        
+        event e 
+    | False =>
+        e = { _eventname : "amountIsZero"; _recipient : _sender; _amount : Uint128 0; message : "Payment Can not be zero" };        
+        event e 
+  end      
+end
