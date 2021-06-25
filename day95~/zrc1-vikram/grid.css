@@ -1,0 +1,157 @@
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1500px;
+  margin: auto;
+}
+
+[class*="col-"] {
+  float: left;
+  min-height: 1px;
+}
+
+[class*="col-"] {
+  width: 100%;
+}
+
+.row:after,
+.row:before {
+  content: "";
+  display: table;
+}
+
+.row:after {
+  clear: both;
+}
+
+@media screen and (max-width: 799px) and (min-width: 500px) {
+  .col-md-0 {
+    width: 0%;
+  }
+  .col-md-1 {
+    width: 8.33%;
+  }
+  .col-md-2 {
+    width: 16.66%;
+  }
+  .col-md-3 {
+    width: 24.99%;
+  }
+  .col-md-4 {
+    width: 33.33%;
+  }
+  .col-md-5 {
+    width: 41.66%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-7 {
+    width: 58.33%;
+  }
+  .col-md-8 {
+    width: 66.66%;
+  }
+  .col-md-9 {
+    width: 74.99%;
+  }
+  .col-md-10 {
+    width: 83.33%;
+  }
+  .col-md-11 {
+    width: 91.66%;
+  }
+  .col-md-12 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 499px) {
+  .col-sd-0 {
+    width: 0%;
+  }
+  .col-sd-1 {
+    width: 8.33%;
+  }
+  .col-sd-2 {
+    width: 16.66%;
+  }
+  .col-sd-3 {
+    width: 24.99%;
+  }
+  .col-sd-4 {
+    width: 33.33%;
+  }
+  .col-sd-5 {
+    width: 41.66%;
+  }
+  .col-sd-6 {
+    width: 50%;
+  }
+  .col-sd-7 {
+    width: 58.33%;
+  }
+  .col-sd-8 {
+    width: 66.66%;
+  }
+  .col-sd-9 {
+    width: 74.99%;
+  }
+  .col-sd-10 {
+    width: 83.33%;
+  }
+  .col-sd-11 {
+    width: 91.66%;
+  }
+  .col-sd-12 {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .col-ld-0 {
+    width: 0%;
+  }
+  .col-ld-1 {
+    width: 8.33%;
+  }
+  .col-ld-2 {
+    width: 16.66%;
+  }
+  .col-ld-3 {
+    width: 24.99%;
+  }
+  .col-ld-4 {
+    width: 33.33%;
+  }
+  .col-ld-5 {
+    width: 41.66%;
+  }
+  .col-ld-6 {
+    width: 50%;
+  }
+  .col-ld-7 {
+    width: 58.33%;
+  }
+  .col-ld-8 {
+    width: 66.66%;
+  }
+  .col-ld-9 {
+    width: 74.99%;
+  }
+  .col-ld-10 {
+    width: 83.33%;
+  }
+  .col-ld-11 {
+    width: 91.66%;
+  }
+  .col-ld-12 {
+    width: 100%;
+  }
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>MarvelCollectable</title>
+    <link rel="stylesheet" type="text/css" href="./grid.css">
+    <style type="text/css">
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+        }
+
+        .NFTCard {
+            margin: 5%;
+            border-style: solid;
+            border-color: black;
+            border-width: 1px;
+            transition: 1s;
+            transform: rotateY(-5deg);
+            animation-name: NFTCardAnim;
+            animation-duration: 10s;
+            animation-direction: alternate;
+            animation-iteration-count: infinite;
+        }
+
+        .NFTCard:hover {
+            border-style: solid;
+            animation: paused;
+            background-image: linear-gradient(to top right, red, grey);
+        }
+
+        .NFTList {
+            margin-left: 15%;
+            width: 75%;
+        }
+
+        .NFTImg {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+        }
+
+        .NFTImg img {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .NFTId {
+            width: 100%;
+            text-align: center;
+            color: white;
+            font: bold;
+        }
+
+        .NFTOwner {
+            width: 100%;
+            color: white;
+            font: bold;
+            word-wrap: break-word;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        button {
+            background-color: orange;
+            border: 1px solid grey;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+            transition: 0.5s;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: gold;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: gold;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        @keyframes NFTCardAnim {
+            0% {
+                transform: rotateY(0deg);
+                background-image: linear-gradient(to bottom right, pink, yellow);
+            }
+
+            25% {
+                transform: rotateY(15deg);
+                background-image: linear-gradient(to bottom left, yellow, blue);
+            }
+
+            50% {
+                transform: rotateY(-15deg);
+                background-image: linear-gradient(to top left, blue, red);
+            }
+
+            75% {
+                transform: rotateY(-15deg);
+                background-image: linear-gradient(to top right, red, grey);
+            }
+
+            100% {
+                transform: rotateY(15deg);
+                background-image: linear-gradient(to bottom right, grey, pink);
+            }
+        }
+
+        @keyframes gradientBodyBg {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+
+<body onload="LoadContract();">
+
+    <div class="tab">
+        <button class="tablinks" onclick="ChangeTab(event, 'ExploreAll')">Explore All</button>
+        <button class="tablinks" onclick="ChangeTab(event, 'MyWallet')">My Wallet</button>
+        <button class="tablinks" onclick="ChangeTab(event, 'InitData')">Init Data</button>
+        <button style="float: right; margin-right: 0px;">Active Account: <span id="CurrentUsedAccount"></span></button>
+    </div>
+
+    <div id="ExploreAll" class="tabcontent active">
+        <div class="container">
+            <div id="NFTList" class="NFTList row"></div>
+        </div>
+    </div>
+
+    <div id="MyWallet" class="tabcontent">
+        <div class="container">
+            <div id="MyNFTList" class="NFTList row"></div>
+        </div>
+    </div>
+
+    <div id="InitData" class="tabcontent">
+        <div id="ContractInits"></div>
+    </div>
+
+
+</body>
+<script type="text/javascript">
+    var ContractAddress;
+    var Zilliqa;
+    var MarvelCollectableContract;
+    var StateData;
+    var ContractInits;
+    var ActiveAccount;
+    var flag = false;
+    var NFTCards;
+    var MyNFTCards;
+
+    function LoadContract() {
+        ContractAddress = "zil15qu3rqqsu6tpszp69c7eqzrps2pyccufds40uh";
+        Zilliqa = window.zilPay;
+
+        if (Zilliqa) {
+            console.log("ZilPay Wallet Detected");
+            if (Zilliqa.wallet.connect()) {
+                console.log("Connected successfully");
+                console.log("DefaultAddress is " + Zilliqa.wallet.defaultAccount.bech32);
+
+                //Track Account Change of Wallet
+                Zilliqa.wallet.observableAccount().subscribe(function (account) {
+                    console.log("Account changed to " + account.bech32);
+                    ActiveAccount = account;
+                    document.getElementById("CurrentUsedAccount").innerHTML = account.bech32;
+                    //On account change reload contract
+                    if (flag) {
+                        location.reload();
+                        flag = false;
+                    }
+                    flag = true;
+                });
+
+                //Track Network Change of Wallet
+                Zilliqa.wallet.observableNetwork().subscribe(function (net) {
+                    console.log("Network changed to " + net);
+                });
+
+                //Fetch Marvel contract
+                MarvelCollectableContract = Zilliqa.contracts.at(ContractAddress);
+
+                MarvelCollectableContract.getInit().then(function (Inits) {
+                    console.log("MarvelCollectable Contract fetched successfully.");
+                    console.log("MarvelCollectable Contract Inits loaded successfully.");
+                    ContractInits = Inits;
+                    //Dynamically build table to display contract inits
+                    dat = "<table width='100%' border=1><tr><td colspan='2'><b>Contract Init Data</b></td></tr>";
+
+                    for (i in Inits) {
+                        dat += "<tr><td>" + Inits[i].vname + "</td><td>" + Inits[i].value + "</td>";
+                    }
+
+                    dat += "</table>"
+                    document.getElementById("ContractInits").innerHTML = dat;
+                });
+
+                MarvelCollectableContract.getState().then(function (SData) {
+                    console.log("MarvelCollectable Contract state loaded successfully.");
+                    StateData = SData;
+
+                    //Dynamically build NFTCards Div
+                    NFTCards = "";
+                    MyNFTCards = "";
+                    for (i in StateData.token_owners) {
+
+                        img = "<img alt='NFT Moved' src='" + StateData.token_uris[i] + "'' />";
+
+                        NFTCards += "<div class='col-ld-4 col-md-6 col-sd-12'><div class='NFTCard'><div class='NFTId'>TokenID " + i + "</div><div class='NFTImg'>" + img + "</div><div class='NFTOwner'>Owner: " + StateData.token_owners[i] + "</div></div></div>";
+
+                        if (ActiveAccount.base16.toLowerCase() == StateData.token_owners[i]) {
+                            console.log("wqe");
+                            img = "<img alt='NFT Moved' src='" + StateData.token_uris[i] + "'' />";
+
+                            MyNFTCards += "<div class='col-ld-4 col-md-6 col-sd-12'><div class='NFTCard'><div class='NFTId'>TokenID " + i + "</div><div class='NFTImg'>" + img + "</div><div class='NFTOwner'>Owner: " + StateData.token_owners[i] + "</div></div></div>";
+                        }
+                    }
+                    document.getElementById("NFTList").innerHTML = NFTCards;
+                });
+
+            } else {
+                console.log("Failed to connect. Try again later.");
+            }
+        } else {
+            console.log("Zilpay Not Detected.");
+        }
+        ChangeTab(event, 'ExploreAll');
+    }
+
+    function ChangeTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+
+        if (tabName == "MyWallet") {
+            if (MyNFTCards == "") {
+                document.getElementById("MyNFTList").innerHTML = "<span style='color:red;font:bold;'>You dont own any NFTs</span>";
+            } else {
+                document.getElementById("MyNFTList").innerHTML = MyNFTCards;
+            }
+        }
+    }
+
+</script>
+
+</html>
