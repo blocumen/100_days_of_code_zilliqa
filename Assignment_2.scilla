@@ -1,0 +1,47 @@
+(* Assigment 2 contract *)
+
+(***************************************************)
+(*                 Scilla version                  *)
+(***************************************************)
+
+scilla_version 0
+
+(***************************************************)
+(*               Associated library                *)
+(***************************************************)
+library Assignment_2
+
+
+(***************************************************)
+(*             The contract definition             *)
+(***************************************************)
+
+contract Assignment_2
+(owner:ByStr20)
+field result : String = " "
+
+
+transition equateString (str1 : String , str2 : String)
+  result = builtin eq str1 str2;
+  e = {_eventname : "equateString"; msg : result};
+  event e
+end
+
+transition concatString (str1 : String , str2 : String)
+  result = builtin concat str1 str2;
+  e = {_eventname : "concatString"; msg : result};
+  event e
+end
+
+transition stringLength (str1 : String)
+  result = builtin strlen str1;
+  e = {_eventname : "stringLength"; msg : result};
+  event e
+end
+
+(*transition stringReverse (str1 : String )
+  result = builtin strrev str1;
+  e = {_eventname : "stringReverse"; msg : result};
+  event e
+end*)
+
