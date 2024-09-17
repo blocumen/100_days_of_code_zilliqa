@@ -1,0 +1,56 @@
+scilla_version 0
+import BoolUtils
+
+library SocialMediaPayment
+
+let one_msg = 
+  fun (msg : Message) => 
+  let nil_msg = Nil {Message} in
+  Cons {Message} msg nil_msg
+
+let zero = Uint128 0
+let not_owner_code = Uint32 1
+let accepted_code = Uint32 0
+
+
+contract SocialMediaPayment(owner: ByStr20)
+
+field users: Map ByStr20 String
+    = Emp ByStr20 String
+
+field used_usernames: Map String Bool
+    = Emp String Bool
+
+transition deposit()
+sender_is_owner = builtin eq _sender owner;
+match sender_is_owner with
+     | False =>
+     
+          msg = {_tag: "";
+                _recipient: _sender;
+                _amount: zero;
+                code: not_owner_code};
+          msgs = one_msg msg;
+          send msgs
+
+     | True =>
+        accept;
+        msg = {_tag: "";
+                _recipient: _sender;
+                _amount: zero;
+                code: accepted_code};
+        msgs = one_msg msg;
+        send msgs
+        
+     end
+end
+
+
+transition register_user (user_address: ByStr20, twitter_username: String)
+
+(*Start typing from the line below*)
+    user_exists <- exists users[user_address];
+    username_exists <- exists used_usernames[twitter_username]
+
+end
+  

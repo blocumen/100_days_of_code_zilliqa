@@ -1,0 +1,57 @@
+(***************************************************)
+(*                 Scilla version                  *)
+(***************************************************)
+
+scilla_version 0
+
+(***************************************************)
+(*               Associated library                *)
+(***************************************************)
+library BantaiNGO
+
+let one_msg =
+    fun (msg : Message) =>
+    let nil_msg = Nil {Message} in
+    Cons {Message} msg nil_msg
+
+(***************************************************)
+(*             The contract definition             *)
+(***************************************************)
+
+contract BantaiNGO (owner : ByStr20)
+
+field donorList : Map ByStr20 Uint128 = Emp ByStr20 Uint128
+
+(*Balance Transfer to Owner*)
+
+transition Donate(toAdress : ByStr20 )
+  accept;
+  e = {_eventname : "Out"; msg: "You SuccessFully donated the amount" ; amount: _amount};
+  event e;
+  donorList[_sender] := _amount
+end
+
+(*Contract Balance *)
+
+transition ChkBal()
+  balance <- _balance;
+  e = {_eventname : "Balance"; msg: "Total amount of Zil is" ; bal: balance};
+  event e
+end
+
+(*Balance Transfer to Owner*)
+transition balTransfer(reciver :ByStr20 , amount : Uint128)
+  accept;
+  check = builtin eq reciver owner;
+    match check with
+  | False =>
+    e = {_exception : "error"; code : "reciver is not a owner"};
+    throw e
+  | True =>
+    msg = {_tag: ""; _recipient : reciver; _amount : amount ; message : "Zil Transfered"};
+     msgs =one_msg msg;
+     send msgs
+    
+end
+
+end

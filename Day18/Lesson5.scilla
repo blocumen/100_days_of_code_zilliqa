@@ -1,0 +1,9 @@
+scilla_version 0
+
+contract SocialMediaPayment (owner: ByStr20)
+field username : String = "Alice"
+
+transition changeName()
+    (* Start typing from the line below *)
+    newname = "BlockChained India"
+end
